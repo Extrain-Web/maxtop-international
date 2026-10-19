@@ -3,13 +3,21 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
-import { howWeWorkSteps } from "@/data/howWeWorkData";
+import { howWeWorkAssets } from "@/data/howWeWorkData";
+import { useI18n } from "@/i18n/I18nProvider";
 
 // হাইড্রোশন এরর প্রতিরোধের জন্য সংখ্যা রাউন্ড করার হেল্পার
 const round = (val: number) => Math.round(val * 10) / 10;
 
 export default function HowWeWork() {
+  const { t } = useI18n();
   const [activeStepId, setActiveStepId] = useState<number>(2); // ডিফল্টভাবে ২ নম্বর স্টেপ একটিভ
+
+  // অ্যাসেট (আইকন/নম্বর) + অনুবাদ টেক্সট মার্জ
+  const howWeWorkSteps = howWeWorkAssets.map((a, i) => ({
+    ...a,
+    ...t.howWeWork.steps[i],
+  }));
 
   const activeStep =
     howWeWorkSteps.find((s) => s.id === activeStepId) || howWeWorkSteps[0];
@@ -58,15 +66,15 @@ export default function HowWeWork() {
           <div className="lg:col-span-6 space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/60 text-emerald-700 text-xs font-bold uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>WORKING PROCESS</span>
+              <span>{t.howWeWork.badge}</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#0B2B43]">
-              How We Work
+              {t.howWeWork.title}
             </h2>
 
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-              We prioritize your requirements, functioning as your committed on-ground representative in Bangladesh. Our approach involves assessing inquiries, locking in factory cost savings, and safeguarding quality from design to vessel departure.
+              {t.howWeWork.intro}
             </p>
 
             {/* অ্যাক্টিভ স্টেপ স্পেসিফিকেশন কার্ড */}
@@ -92,7 +100,7 @@ export default function HowWeWork() {
               {/* ডেলিভারেবল চেকলিস্ট */}
               <div className="space-y-2 pt-2">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
-                  Key Milestones:
+                  {t.howWeWork.keyMilestones}
                 </span>
                 {activeStep.deliverables.map((del, i) => (
                   <div key={i} className="flex items-start gap-2 text-xs text-slate-700">
@@ -109,11 +117,11 @@ export default function HowWeWork() {
                 href="#contact"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[#0B2B43] hover:bg-[#071d2e] text-white text-sm font-bold shadow-md hover:shadow-lg transition-all"
               >
-                <span>Start Sourcing Inquiry</span>
+                <span>{t.howWeWork.cta}</span>
                 <ArrowRight className="w-4 h-4 text-emerald-400" />
               </Link>
               <span className="text-xs text-slate-500 font-medium">
-                Click any step on the wheel to view details ↺
+                {t.howWeWork.hint}
               </span>
             </div>
           </div>
@@ -191,13 +199,13 @@ export default function HowWeWork() {
               {/* সেন্টার ব্র্যান্ডিং টেক্সট */}
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none px-4">
                 <span className="text-[10px] font-black tracking-widest text-emerald-600 uppercase">
-                  MAXTOP
+                  {t.howWeWork.brandLine1}
                 </span>
                 <span className="text-xs sm:text-sm font-black text-[#0B2B43] tracking-tight leading-tight">
-                  INTERNATIONAL
+                  {t.howWeWork.brandLine2}
                 </span>
                 <span className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">
-                  SOURCING LTD
+                  {t.howWeWork.brandLine3}
                 </span>
               </div>
             </div>
@@ -214,7 +222,7 @@ export default function HowWeWork() {
                       : "bg-white text-slate-700 border border-slate-200"
                   }`}
                 >
-                  Step {s.id}
+                  {t.howWeWork.stepWord} {s.id}
                 </button>
               ))}
             </div>

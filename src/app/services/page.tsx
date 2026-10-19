@@ -18,118 +18,33 @@ import {
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useI18n } from "@/i18n/I18nProvider";
 
 // ── ১. বায়িং হাউজের পূর্ণাঙ্গ সার্ভিসসমূহ (১০০% নিখুঁত গার্মেন্ট ইমেজ সহ) ──
-const coreServices = [
-  {
-    title: "Yarn, Fabric & Trims Sourcing",
-    tagline: "RAW MATERIAL PROCUREMENT",
-    image:
-      "https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?q=80&w=800&auto=format&fit=crop",
-    desc: "Direct mill linkage across Bangladesh & South Asia. Sourcing combed cotton, BCI organic yarn, CVC, linen, and specialized synthetic blends with zero broker overhead.",
-    points: [
-      "Mill-direct rates with strict yarn quality audit",
-      "Custom pantone lab dips (3-5 days turnaround)",
-      "High-grade trims, YKK zippers & custom metal hardware",
-    ],
-  },
-  {
-    title: "CAD Pattern & Sample Prototyping",
-    tagline: "DESIGN & RAPID SAMPLING",
-    image:
-      "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=800&auto=format&fit=crop",
-    desc: "Transforming buyer tech-packs and moodboards into production-grade patterns. Utilizing 2D/3D CAD to verify drape, tension, and fit before cutting bulk fabric.",
-    points: [
-      "Physical counter & fit samples in 5-7 days",
-      "CLO 3D virtual fittings for rapid buyer sign-off",
-      "Precision grading for US, EU & Asian size specs",
-    ],
-  },
-  {
-    title: "Factory Allocation & Merchandising",
-    tagline: "VETTED VENDOR SELECTION",
-    image:
-      "https://images.unsplash.com/photo-1581655353564-df123a1eb820?q=80&w=800&auto=format&fit=crop",
-    desc: "Allocating your orders to the most suitable audited manufacturing lines based on machine capability, gauge, washing specialty, and target lead-time.",
-    points: [
-      "Dedicated merchandiser managing daily T&A calendar",
-      "Accord / RSC, BSCI, SEDEX vetted partner factories",
-      "High capacity for Knitwear, Wovens, Denim & Outerwear",
-    ],
-  },
-  {
-    title: "Multi-Stage Quality Control (AQL 1.5)",
-    tagline: "STATIONED IN-LINE AUDITS",
-    image:
-      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800&auto=format&fit=crop",
-    desc: "Our on-site QA officers monitor every manufacturing stage from cut-to-pack, enforcing zero tolerance for measurement tolerances or sewing defects.",
-    points: [
-      "Strict ISO 2859-1 (AQL 1.5 / 2.5) inspection standards",
-      "4-point fabric inspection & in-line roving checks",
-      "100% metal detector scan prior to carton sealing",
-    ],
-  },
-  {
-    title: "In-House Lab Testing & Compliance",
-    tagline: "SAFETY & CHEMICAL STANDARDS",
-    image:
-      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=800&auto=format&fit=crop",
-    desc: "Comprehensive physical and chemical laboratory testing ensuring every batch complies with international consumer safety and eco-regulations.",
-    points: [
-      "Wash fastness, rub fastness, pilling & shrinkage tests",
-      "OEKO-TEX Standard 100, REACH & GOTS verification",
-      "Detailed laboratory test reports issued before dispatch",
-    ],
-  },
-  {
-    title: "Chittagong Port Logistics & Export",
-    tagline: "FOB CTG & CIF SHIPPING",
-    image:
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop",
-    desc: "From factory warehouse loading to container gate-in at Chittagong Port (CTG), our logistics department manages all customs clearing and export manifests.",
-    points: [
-      "Export documentation (BL, GSP Form A, Packing List, CO)",
-      "Vessel space booking during peak shipping seasons",
-      "Flexible Incoterms: FOB Chittagong, CIF, CFR & Air Express",
-    ],
-  },
+// সার্ভিস কার্ডের ছবি (টেক্সট i18n ডিকশনারিতে: servicesPage.coreServices)
+const coreServiceImages = [
+  "https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?q=80&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1581655353564-df123a1eb820?q=80&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop",
 ];
 
 // ── ২. বায়িং হাউজ যেভাবে সার্ভিস দেয় (৫-ধাপের অর্ডার প্রসেস) ──
-const executionSteps = [
-  {
-    step: "01",
-    title: "Tech-Pack & Costing",
-    time: "24 - 48 Hours",
-    desc: "You send your garment sketch or specs. We calculate fabric yield and provide a transparent, open-book quote.",
-  },
-  {
-    step: "02",
-    title: "Sampling & Fit Approval",
-    time: "5 - 7 Days",
-    desc: "We develop physical counter-samples and color lab dips. You review fit, fabric weight, and hand-feel for approval.",
-  },
-  {
-    step: "03",
-    title: "Milling & Trims Booking",
-    time: "15 - 20 Days",
-    desc: "Mill yarn spinning, fabric knitting/weaving, dyeing, and custom trims development (custom buttons, YKK zips, labels).",
-  },
-  {
-    step: "04",
-    title: "Bulk Production & In-Line QC",
-    time: "30 - 45 Days",
-    desc: "Cutting, sewing, and washing lines operate with our resident QC inspectors checking every seam, stitch, and measurement.",
-  },
-  {
-    step: "05",
-    title: "Final Audit & Port Dispatch",
-    time: "On Schedule",
-    desc: "Final AQL 1.5 audit, export carton packing, customs clearance, and container handover at Chittagong Port for vessel departure.",
-  },
-];
-
 export default function ServicesPage() {
+  const { t } = useI18n();
+
+  // অ্যাসেট + অনুবাদ টেক্সট মার্জ
+  const coreServices = coreServiceImages.map((image, i) => ({
+    image,
+    ...t.servicesPage.coreServices[i],
+  }));
+  const executionSteps = t.servicesPage.executionSteps.map((s, i) => ({
+    step: String(i + 1).padStart(2, "0"),
+    ...s,
+  }));
+
   return (
     <main className="min-h-screen bg-[#F8FAFC] text-slate-800">
         <Navbar/>
@@ -152,15 +67,15 @@ export default function ServicesPage() {
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-400 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5" />
-            Full-Service Apparel Buying House
+            {t.servicesPage.heroBadge}
           </span>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
-            How We Power Your Apparel Brand In Bangladesh
+            {t.servicesPage.heroTitle}
           </h1>
 
           <p className="text-base sm:text-lg text-slate-200 font-normal max-w-2xl mx-auto leading-relaxed">
-            A transparent, reliable buying and sourcing partner. From fabric milling and rapid proto sampling to bulk manufacturing and port clearance.
+            {t.servicesPage.heroSubtitle}
           </p>
         </div>
       </section>
@@ -171,13 +86,13 @@ export default function ServicesPage() {
       <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mb-12">
           <span className="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-1">
-            WHAT WE PROVIDE
+            {t.servicesPage.provideKicker}
           </span>
           <h2 className="text-2xl sm:text-4xl font-black text-[#0B2B43] tracking-tight">
-            End-To-End Sourcing &amp; Manufacturing Services
+            {t.servicesPage.provideTitle}
           </h2>
           <p className="text-sm text-slate-500 mt-2">
-            Managing your entire supply chain with transparent costing, audited compliance, and strict AQL quality standards.
+            {t.servicesPage.provideSubtitle}
           </p>
         </div>
 
@@ -231,7 +146,7 @@ export default function ServicesPage() {
                   href={`/contact?service=${encodeURIComponent(service.title)}`}
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 transition-colors"
                 >
-                  <span>Inquire this service</span>
+                  <span>{t.servicesPage.inquireThisService}</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
@@ -248,13 +163,13 @@ export default function ServicesPage() {
           
           <div className="text-center max-w-2xl mx-auto mb-14">
             <span className="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-1">
-              HOW WE DELIVER
+              {t.servicesPage.deliverKicker}
             </span>
             <h2 className="text-2xl sm:text-4xl font-black text-[#0B2B43] tracking-tight">
-              The 5-Step Order Execution Journey
+              {t.servicesPage.deliverTitle}
             </h2>
             <p className="text-sm text-slate-500 mt-2">
-              From your initial tech-pack submission to final container dispatch at Chittagong Port.
+              {t.servicesPage.deliverSubtitle}
             </p>
           </div>
 
@@ -286,7 +201,7 @@ export default function ServicesPage() {
 
                 <div className="mt-5 pt-3 border-t border-slate-200/60 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700">
                   <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>SOP Compliant</span>
+                  <span>{t.servicesPage.sopCompliant}</span>
                 </div>
               </div>
             ))}
@@ -321,15 +236,15 @@ export default function ServicesPage() {
             {/* কনটেন্ট */}
             <div className="relative z-10 max-w-3xl mx-auto text-center space-y-6">
               <span className="inline-block px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-                Start Your Production With Us
+                {t.servicesPage.ctaBadge}
               </span>
 
               <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-                Have a Tech-Pack or Looking for a Reliable Sourcing Partner?
+                {t.servicesPage.ctaTitle}
               </h2>
 
               <p className="text-sm sm:text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
-                Send us your garment specs or sketches. We will revert with a detailed open-costing proposal within 24–48 hours.
+                {t.servicesPage.ctaSubtitle}
               </p>
 
               <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -337,7 +252,7 @@ export default function ServicesPage() {
                   href="/contact"
                   className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2"
                 >
-                  <span>Request Sourcing Quotation</span>
+                  <span>{t.servicesPage.ctaPrimary}</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
@@ -345,7 +260,7 @@ export default function ServicesPage() {
                   href="/products"
                   className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm transition-colors border border-white/20 flex items-center justify-center"
                 >
-                  <span>Explore Products</span>
+                  <span>{t.servicesPage.ctaSecondary}</span>
                 </Link>
               </div>
             </div>

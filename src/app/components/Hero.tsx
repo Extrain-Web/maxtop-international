@@ -4,6 +4,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useI18n } from "@/i18n/I18nProvider";
 
 // ৪টি আন্তর্জাতিক মানের ইউনিক অ্যাপারেল ও ফ্যাক্টরি প্রোডাকশন ছবি
 const heroSlides = [
@@ -27,6 +28,7 @@ const heroSlides = [
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { t } = useI18n();
 
   // প্রতি ৫ সেকেন্ডে ব্যাকগ্রাউন্ড ইমেজ স্বয়ংক্রিয়ভাবে চেঞ্জ হবে
   useEffect(() => {
@@ -71,21 +73,21 @@ export default function Hero() {
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#071D2E]/90 border border-emerald-500/40 shadow-md mb-6 backdrop-blur-md">
           <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
           <span className="text-xs font-bold tracking-wider text-emerald-300 uppercase">
-            STRATEGIC APPAREL SOURCING &middot; BANGLADESH
+            {t.hero.badge}
           </span>
         </div>
 
         {/* মেইন বোল্ড হেডলাইন */}
         <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white lg:leading-[1.18] drop-shadow-[0_2px_14px_rgba(0,0,0,0.85)]">
-          Connecting Global Fashion With <br className="hidden sm:inline" />
+          {t.hero.titleLead} <br className="hidden sm:inline" />
           <span className="text-emerald-400">
-            Certified Factories
+            {t.hero.titleHighlight}
           </span>
         </h1>
 
         {/* সাব-টাইটেল */}
         <p className="mt-6 text-base sm:text-xl text-slate-100 max-w-2xl mx-auto font-normal leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
-          Your agile RMG buying agency in Bangladesh. Transparent open-book costing, sustainable green facilities, and strict AQL 1.5 zero-defect guarantee.
+          {t.hero.subtitle}
         </p>
 
         {/* বাটন গ্রুপ */}
@@ -94,7 +96,7 @@ export default function Hero() {
             href="/contact"
             className="px-8 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition-all shadow-lg shadow-black/40 flex items-center gap-2 hover:scale-105 active:scale-95 cursor-pointer"
           >
-            <span>Request Quotation (RFQ)</span>
+            <span>{t.hero.ctaPrimary}</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
 
@@ -102,7 +104,7 @@ export default function Hero() {
             href="/products"
             className="px-8 py-4 rounded-xl bg-[#071D2E]/80 hover:bg-[#071D2E] text-white font-bold text-sm border border-emerald-500/40 hover:border-emerald-400 shadow-md transition-all hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-sm"
           >
-            <span>Browse Products</span>
+            <span>{t.hero.ctaSecondary}</span>
           </Link>
         </div>
 

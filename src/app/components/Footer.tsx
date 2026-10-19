@@ -14,8 +14,18 @@ import {
   FaLinkedinIn,
   FaYoutube,
 } from "react-icons/fa";
+import { useI18n } from "@/i18n/I18nProvider";
+import { Rich } from "@/i18n/Rich";
 
 export default function Footer() {
+  const { t } = useI18n();
+  const quickLinks = [
+    { name: t.nav.home, href: "/" },
+    { name: t.nav.about, href: "/about" },
+    { name: t.nav.products, href: "/products" },
+    { name: t.nav.services, href: "/services" },
+    { name: t.nav.contact, href: "/contact" },
+  ];
   return (
     <footer className="bg-[#071D2E] text-white border-t border-slate-800 font-sans">
       
@@ -40,19 +50,19 @@ export default function Footer() {
                   INTERNATIONAL
                 </span>
                 <span className="text-[10px] font-semibold tracking-wider text-emerald-400/90 uppercase mt-0.5">
-                  Global Apparel Sourcing House · Dhaka, BD
+                  {t.footer.tagline}
                 </span>
               </div>
             </Link>
 
             <p className="text-sm text-slate-300 leading-relaxed max-w-md">
-              Your committed on-ground apparel sourcing agency in Dhaka, Bangladesh. We bridge international fashion retailers with audited, BSCI, Accord/RSC, and OEKO-TEX certified garment manufacturing facilities.
+              {t.footer.about}
             </p>
 
             {/* সোশ্যাল মিডিয়া লিঙ্কস */}
             <div className="pt-2">
               <span className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
-                Follow &amp; Connect With Us
+                {t.footer.followUs}
               </span>
               <div className="flex items-center gap-2.5">
                 {/* LinkedIn */}
@@ -117,86 +127,51 @@ export default function Footer() {
           {/* কুইক নেভিগেশন (২ কলাম) */}
           <div className="lg:col-span-2 space-y-4">
             <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-emerald-400">
-              Quick Links
+              {t.footer.quickLinks}
             </h4>
             <ul className="space-y-2.5 text-sm text-slate-300">
-              <li>
-                <Link href="/" className="hover:text-emerald-400 hover:translate-x-1 inline-block transition">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:text-emerald-400 hover:translate-x-1 inline-block transition">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="hover:text-emerald-400 hover:translate-x-1 inline-block transition">
-                  Product Catalog
-                </Link>
-              </li>
-              <li>
-                <Link href="/services" className="hover:text-emerald-400 hover:translate-x-1 inline-block transition">
-                  Sourcing Services
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-emerald-400 hover:translate-x-1 inline-block transition">
-                  Contact Us
-                </Link>
-              </li>
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="hover:text-emerald-400 hover:translate-x-1 inline-block transition"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* প্রোডাক্ট ক্যাটাগরি (২ কলাম) */}
           <div className="lg:col-span-2 space-y-4">
             <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-emerald-400">
-              Apparel Lines
+              {t.footer.apparelLines}
             </h4>
             <ul className="space-y-2.5 text-sm text-slate-300">
-              <li>
-                <Link href="/products" className="hover:text-emerald-400 hover:translate-x-1 inline-block transition">
-                  Heavyweight T-Shirts
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="hover:text-emerald-400 hover:translate-x-1 inline-block transition">
-                  Denim Jeans &amp; Washes
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="hover:text-emerald-400 hover:translate-x-1 inline-block transition">
-                  Woven Casual Shirts
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="hover:text-emerald-400 hover:translate-x-1 inline-block transition">
-                  French Terry Hoodies
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="hover:text-emerald-400 hover:translate-x-1 inline-block transition">
-                  Gym &amp; Activewear
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="hover:text-emerald-400 hover:translate-x-1 inline-block transition">
-                  Sustainable Organic
-                </Link>
-              </li>
+              {t.footer.apparelLinesItems.map((line, idx) => (
+                <li key={idx}>
+                  <Link
+                    href="/products"
+                    className="hover:text-emerald-400 hover:translate-x-1 inline-block transition"
+                  >
+                    {line}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* হেড অফিস ও কন্টাক্ট ইনফো (৩ কলাম) */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-emerald-400">
-              Dhaka Headquarters
+              {t.footer.hqTitle}
             </h4>
             <div className="space-y-3.5 text-sm text-slate-300">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
                 <span className="leading-snug">
-                  Sector #03, Uttara, Dhaka-1230, Bangladesh
+                  {t.footer.address}
                 </span>
               </div>
 
@@ -219,7 +194,7 @@ export default function Footer() {
 
               <div className="flex items-center gap-2.5">
                 <Clock className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Mon – Sat: 9:00 AM – 7:00 PM (GMT+6)</span>
+                <span>{t.footer.hours}</span>
               </div>
 
             </div>
@@ -230,11 +205,7 @@ export default function Footer() {
         {/* ── বটম কপিরাইট বার ── */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs sm:text-sm text-slate-400">
           <p className="text-center sm:text-left">
-            &copy; 2026{" "}
-            <strong className="text-slate-200 font-semibold">
-              Maxtop International Ltd.
-            </strong>{" "}
-            All rights reserved. Registered Garments Buying House in Bangladesh.
+            <Rich text={t.footer.copyright} strongClassName="text-slate-200 font-semibold" />
           </p>
         </div>
 

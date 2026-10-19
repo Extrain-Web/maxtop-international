@@ -9,18 +9,21 @@ import {
   FileText,
   ArrowRight,
 } from "lucide-react";
+import { useI18n } from "@/i18n/I18nProvider";
+import LanguageSwitcher from "@/i18n/LanguageSwitcher";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { t } = useI18n();
 
   // ৫টি মূল নেভিগেশন মেনু
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "About Us", href: "/about" },
-    { name: "Products", href: "/products" },
-    { name: "Services", href: "/services" },
-    { name: "Contact Us", href: "/contact" },
+    { name: t.nav.home, href: "/" },
+    { name: t.nav.about, href: "/about" },
+    { name: t.nav.products, href: "/products" },
+    { name: t.nav.services, href: "/services" },
+    { name: t.nav.contact, href: "/contact" },
   ];
 
   // মেনু একটিভ কি না তা শনাক্ত করার ফাংশন
@@ -91,21 +94,25 @@ export default function Navbar() {
           {/* ══════════════════════════════════════════════════════════════
               ৩. আরএফকিউ বাটন (Right Action Button)
           ══════════════════════════════════════════════════════════════ */}
-          <div className="hidden sm:flex items-center space-x-4">
+          <div className="hidden sm:flex items-center gap-3 lg:gap-4">
+            <LanguageSwitcher variant="dark" />
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 bg-[#0B2B43] hover:bg-emerald-600 text-white text-xs sm:text-sm font-bold px-5 py-3 rounded-xl transition-all shadow-md shadow-[#0B2B43]/10 hover:shadow-lg hover:scale-[1.02] cursor-pointer"
             >
               <FileText className="w-4 h-4 text-emerald-400" />
-              <span>Request Quote (RFQ)</span>
+              <span>{t.nav.requestQuote}</span>
               <ArrowRight className="w-3.5 h-3.5 opacity-80" />
             </Link>
           </div>
 
           {/* ══════════════════════════════════════════════════════════════
-              ৪. মোবাইল মেনু টগল বাটন
+              ৪. মোবাইল মেনু টগল বাটন (+ ভাষা সুইচার)
           ══════════════════════════════════════════════════════════════ */}
-          <div className="flex lg:hidden">
+          <div className="flex items-center gap-1.5 lg:hidden">
+            <div className="sm:hidden">
+              <LanguageSwitcher variant="dark" />
+            </div>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="text-slate-700 hover:text-emerald-600 p-2 focus:outline-none cursor-pointer"
@@ -145,14 +152,15 @@ export default function Navbar() {
             );
           })}
 
-          <div className="pt-3">
+          <div className="pt-3 space-y-3">
+            <LanguageSwitcher variant="dark" block />
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full flex items-center justify-center gap-2 bg-[#0B2B43] text-white text-xs font-bold py-3.5 rounded-xl shadow-md transition hover:bg-emerald-600 cursor-pointer"
             >
               <FileText className="w-4 h-4 text-emerald-400" />
-              <span>Submit RFQ / Tech-Pack</span>
+              <span>{t.nav.submitRfq}</span>
             </Link>
           </div>
         </div>

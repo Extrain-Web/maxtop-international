@@ -4,8 +4,10 @@ import Navbar from "../components/Navbar";
 import Recognitions from "../components/Recognitions";
 import Footer from "../components/Footer";
 import AboutUs from "../components/AboutUs";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export default function AboutPage() {
+  const { t } = useI18n();
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans selection:bg-emerald-500 selection:text-white">
       {/* ১. হেডারের ন্যাভিগেশন বার */}
@@ -23,10 +25,10 @@ export default function AboutPage() {
         >
           <div className="relative max-w-4xl mx-auto z-10 space-y-4">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white drop-shadow-md">
-              About Us
+              {t.aboutPage.bannerTitle}
             </h1>
             <p className="text-xs sm:text-sm md:text-base text-slate-200 max-w-2xl mx-auto leading-relaxed drop-shadow-sm font-normal">
-              A Reputed Apparel Buying House Company in Bangladesh Specialized for Sourcing Sustainable Quality Products and Garment Accessories.
+              {t.aboutPage.bannerSubtitle}
             </p>
           </div>
         </section>
@@ -44,13 +46,13 @@ export default function AboutPage() {
           <div className="text-center max-w-3xl mx-auto space-y-3 mb-14">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60 uppercase tracking-wider">
               <Compass className="w-3.5 h-3.5 text-emerald-600" />
-              STRATEGIC DIRECTION
+              {t.aboutPage.directionBadge}
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0B2B43] tracking-tight">
-              Our Vision &amp; Core Mission
+              {t.aboutPage.vmTitle}
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
-              Guiding our daily sourcing operations, manufacturing partnerships, and long-term commitments to global fashion sustainability.
+              {t.aboutPage.vmSubtitle}
             </p>
           </div>
 
@@ -62,28 +64,22 @@ export default function AboutPage() {
               </div>
               <div>
                 <span className="text-[11px] font-bold uppercase tracking-widest text-emerald-600">
-                  Global Benchmark
+                  {t.aboutPage.vision.kicker}
                 </span>
                 <h3 className="text-2xl font-extrabold text-[#0B2B43] mt-1">
-                  Our Vision
+                  {t.aboutPage.vision.title}
                 </h3>
               </div>
               <p className="text-sm text-slate-600 leading-relaxed">
-                To be the most trusted, agile, and forward-thinking apparel sourcing partner in South Asia—recognized globally for transforming Bangladesh’s RMG manufacturing into a fully transparent, ethical, and carbon-conscious ecosystem.
+                {t.aboutPage.vision.text}
               </p>
               <div className="pt-2 border-t border-slate-200/80 space-y-2.5">
-                <div className="flex items-center gap-2 text-xs font-medium text-slate-700">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  100% Traceable Organic &amp; Recycled Fiber Procurement
-                </div>
-                <div className="flex items-center gap-2 text-xs font-medium text-slate-700">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  Zero-Tolerance Ethical Labor Standards Across All Lines
-                </div>
-                <div className="flex items-center gap-2 text-xs font-medium text-slate-700">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  Digital Tech-Pack Integration &amp; 3D Prototyping
-                </div>
+                {t.aboutPage.vision.points.map((point, i) => (
+                  <div key={i} className="flex items-center gap-2 text-xs font-medium text-slate-700">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    {point}
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -94,28 +90,22 @@ export default function AboutPage() {
               </div>
               <div>
                 <span className="text-[11px] font-bold uppercase tracking-widest text-blue-600">
-                  Operational Excellence
+                  {t.aboutPage.mission.kicker}
                 </span>
                 <h3 className="text-2xl font-extrabold text-[#0B2B43] mt-1">
-                  Our Mission
+                  {t.aboutPage.mission.title}
                 </h3>
               </div>
               <p className="text-sm text-slate-600 leading-relaxed">
-                To bridge international apparel brands with top-tier, compliant Bangladeshi factories by executing transparent FOB pricing, rigorous AQL 2.5 quality control, and dependable on-time delivery from initial sketch to final port dispatch.
+                {t.aboutPage.mission.text}
               </p>
               <div className="pt-2 border-t border-slate-200/80 space-y-2.5">
-                <div className="flex items-center gap-2 text-xs font-medium text-slate-700">
-                  <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
-                  Direct Mill Yarn &amp; Fabric Sourcing Without Hidden Markups
-                </div>
-                <div className="flex items-center gap-2 text-xs font-medium text-slate-700">
-                  <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
-                  Fast-Track 7-10 Days Sampling for Accelerated Go-To-Market
-                </div>
-                <div className="flex items-center gap-2 text-xs font-medium text-slate-700">
-                  <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
-                  Dedicated 24/7 Client Merchandising Liaison in Dhaka HQ
-                </div>
+                {t.aboutPage.mission.points.map((point, i) => (
+                  <div key={i} className="flex items-center gap-2 text-xs font-medium text-slate-700">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                    {point}
+                  </div>
+                ))}
               </div>
             </div>
           </div>

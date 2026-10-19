@@ -79,3 +79,22 @@ body {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.6);
 }
+
+/* ══════════════════════════════════════════════════════════════
+   MULTILINGUAL FONTS — applied automatically via <html lang="..">
+   (lang + dir are set by the i18n provider on language switch)
+══════════════════════════════════════════════════════════════ */
+html[lang="bn"] body {
+  font-family: var(--font-bengali), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+html[lang="ar"] body {
+  font-family: var(--font-arabic), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+html[lang="fa"] body {
+  font-family: var(--font-farsi), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ── RTL (Arabic / Persian) polish ── */
+[dir="rtl"] .maxtop-flip-rtl {
+  transform: scaleX(-1);
+}

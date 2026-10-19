@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
-import { Inter, Source_Serif_4 } from "next/font/google";
+import {
+  Inter,
+  Source_Serif_4,
+  Noto_Sans_Bengali,
+  Noto_Sans_Arabic,
+  Vazirmatn,
+} from "next/font/google";
 import "./globals.css";
+import { I18nProvider } from "@/i18n/I18nProvider";
 
 // ১. বডি টেক্সটের জন্য ক্লিন আধুনিক ফন্ট (Amstel & Textilery স্টাইল)
 const inter = Inter({
@@ -13,6 +20,25 @@ const inter = Inter({
 const sourceSerif = Source_Serif_4({
   variable: "--font-serif",
   subsets: ["latin"],
+  display: "swap",
+});
+
+// 3. Multilingual script fonts (applied automatically on language switch)
+const notoBengali = Noto_Sans_Bengali({
+  variable: "--font-bengali",
+  subsets: ["bengali"],
+  display: "swap",
+});
+
+const notoArabic = Noto_Sans_Arabic({
+  variable: "--font-arabic",
+  subsets: ["arabic"],
+  display: "swap",
+});
+
+const vazirmatn = Vazirmatn({
+  variable: "--font-farsi",
+  subsets: ["arabic"],
   display: "swap",
 });
 
@@ -61,10 +87,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${sourceSerif.variable} scroll-smooth antialiased`}
+      dir="ltr"
+      suppressHydrationWarning
+      className={`${inter.variable} ${sourceSerif.variable} ${notoBengali.variable} ${notoArabic.variable} ${vazirmatn.variable} scroll-smooth antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-800 font-sans selection:bg-emerald-500 selection:text-white">
-        {children}
+        <I18nProvider>{children}</I18nProvider>
       </body>
     </html>
   );

@@ -5,8 +5,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  productCategories,
-  allProductsCatalog,
+  productCategoryAssets,
+  productAssets,
   ProductCategory,
   ProductItem,
 } from "@/data/productsData";
@@ -19,10 +19,11 @@ import {
   Send,
   Layers,
   Ruler,
-  Tag,
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useI18n } from "@/i18n/I18nProvider";
+import { Rich } from "@/i18n/Rich";
 
 // আন্তর্জাতিক সাইজ কনভার্সন ডেটা (US, UK, EU, AU)
 const internationalSizeGuide = [
@@ -35,6 +36,7 @@ const internationalSizeGuide = [
 ];
 
 export default function ProductsPage() {
+  const { t } = useI18n();
   // বাই ডিফল্ট "all" সিলেক্টেড থাকবে (সব প্রোডাক্ট দেখাবে)
   const [selectedCatId, setSelectedCatId] = useState<string>("all");
   const [selectedAudience, setSelectedAudience] = useState<"all" | "men" | "women" | "kids">("all");
@@ -49,6 +51,15 @@ export default function ProductsPage() {
   const [cardRegions, setCardRegions] = useState<Record<string, "us" | "uk" | "eu" | "au">>({});
 
   // সক্রিয় ক্যাটাগরি তথ্য
+  const productCategories: ProductCategory[] = productCategoryAssets.map((a, i) => ({
+    ...a,
+    ...t.productCategories[i],
+  }));
+  const allProductsCatalog: ProductItem[] = productAssets.map((a, i) => ({
+    ...a,
+    ...t.productItems[i],
+  }));
+
   const activeCategory: ProductCategory | undefined =
     productCategories.find((c) => c.id === selectedCatId);
 
@@ -97,13 +108,13 @@ export default function ProductsPage() {
         >
           <div className="relative max-w-4xl mx-auto z-10 space-y-3">
             <span className="inline-block px-3.5 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 uppercase tracking-widest backdrop-blur-md">
-              Export Ready RMG Catalog &middot; 50+ Partner Lines
+              {t.productsPage.heroBadge}
             </span>
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white drop-shadow-sm">
-              Our Apparel Products
+              {t.productsPage.heroTitle}
             </h1>
             <p className="text-xs sm:text-sm md:text-base text-slate-200 max-w-2xl mx-auto leading-relaxed">
-              Explore our full-package manufacturing capability spanning 12+ categories. Vetted green facilities, custom GSM weights, and flexible MOQs.
+              {t.productsPage.heroSubtitle}
             </p>
           </div>
         </section>
@@ -112,13 +123,13 @@ export default function ProductsPage() {
         <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center mb-10 space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-bold uppercase tracking-wider">
-              <span>Manufacturing Divisions</span>
+              <span>{t.productsPage.divisionsBadge}</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-black text-[#0B2B43] tracking-tight">
-              Select A Category To Filter
+              {t.productsPage.selectCategory}
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto">
-              Click any division below to view tailored specs, or view our full export collection.
+              {t.productsPage.selectCategorySub}
             </p>
           </div>
 
@@ -136,10 +147,10 @@ export default function ProductsPage() {
               <div className="absolute inset-0 bg-gradient-to-br from-[#0B2B43] to-[#071D2E]" />
               <div className="relative z-10 p-3">
                 <span className="block text-base sm:text-xl font-black text-white tracking-wide">
-                  All Collections
+                  {t.productsPage.allCollections}
                 </span>
                 <span className="text-[10px] sm:text-xs text-emerald-400 font-bold block mt-0.5">
-                  View Full Catalog &rarr;
+                  {t.productsPage.viewFullCatalog} &rarr;
                 </span>
               </div>
             </button>
@@ -190,7 +201,7 @@ export default function ProductsPage() {
               <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div className="space-y-2">
                   <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
-                    Active Division Filter
+                    {t.productsPage.activeFilter}
                   </span>
                   <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white">
                     {activeCategory.fullName}
@@ -205,13 +216,13 @@ export default function ProductsPage() {
                     onClick={() => handleCategorySelect("all")}
                     className="px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs transition border border-white/20 cursor-pointer"
                   >
-                    Clear Filter (View All)
+                    {t.productsPage.clearFilter}
                   </button>
                   <Link
                     href="/contact"
                     className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-[#071D2E] font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-1.5"
                   >
-                    <span>Request Custom MOQ</span>
+                    <span>{t.productsPage.requestMoq}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>

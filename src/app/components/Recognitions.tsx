@@ -4,8 +4,10 @@ import {
   recognizedByLogos,
   partnerCertificationsLogos,
 } from "@/data/recognitionsData";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export default function Recognitions() {
+  const { t } = useI18n();
   // ── ১. স্ক্রিন সাইজ নির্বিশেষে মসৃণ ইনফিনিট লুপের জন্য ব্যালান্সড ডুপ্লিকেশন ──
   const repeatCount1 = Math.max(2, Math.ceil(12 / (recognizedByLogos.length || 1)));
   const base1: (typeof recognizedByLogos)[number][] = [];
@@ -43,7 +45,7 @@ export default function Recognitions() {
           {/* হেডলাইন - সেন্টারে সাজানো */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-8">
             <h2 className="text-2xl sm:text-3xl font-black text-[#0B2B43] tracking-tight">
-              We Are Recognized By
+              {t.recognitions.recognizedBy}
             </h2>
             <div className="w-12 h-1 bg-emerald-600 mx-auto mt-2 rounded-full" />
           </div>
@@ -89,7 +91,7 @@ export default function Recognitions() {
           {/* হেডলাইন - সেন্টারে সাজানো */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-8">
             <h2 className="text-2xl sm:text-3xl font-black text-[#0B2B43] tracking-tight">
-              Our Partner Certifications
+              {t.recognitions.partnerCerts}
             </h2>
             <div className="w-12 h-1 bg-emerald-600 mx-auto mt-2 rounded-full" />
           </div>

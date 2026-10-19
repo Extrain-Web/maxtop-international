@@ -1,76 +1,28 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Sparkles,
-  ArrowRight,
-} from "lucide-react";
-import { whyChooseUsCards, ourValuesData } from "@/data/whyChooseUsData";
-
-// হাইড্রোশন এরর মুক্ত রাউন্ডিং হেল্পার
-const round = (val: number) => Math.round(val * 10) / 10;
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { whyChooseAssets } from "@/data/whyChooseUsData";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export default function WhyChooseUs() {
-  const [activeValueId, setActiveValueId] = useState<number>(2); // ডিফল্টভাবে ২ নম্বর (Collaboration) হাইলাইটেড
+  const { t } = useI18n();
   const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
 
-  // ক্যারোসেল নেভিগেশন
-  const handlePrev = () => {
-    setActiveCardIndex((prev) =>
-      prev === 0 ? whyChooseUsCards.length - 1 : prev - 1
-    );
-  };
+  // অ্যাসেট (আইকন) + অনুবাদ টেক্সট মার্জ করা হচ্ছে
+  const cards = whyChooseAssets.map((asset, i) => ({
+    ...asset,
+    ...t.whyChooseUs.cards[i],
+  }));
 
-  const handleNext = () => {
-    setActiveCardIndex((prev) =>
-      prev === whyChooseUsCards.length - 1 ? 0 : prev + 1
-    );
-  };
-
-  // ডোনাট স্লাইস ক্যালকুলেটর
-  const renderValueSlice = (index: number, total: number) => {
-    const cx = 220;
-    const cy = 220;
-    const rOuter = 210;
-    const rInner = 88;
-    const angleStep = 360 / total;
-    const gap = 2.5;
-
-    const startAngle = -90 + index * angleStep + gap / 2;
-    const endAngle = -90 + (index + 1) * angleStep - gap / 2;
-    const toRad = (deg: number) => (deg * Math.PI) / 180;
-
-    const x1Out = round(cx + rOuter * Math.cos(toRad(startAngle)));
-    const y1Out = round(cy + rOuter * Math.sin(toRad(startAngle)));
-    const x2Out = round(cx + rOuter * Math.cos(toRad(endAngle)));
-    const y2Out = round(cy + rOuter * Math.sin(toRad(endAngle)));
-
-    const x1In = round(cx + rInner * Math.cos(toRad(startAngle)));
-    const y1In = round(cy + rInner * Math.sin(toRad(startAngle)));
-    const x2In = round(cx + rInner * Math.cos(toRad(endAngle)));
-    const y2In = round(cy + rInner * Math.sin(toRad(endAngle)));
-
-    const pathData = `M ${x1Out} ${y1Out} A ${rOuter} ${rOuter} 0 0 1 ${x2Out} ${y2Out} L ${x2In} ${y2In} A ${rInner} ${rInner} 0 0 0 ${x1In} ${y1In} Z`;
-
-    const midAngle = -90 + (index + 0.5) * angleStep;
-    const rMid = 149;
-    const xMid = round(cx + rMid * Math.cos(toRad(midAngle)));
-    const yMid = round(cy + rMid * Math.sin(toRad(midAngle)));
-
-    return { pathData, xMid, yMid };
-  };
+  const handlePrev = () =>
+    setActiveCardIndex((prev) => (prev === 0 ? cards.length - 1 : prev - 1));
+  const handleNext = () =>
+    setActiveCardIndex((prev) => (prev === cards.length - 1 ? 0 : prev + 1));
 
   return (
     <section id="why-us" className="py-16 lg:py-24 bg-[#F8FAFC] border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-        
-        {/* ══════════════════════════════════════════════════════════════
-            অংশ ১: WHY CHOOSE US (কার্ডগুলো একটু বড় ও স্পষ্ট করা হয়েছে)
-        ══════════════════════════════════════════════════════════════ */}
         <div>
           {/* হেডার */}
           <div className="flex items-center justify-center mb-12">
@@ -80,7 +32,7 @@ export default function WhyChooseUs() {
               </div>
               <div className="relative px-8 py-3 bg-white border border-slate-300 rounded-xl shadow-sm">
                 <h2 className="text-2xl sm:text-3xl font-black text-[#0B2B43] tracking-tight">
-                  Why Choose Us
+                  {t.whyChooseUs.title}
                 </h2>
               </div>
             </div>
@@ -90,7 +42,7 @@ export default function WhyChooseUs() {
           <div className="relative">
             {/* ডেক্সটপ ৪টি কার্ড */}
             <div className="hidden lg:grid grid-cols-4 gap-6">
-              {whyChooseUsCards.map((card) => {
+              {cards.map((card) => {
                 const Icon = card.icon;
                 return (
                   <div
@@ -102,12 +54,10 @@ export default function WhyChooseUs() {
                         <Icon className="w-8 h-8 text-emerald-600" />
                       </div>
 
-                      {/* বড় ও স্পষ্ট টাইটেল */}
                       <h3 className="text-lg font-bold text-center text-[#0B2B43] mb-3 leading-snug">
                         {card.title}
                       </h3>
 
-                      {/* আরামদায়ক ফন্ট সাইজ */}
                       <p className="text-sm text-slate-600 text-center leading-relaxed mb-4">
                         {card.desc}
                       </p>
@@ -127,7 +77,7 @@ export default function WhyChooseUs() {
             <div className="lg:hidden">
               <div className="p-7 rounded-2xl bg-white border border-slate-200 shadow-md">
                 {(() => {
-                  const card = whyChooseUsCards[activeCardIndex];
+                  const card = cards[activeCardIndex];
                   const Icon = card.icon;
                   return (
                     <div>
@@ -159,7 +109,7 @@ export default function WhyChooseUs() {
                   <ChevronLeft className="w-5 h-5" />
                 </button>
                 <div className="flex gap-2">
-                  {whyChooseUsCards.map((_, idx) => (
+                  {cards.map((_, idx) => (
                     <button
                       key={idx}
                       onClick={() => setActiveCardIndex(idx)}
@@ -183,8 +133,6 @@ export default function WhyChooseUs() {
             </div>
           </div>
         </div>
-
-
       </div>
     </section>
   );

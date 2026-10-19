@@ -16,8 +16,11 @@ import {
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useI18n } from "@/i18n/I18nProvider";
+import { Rich } from "@/i18n/Rich";
 
 export default function ContactPage() {
+  const { t } = useI18n();
   // ফর্ম সাবমিশন স্টেট
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -64,38 +67,38 @@ export default function ContactPage() {
             {/* ব্রেডক্রাম্ব */}
             <div className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-3">
               <Link href="/" className="hover:text-white transition-colors">
-                Home
+                {t.nav.home}
               </Link>
               <span>/</span>
-              <span className="text-slate-300">Contact</span>
+              <span className="text-slate-300">{t.contactPage.breadcrumbContact}</span>
             </div>
 
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-semibold mb-4 shadow-sm">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>DEDICATED MERCHANDISING DESK</span>
+              <span>{t.contactPage.heroBadge}</span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4 max-w-4xl mx-auto leading-tight">
-              Get In Touch With Maxtop International
+              {t.contactPage.heroTitle}
             </h1>
 
             <p className="text-sm sm:text-base text-slate-200 max-w-2xl mx-auto leading-relaxed font-light">
-              Submit your RFQ or schedule an on-ground factory tour in Bangladesh. Our technical merchandising team responds within 24 hours.
+              {t.contactPage.heroSubtitle}
             </p>
 
             {/* দ্রুত আস্থার ৩টি ব্যাজ */}
             <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-8 mt-7 text-xs sm:text-sm font-medium text-slate-300">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>24-Hour RFQ Turnaround</span>
+                <span>{t.contactPage.badge1}</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Confidential Tech-Pack Review</span>
+                <span>{t.contactPage.badge2}</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Direct Merchandiser WhatsApp</span>
+                <span>{t.contactPage.badge3}</span>
               </div>
             </div>
           </div>
@@ -111,13 +114,13 @@ export default function ContactPage() {
             <div className="lg:col-span-7 bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 border border-slate-200 shadow-md">
               <div className="mb-6">
                 <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-                  Request A Quotation (RFQ)
+                  {t.contactPage.rfqBadge}
                 </span>
                 <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#071D2E] tracking-tight mt-3">
-                  Tell Us About Your Apparel Requirements
+                  {t.contactPage.rfqTitle}
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-500 mt-1.5 leading-relaxed">
-                  Please provide your target specifications. Choose from our standard lines or type your custom product and volume.
+                  {t.contactPage.rfqSubtitle}
                 </p>
               </div>
 
@@ -127,14 +130,15 @@ export default function ContactPage() {
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <h3 className="text-xl font-extrabold text-emerald-950">
-                    Inquiry Submitted Successfully!
+                    {t.contactPage.successTitle}
                   </h3>
                   <p className="text-sm text-emerald-800 mt-2 max-w-md mx-auto leading-relaxed">
-                    Thank you, <span className="font-bold">{formData.name || "partner"}</span>. Your inquiry for{" "}
+                    {t.contactPage.successTextLead}{" "}
+                    <span className="font-bold">{formData.name || t.contactPage.successFallbackName}</span>. {t.contactPage.successTextMid}{" "}
                     <span className="font-bold text-emerald-950 underline">
                       {isCustomCategory ? formData.customCategory : formData.category}
                     </span>{" "}
-                    has been forwarded to our Senior Merchandising Desk. We will get back to you within 24 hours.
+                    {t.contactPage.successTextTail}
                   </p>
                   <button
                     onClick={() => {
@@ -144,7 +148,7 @@ export default function ContactPage() {
                     }}
                     className="mt-6 px-6 py-2.5 rounded-xl bg-[#071D2E] text-white text-xs font-bold hover:bg-emerald-700 transition-all shadow-sm"
                   >
-                    Submit Another Inquiry
+                    {t.contactPage.submitAnother}
                   </button>
                 </div>
               ) : (
@@ -152,12 +156,12 @@ export default function ContactPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5">
-                        Your Full Name <span className="text-rose-500">*</span>
+                        {t.contactPage.fullName} <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="text"
                         required
-                        placeholder="John Doe"
+                        placeholder={t.contactPage.fullNamePh}
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 text-sm bg-slate-50/50"
@@ -166,12 +170,12 @@ export default function ContactPage() {
 
                     <div>
                       <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5">
-                        Work Email Address <span className="text-rose-500">*</span>
+                        {t.contactPage.workEmail} <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="email"
                         required
-                        placeholder="john@yourbrand.com"
+                        placeholder={t.contactPage.workEmailPh}
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 text-sm bg-slate-50/50"
@@ -182,12 +186,12 @@ export default function ContactPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5">
-                        Company / Fashion Brand <span className="text-rose-500">*</span>
+                        {t.contactPage.companyBrand} <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="text"
                         required
-                        placeholder="e.g. Nordic Apparel Ltd."
+                        placeholder={t.contactPage.companyBrandPh}
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                         className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 text-sm bg-slate-50/50"
@@ -196,12 +200,12 @@ export default function ContactPage() {
 
                     <div>
                       <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5">
-                        Country / Target Market <span className="text-rose-500">*</span>
+                        {t.contactPage.countryMarket} <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="text"
                         required
-                        placeholder="e.g. United Kingdom, Germany, USA"
+                        placeholder={t.contactPage.countryMarketPh}
                         value={formData.country}
                         onChange={(e) => setFormData({ ...formData, country: e.target.value })}
                         className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 text-sm bg-slate-50/50"
@@ -216,7 +220,7 @@ export default function ContactPage() {
                     <div>
                       <div className="flex items-center justify-between mb-1.5">
                         <label className="block text-xs sm:text-sm font-bold text-slate-700">
-                          Garment Category <span className="text-rose-500">*</span>
+                          {t.contactPage.garmentCategory} <span className="text-rose-500">*</span>
                         </label>
                         <button
                           type="button"
@@ -230,7 +234,7 @@ export default function ContactPage() {
                           }}
                           className="text-xs font-bold text-emerald-600 hover:text-emerald-700 hover:underline"
                         >
-                          {isCustomCategory ? "← Select from list" : "✏️ Type custom"}
+                          {isCustomCategory ? t.contactPage.selectFromList : t.contactPage.typeCustom}
                         </button>
                       </div>
 
@@ -238,7 +242,7 @@ export default function ContactPage() {
                         <input
                           type="text"
                           required
-                          placeholder="e.g. Babywear, Canvas Bags..."
+                          placeholder={t.contactPage.customCategoryPh}
                           value={formData.customCategory}
                           onChange={(e) => setFormData({ ...formData, customCategory: e.target.value })}
                           className="w-full px-4 py-3 rounded-xl border-2 border-emerald-500 focus:outline-none text-sm bg-white shadow-sm"
@@ -255,13 +259,13 @@ export default function ContactPage() {
                           }}
                           className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 text-sm bg-slate-50/50 text-slate-800 cursor-pointer"
                         >
-                          <option value="knitwear">Knitwear (T-Shirts, Polos, Hoodies)</option>
-                          <option value="denim">Denim & Washed Jeans Line</option>
-                          <option value="woven">Woven Casual & Formal Shirts</option>
-                          <option value="outerwear">Outerwear, Puffers & Jackets</option>
-                          <option value="activewear">Activewear & Performance Gym</option>
-                          <option value="sweater">Sweaters & Flat Knitwear</option>
-                          <option value="custom">✏️ Other / Type Custom Product...</option>
+                          <option value="knitwear">{t.contactPage.categoryOptions.knitwear}</option>
+                          <option value="denim">{t.contactPage.categoryOptions.denim}</option>
+                          <option value="woven">{t.contactPage.categoryOptions.woven}</option>
+                          <option value="outerwear">{t.contactPage.categoryOptions.outerwear}</option>
+                          <option value="activewear">{t.contactPage.categoryOptions.activewear}</option>
+                          <option value="sweater">{t.contactPage.categoryOptions.sweater}</option>
+                          <option value="custom">{t.contactPage.categoryOptions.custom}</option>
                         </select>
                       )}
                     </div>
@@ -270,7 +274,7 @@ export default function ContactPage() {
                     <div>
                       <div className="flex items-center justify-between mb-1.5">
                         <label className="block text-xs sm:text-sm font-bold text-slate-700">
-                          Estimated Quantity (MOQ)
+                          {t.contactPage.estimatedQuantity}
                         </label>
                         <button
                           type="button"
@@ -284,7 +288,7 @@ export default function ContactPage() {
                           }}
                           className="text-xs font-bold text-emerald-600 hover:text-emerald-700 hover:underline"
                         >
-                          {isCustomQuantity ? "← Select from list" : "✏️ Type exact pcs"}
+                          {isCustomQuantity ? t.contactPage.selectFromList : t.contactPage.typeExactPcs}
                         </button>
                       </div>
 
@@ -292,7 +296,7 @@ export default function ContactPage() {
                         <input
                           type="text"
                           required
-                          placeholder="e.g. 2,500 Pcs (500 pcs/color)..."
+                          placeholder={t.contactPage.customQuantityPh}
                           value={formData.customQuantity}
                           onChange={(e) => setFormData({ ...formData, customQuantity: e.target.value })}
                           className="w-full px-4 py-3 rounded-xl border-2 border-emerald-500 focus:outline-none text-sm bg-white shadow-sm"
@@ -309,12 +313,12 @@ export default function ContactPage() {
                           }}
                           className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 text-sm bg-slate-50/50 text-slate-800 cursor-pointer"
                         >
-                          <option value="sample">Proto Samples & Sampling Only</option>
-                          <option value="500-1000">500 – 1,000 Pcs (Flexible MOQ)</option>
-                          <option value="1000-5000">1,000 – 5,000 Pcs</option>
-                          <option value="5000-20000">5,000 – 20,000 Pcs</option>
-                          <option value="20000+">20,000+ Pcs (Large Production)</option>
-                          <option value="custom">✏️ Type Exact / Custom Quantity...</option>
+                          <option value="sample">{t.contactPage.quantityOptions.sample}</option>
+                          <option value="500-1000">{t.contactPage.quantityOptions.q1}</option>
+                          <option value="1000-5000">{t.contactPage.quantityOptions.q2}</option>
+                          <option value="5000-20000">{t.contactPage.quantityOptions.q3}</option>
+                          <option value="20000+">{t.contactPage.quantityOptions.q4}</option>
+                          <option value="custom">{t.contactPage.quantityOptions.custom}</option>
                         </select>
                       )}
                     </div>
@@ -323,12 +327,12 @@ export default function ContactPage() {
 
                   <div>
                     <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5">
-                      Order Details, Fabric Specs or Target Price Point <span className="text-rose-500">*</span>
+                      {t.contactPage.orderDetails} <span className="text-rose-500">*</span>
                     </label>
                     <textarea
                       rows={4}
                       required
-                      placeholder="Please mention fabric GSM, composition (e.g. 100% Combed Cotton), target delivery date, or special instructions..."
+                      placeholder={t.contactPage.orderDetailsPh}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 text-sm bg-slate-50/50 leading-relaxed"
@@ -339,13 +343,13 @@ export default function ContactPage() {
                     type="submit"
                     className="w-full py-3.5 rounded-xl bg-[#071D2E] hover:bg-emerald-600 text-white font-bold text-sm sm:text-base shadow-sm transition-all flex items-center justify-center gap-2 hover:shadow cursor-pointer"
                   >
-                    <span>Submit Sourcing Inquiry</span>
+                    <span>{t.contactPage.submit}</span>
                     <Send className="w-4 h-4" />
                   </button>
 
                   <div className="flex items-center justify-center gap-1.5 text-xs text-slate-400 text-center pt-1">
                     <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Your design tech-packs and pricing inquiries are protected by strict NDA.</span>
+                    <span>{t.contactPage.nda}</span>
                   </div>
                 </form>
               )}
@@ -362,9 +366,9 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-lg sm:text-xl font-extrabold text-[#071D2E]">
-                      Corporate Headquarters
+                      {t.contactPage.hqTitle}
                     </h3>
-                    <p className="text-xs text-slate-500 font-medium">Dhaka, Bangladesh</p>
+                    <p className="text-xs text-slate-500 font-medium">{t.contactPage.hqCity}</p>
                   </div>
                 </div>
 
@@ -375,13 +379,13 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <strong className="text-xs sm:text-sm font-bold text-[#071D2E] block">
-                        Office Address:
+                        {t.contactPage.officeAddressLabel}
                       </strong>
                       <span className="text-xs sm:text-sm text-slate-600 leading-relaxed block mt-0.5">
-                        Sector #03, Uttara, Dhaka-1230, Bangladesh
+                        {t.contactPage.address}
                       </span>
                       <p className="text-[11px] text-slate-400 mt-0.5">
-                        (Only 10 minutes from Hazrat Shahjalal International Airport)
+                        {t.contactPage.airportNote}
                       </p>
                     </div>
                   </div>
@@ -392,7 +396,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <strong className="text-xs sm:text-sm font-bold text-[#071D2E] block">
-                        Email Inquiries:
+                        {t.contactPage.emailLabel}
                       </strong>
                       <a
                         href="mailto:sourcing@maxtopintl.com"
@@ -409,7 +413,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <strong className="text-xs sm:text-sm font-bold text-[#071D2E] block">
-                        Direct Phone / Merchandising:
+                        {t.contactPage.phoneLabel}
                       </strong>
                       <span className="text-xs sm:text-sm font-semibold text-slate-800 mt-0.5 block">
                         +880 1711-000000
@@ -423,10 +427,10 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <strong className="text-xs sm:text-sm font-bold text-[#071D2E] block">
-                        Operating Hours:
+                        {t.contactPage.hoursLabel}
                       </strong>
                       <span className="text-xs sm:text-sm text-slate-600 mt-0.5 block">
-                        Monday – Saturday: 9:00 AM – 7:00 PM (GMT+6)
+                        {t.contactPage.hours}
                       </span>
                     </div>
                   </div>
@@ -441,13 +445,13 @@ export default function ContactPage() {
                     className="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-sm transition-all"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    <span>Chat on WhatsApp Directly</span>
+                    <span>{t.contactPage.whatsappChat}</span>
                   </a>
                 </div>
 
                 <div className="mt-3.5 p-3 rounded-xl bg-slate-50 border border-slate-200 text-center">
                   <p className="text-[11px] sm:text-xs text-slate-500">
-                    ⚡ <strong className="text-slate-700">Quick Response:</strong> Inquiries reviewed by senior merchandisers within 2 hours during business hours.
+                    <Rich text={t.contactPage.quickResponse} strongClassName="text-slate-700" />
                   </p>
                 </div>
               </div>

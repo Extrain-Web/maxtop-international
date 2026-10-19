@@ -12,9 +12,11 @@ import {
   Ruler,
 } from "lucide-react";
 import {
-  productCategories,
-  allProductsCatalog,
+  productCategoryAssets,
+  productAssets,
 } from "@/data/productsData";
+import { useI18n } from "@/i18n/I18nProvider";
+import { Rich } from "@/i18n/Rich";
 
 // আন্তর্জাতিক সাইজ কনভার্সন ডেটা (US, UK, EU, AU)
 const internationalSizeGuide = [
@@ -27,6 +29,18 @@ const internationalSizeGuide = [
 ];
 
 export default function Products() {
+  const { t } = useI18n();
+
+  // অ্যাসেট + অনুবাদ টেক্সট মার্জ
+  const productCategories = productCategoryAssets.map((a, i) => ({
+    ...a,
+    ...t.productCategories[i],
+  }));
+  const allProductsCatalog = productAssets.map((a, i) => ({
+    ...a,
+    ...t.productItems[i],
+  }));
+
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [subFilter, setSubFilter] = useState<string>("all");
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
@@ -78,13 +92,13 @@ export default function Products() {
           <div>
             <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-4">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold uppercase tracking-wider">
-                <span>RMG Manufacturing Divisions</span>
+                <span>{t.products.divisionsBadge}</span>
               </div>
               <h2 className="text-3xl sm:text-5xl font-black text-[#0B2B43] tracking-tight">
-                Our Manufacturing Lines
+                {t.products.linesTitle}
               </h2>
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                Explore our full-package export divisions. Click any category to view tailored specs, GSM weights, color options, and order details.
+                {t.products.linesSubtitle}
               </p>
             </div>
 
@@ -110,7 +124,7 @@ export default function Products() {
                       {cat.name}
                     </h3>
                     <span className="text-xs text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity mt-2 flex items-center gap-1.5 font-bold">
-                      <span>Explore Catalog</span>
+                      <span>{t.products.exploreCatalog}</span>
                       <ArrowRight className="w-3.5 h-3.5 text-emerald-400" />
                     </span>
                   </div>
@@ -131,7 +145,7 @@ export default function Products() {
                 className="w-fit inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white hover:bg-slate-100 text-[#0B2B43] text-xs font-bold border border-slate-300 transition-all shadow-xs active:scale-95 cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4 text-emerald-600" />
-                <span>Back to All Categories</span>
+                <span>{t.products.backToCategories}</span>
               </button>
 
               <div className="flex items-center gap-3">
@@ -141,7 +155,7 @@ export default function Products() {
                   className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-300 transition-colors shadow-2xs cursor-pointer"
                 >
                   <Ruler className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>📐 View Full Conversion Chart</span>
+                  <span>{t.products.viewFullChart}</span>
                 </button>
 
                 <div className="flex items-center gap-2 text-xs">
@@ -164,7 +178,7 @@ export default function Products() {
               
               <div className="relative z-10 max-w-2xl space-y-2">
                 <span className="text-xs font-bold tracking-widest text-emerald-400 uppercase">
-                  Maxtop Apparel Sourcing Division
+                  {t.products.sourcingDivision}
                 </span>
                 <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight drop-shadow-md">
                   {currentCatObj?.fullName}
@@ -179,10 +193,10 @@ export default function Products() {
             <div className="flex justify-center pt-2">
               <div className="inline-flex items-center p-1.5 rounded-xl bg-slate-200/90 border border-slate-300 gap-1.5 w-full sm:w-auto justify-center shadow-inner">
                 {[
-                  { id: "all", label: "ALL COLLECTION" },
-                  { id: "men", label: "MEN" },
-                  { id: "women", label: "WOMEN" },
-                  { id: "kids", label: "KIDS" },
+                  { id: "all", label: t.products.tabs.all },
+                  { id: "men", label: t.products.tabs.men },
+                  { id: "women", label: t.products.tabs.women },
+                  { id: "kids", label: t.products.tabs.kids },
                 ].map((tab) => (
                   <button
                     key={tab.id}
@@ -260,7 +274,7 @@ export default function Products() {
                             {/* কালার প্যালেট */}
                             <div className="flex items-center gap-3">
                               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                                Colors:
+                                {t.products.colors}
                               </span>
                               <div className="flex items-center gap-2">
                                 {productColors.map((color: string, i: number) => (
@@ -268,7 +282,7 @@ export default function Products() {
                                     key={i}
                                     className="w-4 h-4 rounded-full border border-slate-300 shadow-2xs hover:scale-110 transition-transform"
                                     style={{ backgroundColor: color }}
-                                    title={`Color option ${i + 1}`}
+                                    title={`${t.products.colorOption} ${i + 1}`}
                                   />
                                 ))}
                               </div>
@@ -280,7 +294,7 @@ export default function Products() {
                               {/* টপ রো: SIZES লেবেল + রিজিয়ন সুইচ ক্যাপসুল + Chart বাটন */}
                               <div className="flex items-center justify-between gap-2">
                                 <span className="text-[11px] font-black text-slate-700 uppercase tracking-wider">
-                                  Sizes:
+                                  {t.products.sizes}
                                 </span>
 
                                 {/* ── ৪টি মূল আন্তর্জাতিক মার্কেট: US | UK | EU | AU ── */}
@@ -310,7 +324,7 @@ export default function Products() {
                                   className="text-[11px] font-bold text-emerald-700 hover:text-emerald-800 hover:underline flex items-center gap-1 cursor-pointer"
                                 >
                                   <Ruler className="w-3.5 h-3.5 text-emerald-600" />
-                                  <span>Chart</span>
+                                  <span>{t.products.chart}</span>
                                 </button>
                               </div>
 
@@ -335,7 +349,7 @@ export default function Products() {
                               </div>
 
                               <p className="text-[10px] text-slate-400 font-medium pt-0.5">
-                                * Click <strong>US</strong>, <strong>UK</strong>, <strong>EU</strong>, or <strong>AU</strong> to see converted measurements.
+                                <Rich text={t.products.clickRegionNote} />
                               </p>
                             </div>
 
@@ -349,7 +363,7 @@ export default function Products() {
                           onClick={() => setSelectedProduct(item)}
                           className="w-full py-3.5 rounded-xl bg-[#0B2B43] hover:bg-emerald-600 text-white text-xs sm:text-sm font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                         >
-                          <span>Inquire Sample / Spec</span>
+                          <span>{t.products.inquireSampleSpec}</span>
                           <ArrowRight className="w-3.5 h-3.5" />
                         </button>
                       </div>
@@ -358,12 +372,12 @@ export default function Products() {
                 })
               ) : (
                 <div className="col-span-full py-16 text-center text-slate-400">
-                  <p className="text-base font-semibold">No items found in this sub-category for {currentCatObj?.name}.</p>
+                  <p className="text-base font-semibold">{t.products.noItemsPrefix} {currentCatObj?.name}.</p>
                   <button
                     onClick={() => setSubFilter("all")}
                     className="mt-3 text-xs font-bold text-emerald-600 underline cursor-pointer"
                   >
-                    View all {currentCatObj?.name} collection
+                    {t.products.viewAllPrefix} {currentCatObj?.name} {t.products.viewAllSuffix}
                   </button>
                 </div>
               )}
@@ -390,13 +404,13 @@ export default function Products() {
 
             <div className="p-6 bg-slate-50 border-b border-slate-200">
               <span className="text-[10px] font-bold tracking-widest text-emerald-600 uppercase">
-                International Apparel Sizing Conversion
+                {t.sizeChart.kicker}
               </span>
               <h3 className="text-xl sm:text-2xl font-black text-[#0B2B43] mt-1">
-                US · UK · EU · AU Sizing Standard
+                {t.sizeChart.title}
               </h3>
               <p className="text-xs text-slate-500 mt-1">
-                Standard export grading applied to all Maxtop woven, knit, and denim product lines.
+                {t.sizeChart.subtitle}
               </p>
             </div>
 
@@ -404,7 +418,7 @@ export default function Products() {
               <table className="w-full text-center border-collapse border border-slate-200 text-xs sm:text-sm">
                 <thead>
                   <tr className="bg-slate-100 text-[#0B2B43] font-black">
-                    <th className="border border-slate-200 py-3 px-3 text-left">Standard Region</th>
+                    <th className="border border-slate-200 py-3 px-3 text-left">{t.sizeChart.standardRegion}</th>
                     {internationalSizeGuide.map((item) => (
                       <th
                         key={item.standard}
@@ -422,7 +436,7 @@ export default function Products() {
                 <tbody className="divide-y divide-slate-200 font-semibold text-slate-700">
                   <tr className="hover:bg-slate-50 transition-colors">
                     <td className="border border-slate-200 py-3 px-3 text-left font-bold text-slate-900 bg-slate-50/50">
-                      USA (United States)
+                      {t.sizeChart.usaRow}
                     </td>
                     {internationalSizeGuide.map((item) => (
                       <td key={item.standard} className="border border-slate-200 py-3 px-2 font-mono">
@@ -433,7 +447,7 @@ export default function Products() {
 
                   <tr className="hover:bg-slate-50 transition-colors">
                     <td className="border border-slate-200 py-3 px-3 text-left font-bold text-slate-900 bg-slate-50/50">
-                      UK &amp; Australia (AU)
+                      {t.sizeChart.ukAuRow}
                     </td>
                     {internationalSizeGuide.map((item) => (
                       <td key={item.standard} className="border border-slate-200 py-3 px-2 font-mono">
@@ -444,7 +458,7 @@ export default function Products() {
 
                   <tr className="hover:bg-slate-50 transition-colors">
                     <td className="border border-slate-200 py-3 px-3 text-left font-bold text-slate-900 bg-slate-50/50">
-                      EU (European Union)
+                      {t.sizeChart.euRow}
                     </td>
                     {internationalSizeGuide.map((item) => (
                       <td key={item.standard} className="border border-slate-200 py-3 px-2 font-mono">
@@ -456,7 +470,7 @@ export default function Products() {
               </table>
 
               <div className="mt-4 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 leading-relaxed">
-                💡 <strong className="text-slate-800">Custom Tech-Packs:</strong> We strictly follow buyers custom grading specs, tolerance limits (±0.5cm), and proportion charts as per your Purchase Order (PO) sheet.
+                <Rich text={t.sizeChart.customNote} strongClassName="text-slate-800" />
               </div>
             </div>
 
@@ -466,7 +480,7 @@ export default function Products() {
                 onClick={() => setShowSizeModal(false)}
                 className="px-5 py-2.5 rounded-lg bg-[#0B2B43] hover:bg-emerald-600 text-white text-xs font-bold transition cursor-pointer"
               >
-                Close Chart
+                {t.sizeChart.closeChart}
               </button>
             </div>
 
@@ -490,7 +504,7 @@ export default function Products() {
 
             <div className="p-6 bg-slate-50 border-b border-slate-100">
               <span className="text-[10px] font-bold tracking-widest text-emerald-600 uppercase">
-                Sample &amp; Tech-Pack Request
+                {t.products.sampleTechpackRequest}
               </span>
               <h3 className="text-xl font-black text-[#0B2B43] mt-1">
                 {selectedProduct.name}
@@ -505,7 +519,7 @@ export default function Products() {
                 <div className="flex-1 truncate space-y-0.5">
                   <span className="font-bold text-slate-900 block truncate">{selectedProduct.material}</span>
                   <div className="text-[11px] font-semibold text-slate-500">
-                    Weight: <strong className="text-slate-800">{selectedProduct.gsm}</strong> · Graded: US/UK/EU/AU
+                    {t.products.weightLabel} <strong className="text-slate-800">{selectedProduct.gsm}</strong> · {t.products.gradedLabel}
                   </div>
                   <div className="flex items-center gap-1 pt-0.5">
                     {((selectedProduct.sizes as string[]) || ["XS", "S", "M", "L", "XL"]).slice(0, 5).map((s: string, idx: number) => (
@@ -523,10 +537,10 @@ export default function Products() {
                     <CheckCircle2 className="w-6 h-6" />
                   </div>
                   <h4 className="text-lg font-bold text-[#0B2B43]">
-                    Sample Inquiry Received!
+                    {t.products.inquiryReceivedTitle}
                   </h4>
                   <p className="text-xs text-slate-500 max-w-xs mx-auto leading-relaxed">
-                    Our merchandising team will review your specifications and dispatch physical swatches within 24 to 48 hours.
+                    {t.products.inquiryReceivedText}
                   </p>
                 </div>
               ) : (
@@ -534,23 +548,23 @@ export default function Products() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">
-                        Your Name *
+                        {t.products.form.name}
                       </label>
                       <input
                         type="text"
                         required
-                        placeholder="e.g. John Doe"
+                        placeholder={t.products.form.namePh}
                         className="w-full px-3.5 py-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       />
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">
-                        Business Email *
+                        {t.products.form.email}
                       </label>
                       <input
                         type="email"
                         required
-                        placeholder="john@brand.com"
+                        placeholder={t.products.form.emailPh}
                         className="w-full px-3.5 py-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       />
                     </div>
@@ -559,35 +573,35 @@ export default function Products() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">
-                        Brand / Company *
+                        {t.products.form.brand}
                       </label>
                       <input
                         type="text"
                         required
-                        placeholder="e.g. Urban Label"
+                        placeholder={t.products.form.brandPh}
                         className="w-full px-3.5 py-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       />
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">
-                        Target Sizing Standard
+                        {t.products.form.targetSizing}
                       </label>
                       <select className="w-full px-3.5 py-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
-                        <option>USA Standard Sizing</option>
-                        <option>UK / Australia Sizing</option>
-                        <option>European (EU) Sizing</option>
-                        <option>Custom Buyer Tech-Pack Spec</option>
+                        <option>{t.products.form.sizingUsa}</option>
+                        <option>{t.products.form.sizingUk}</option>
+                        <option>{t.products.form.sizingEu}</option>
+                        <option>{t.products.form.sizingCustom}</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">
-                      Target Colorway / Custom Notes
+                      {t.products.form.colorNotes}
                     </label>
                     <textarea
                       rows={2}
-                      placeholder="e.g. Heather grey colorway, custom metal buttons, 100% combed cotton..."
+                      placeholder={t.products.form.colorNotesPh}
                       className="w-full px-3.5 py-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     ></textarea>
                   </div>
@@ -597,7 +611,7 @@ export default function Products() {
                     className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Send className="w-3.5 h-3.5" />
-                    <span>Submit Sample Request</span>
+                    <span>{t.products.form.submit}</span>
                   </button>
                 </form>
               )}

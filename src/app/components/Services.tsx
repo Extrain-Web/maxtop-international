@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles } from "lucide-react";
-import { servicesData, sourcingStepsData } from "@/data/servicesData";
+import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
+import { serviceAssets } from "@/data/servicesData";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export default function Services() {
+  const { t } = useI18n();
   return (
     <section id="services" className="py-12 bg-[#F8FAFC] border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -14,13 +16,13 @@ export default function Services() {
           <div className="max-w-3xl space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/60 text-emerald-700 text-xs font-bold uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>END-TO-END CAPABILITIES</span>
+              <span>{t.services.badge}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#0B2B43]">
-              Full-Spectrum Apparel Sourcing Solutions
+              {t.services.title}
             </h2>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-              We operate as your on-ground sourcing office in Dhaka, Bangladesh—ensuring 100% factory transparency, competitive FOB pricing, and uncompromising quality.
+              {t.services.subtitle}
             </p>
           </div>
 
@@ -29,7 +31,7 @@ export default function Services() {
               href="#contact"
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#0B2B43] hover:bg-[#071d2e] text-white text-sm font-bold shadow-md hover:shadow-lg transition-all"
             >
-              <span>Request Factory Costing</span>
+              <span>{t.services.cta}</span>
               <ArrowRight className="w-4 h-4 text-emerald-400" />
             </Link>
           </div>
@@ -37,17 +39,18 @@ export default function Services() {
 
         {/* ── ২. সার্ভিস কার্ডস গ্রিড ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {servicesData.map((item) => {
-            const Icon = item.icon;
+          {serviceAssets.map((asset, i) => {
+            const item = t.services.items[i];
+            const Icon = asset.icon;
             return (
               <div
-                key={item.id}
+                key={asset.id}
                 className="group rounded-3xl bg-white border border-slate-200/80 hover:border-emerald-500/50 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden"
               >
                 {/* কার্ডের ছবি (next/image এর বদলে অপটিমাইজড img ট্যাগ ব্যবহার করা হয়েছে) */}
                 <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-100">
                   <img
-                    src={item.image}
+                    src={asset.image}
                     alt={item.title}
                     loading="lazy"
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
@@ -57,7 +60,7 @@ export default function Services() {
                   {/* সার্ভিস নম্বর ও ক্যাটাগরি */}
                   <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
                     <span className="font-mono text-xs font-bold text-white bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
-                      SERVICE {item.num}
+                      {t.services.serviceLabel} {asset.num}
                     </span>
                     <span className="text-[11px] font-semibold text-emerald-300 bg-emerald-950/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-500/30">
                       {item.category}
@@ -84,7 +87,7 @@ export default function Services() {
                   {/* ডেলিভারেবল চেকলিস্ট */}
                   <div className="space-y-2 pt-2 border-t border-slate-100">
                     <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-                      Key Deliverables
+                      {t.services.keyDeliverables}
                     </span>
                     {item.deliverables.map((bullet, idx) => (
                       <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-700">

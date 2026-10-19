@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import {
   ShieldCheck,
@@ -10,67 +9,69 @@ import {
   TrendingDown,
   Clock,
   Sparkles,
-  Layers,
   CheckCircle2,
   Building2,
   Leaf,
   CheckCheck,
   ArrowRight,
 } from "lucide-react";
+import { useI18n } from "@/i18n/I18nProvider";
+import { Rich } from "@/i18n/Rich";
 
-// ৩৬০ ডিগ্রি স্পিনিং হুইলের ৮টি প্রোডাক্ট (নিখুঁত সার্কেল পজিশনিং)
-const spinningProducts = [
+// ৩৬০ ডিগ্রি স্পিনিং হুইলের ৮টি প্রোডাক্ট ছবি ও পজিশন (টেক্সট i18n ডিকশনারিতে)
+const spinningAssets = [
   {
-    name: "Outerwear & Jackets",
-    spec: "Padded & Fleece",
     img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400&auto=format&fit=crop",
     pos: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2",
   },
   {
-    name: "Denim & Jeans Line",
-    spec: "Rigid & Stretch",
     img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=400&auto=format&fit=crop",
     pos: "top-[14.6%] right-[14.6%] translate-x-1/2 -translate-y-1/2",
   },
   {
-    name: "Knitwear & Polos",
-    spec: "100% Combed Cotton",
     img: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?q=80&w=400&auto=format&fit=crop",
     pos: "top-1/2 right-0 translate-x-1/2 -translate-y-1/2",
   },
   {
-    name: "Woven & Dress Shirts",
-    spec: "Oxford & Linen",
     img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=400&auto=format&fit=crop",
     pos: "bottom-[14.6%] right-[14.6%] translate-x-1/2 translate-y-1/2",
   },
   {
-    name: "Hoodies & Sweatshirts",
-    spec: "Heavyweight Fleece",
     img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=400&auto=format&fit=crop",
     pos: "bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2",
   },
   {
-    name: "Activewear & Gym",
-    spec: "Quick-Dry Performance",
     img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=400&auto=format&fit=crop",
     pos: "bottom-[14.6%] left-[14.6%] -translate-x-1/2 translate-y-1/2",
   },
   {
-    name: "Chinos & Cargo Bottoms",
-    spec: "Twill & Ripstop",
     img: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=400&auto=format&fit=crop",
     pos: "top-1/2 left-0 -translate-x-1/2 -translate-y-1/2",
   },
   {
-    name: "Bags & Lifestyle Gear",
-    spec: "Canvas & Nylon",
     img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=400&auto=format&fit=crop",
     pos: "top-[14.6%] left-[14.6%] -translate-x-1/2 -translate-y-1/2",
   },
 ];
 
 export default function AboutUs() {
+  const { t } = useI18n();
+  const pillarIcons = [TrendingDown, Clock, ShieldCheck, Sparkles];
+  const pillarBoxes = [
+    { bg: "bg-emerald-100", text: "text-emerald-700", hover: "hover:bg-emerald-50/40" },
+    { bg: "bg-blue-100", text: "text-blue-700", hover: "hover:bg-blue-50/40" },
+    { bg: "bg-indigo-100", text: "text-indigo-700", hover: "hover:bg-indigo-50/40" },
+    { bg: "bg-teal-100", text: "text-teal-700", hover: "hover:bg-teal-50/40" },
+  ];
+  const certIcons = [Award, CheckCheck, ShieldCheck, Globe2, Leaf, Building2];
+  const certColors = [
+    "text-emerald-600",
+    "text-blue-600",
+    "text-indigo-600",
+    "text-amber-600",
+    "text-green-600",
+    "text-slate-700",
+  ];
   return (
     <section id="about" className="py-12 sm:py-16 lg:py-20 bg-[#F8FAFC] overflow-x-hidden font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14 sm:space-y-20 lg:space-y-28">
@@ -85,74 +86,47 @@ export default function AboutUs() {
             
             <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-bold tracking-widest text-emerald-700 uppercase">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>WHO WE ARE · STRATEGIC RMG SOURCING</span>
+              <span>{t.about.badge}</span>
             </div>
 
             <h2 className="text-2xl sm:text-4xl lg:text-[2.75rem] font-black tracking-tight text-[#0C2340] leading-tight sm:leading-[1.18]">
-              The Bridge Between{" "}
+              {t.about.titleLead}{" "}
               <span className="text-emerald-600 underline decoration-emerald-200 underline-offset-4 sm:underline-offset-8">
-                Fashion Vision
+                {t.about.titleHighlight}
               </span>{" "}
-              &amp; Factory Execution
+              {t.about.titleTail}
             </h2>
 
             <p className="text-sm sm:text-lg text-slate-700 leading-relaxed font-normal">
-              <strong className="text-slate-900 font-bold">Maxtop International</strong> is a premier apparel sourcing agency and registered buying house headquartered in Dhaka, Bangladesh. We serve as the agile, transparent link between international retail fashion brands and audited, socially compliant RMG manufacturing facilities.
+              <Rich text={t.about.intro} strongClassName="text-slate-900 font-bold" />
             </p>
 
             <p className="text-xs sm:text-base text-slate-600 leading-relaxed">
-              Operating with deep industry expertise across Knitwear, Woven, Denim, and Activewear, we eliminate cross-border manufacturing risks through open-book FOB costing, aggressive lead-time management, and strict AQL 2.5 zero-defect control.
+              {t.about.sub}
             </p>
 
             {/* ৪টি কোর পিলার (মোবাইল ও পিসিতে রেসপনসিভ) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 pt-2">
-              <div className="p-4 sm:p-5 rounded-2xl bg-white hover:bg-emerald-50/40 border border-slate-200/90 shadow-xs hover:shadow-md transition-all space-y-1.5 group">
-                <div className="flex items-center gap-2.5 sm:gap-3 font-bold text-slate-900 text-sm sm:text-base">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                    <TrendingDown className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+              {t.about.pillars.map((pillar, i) => {
+                const Icon = pillarIcons[i];
+                const box = pillarBoxes[i];
+                return (
+                  <div
+                    key={i}
+                    className={`p-4 sm:p-5 rounded-2xl bg-white ${box.hover} border border-slate-200/90 shadow-xs hover:shadow-md transition-all space-y-1.5 group`}
+                  >
+                    <div className="flex items-center gap-2.5 sm:gap-3 font-bold text-slate-900 text-sm sm:text-base">
+                      <div className={`w-8 h-8 rounded-xl ${box.bg} ${box.text} flex items-center justify-center shrink-0`}>
+                        <Icon className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                      </div>
+                      <span>{pillar.title}</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal pl-10 sm:pl-11">
+                      {pillar.desc}
+                    </p>
                   </div>
-                  <span>12–18% Cost Advantage</span>
-                </div>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal pl-10 sm:pl-11">
-                  Direct mill fabric procurement eliminating middleman markups.
-                </p>
-              </div>
-
-              <div className="p-4 sm:p-5 rounded-2xl bg-white hover:bg-blue-50/40 border border-slate-200/90 shadow-xs hover:shadow-md transition-all space-y-1.5 group">
-                <div className="flex items-center gap-2.5 sm:gap-3 font-bold text-slate-900 text-sm sm:text-base">
-                  <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
-                    <Clock className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-                  </div>
-                  <span>7–10 Days Sampling</span>
-                </div>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal pl-10 sm:pl-11">
-                  In-house CAD pattern masters for rapid proto and fit approvals.
-                </p>
-              </div>
-
-              <div className="p-4 sm:p-5 rounded-2xl bg-white hover:bg-indigo-50/40 border border-slate-200/90 shadow-xs hover:shadow-md transition-all space-y-1.5 group">
-                <div className="flex items-center gap-2.5 sm:gap-3 font-bold text-slate-900 text-sm sm:text-base">
-                  <div className="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0">
-                    <ShieldCheck className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-                  </div>
-                  <span>100% Audited Facilities</span>
-                </div>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal pl-10 sm:pl-11">
-                  Accord/RSC, BSCI, OEKO-TEX &amp; Sedex audited partner mills.
-                </p>
-              </div>
-
-              <div className="p-4 sm:p-5 rounded-2xl bg-white hover:bg-teal-50/40 border border-slate-200/90 shadow-xs hover:shadow-md transition-all space-y-1.5 group">
-                <div className="flex items-center gap-2.5 sm:gap-3 font-bold text-slate-900 text-sm sm:text-base">
-                  <div className="w-8 h-8 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center shrink-0">
-                    <Sparkles className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-                  </div>
-                  <span>Low MOQ from 500 Pcs</span>
-                </div>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal pl-10 sm:pl-11">
-                  Dedicated flexible lines supporting emerging &amp; boutique labels.
-                </p>
-              </div>
+                );
+              })}
             </div>
 
           </div>
@@ -181,14 +155,14 @@ export default function AboutUs() {
               {/* ফ্লোটিং এক্সপেরিয়েন্স ব্যাজ */}
               <div className="absolute bottom-2 left-2 sm:-bottom-6 sm:-left-6 bg-[#0C2340] text-white p-3 sm:p-5 lg:p-6 rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl border border-slate-700 max-w-[170px] sm:max-w-[210px] lg:max-w-[230px]">
                 <div className="flex items-baseline gap-1 text-xl sm:text-2xl lg:text-3xl font-black text-emerald-400">
-                  <span>10+</span>
-                  <span className="text-[10px] sm:text-xs font-semibold text-slate-300">Years</span>
+                  <span>{t.about.expYears}</span>
+                  <span className="text-[10px] sm:text-xs font-semibold text-slate-300">{t.about.expYearsLabel}</span>
                 </div>
                 <div className="text-[11px] sm:text-xs font-bold text-slate-100 mt-0.5 sm:mt-1 uppercase tracking-wider">
-                  RMG Excellence
+                  {t.about.expTitle}
                 </div>
                 <div className="text-[9.5px] sm:text-xs text-slate-400 mt-0.5 leading-snug">
-                  Trusted by 30+ European &amp; US retail buyers.
+                  {t.about.expSub}
                 </div>
               </div>
             </div>
@@ -221,16 +195,16 @@ export default function AboutUs() {
                     MAX<span className="text-emerald-400">TOP</span>
                   </span>
                   <span className="text-[7px] sm:text-[10px] lg:text-[13px] font-bold tracking-[0.2em] sm:tracking-[0.22em] text-slate-300 uppercase mt-0.5">
-                    360° SOURCING
+                    {t.about.wheelTag}
                   </span>
                   <span className="text-[6px] sm:text-[9px] lg:text-[11px] text-emerald-300 font-mono mt-0.5 sm:mt-1 bg-emerald-950/80 px-2 sm:px-3 py-0.5 rounded-full border border-emerald-500/40">
-                    FULL ECOSYSTEM
+                    {t.about.wheelEcosystem}
                   </span>
                 </div>
 
                 {/* অবিরত ঘূর্ণায়মান অরবিট রিং (মোবাইলে ওভারফ্লো ছাড়া নিরাপদ দূরত্ব) */}
                 <div className="absolute inset-8 sm:inset-16 lg:inset-22 rounded-full animate-[spin_40s_linear_infinite] hover:[animation-play-state:paused] group">
-                  {spinningProducts.map((item, index) => (
+                  {spinningAssets.map((item, index) => (
                     <div
                       key={index}
                       className={`absolute ${item.pos}`}
@@ -241,14 +215,14 @@ export default function AboutUs() {
                           <div className="relative w-full h-full rounded-lg sm:rounded-xl overflow-hidden bg-slate-100">
                             <img
                               src={item.img}
-                              alt={item.name}
+                              alt={t.about.spinningProducts[index].name}
                               className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-300"
                             />
                           </div>
                           
                           {/* হোভার টুলটিপ (শুধুমাত্র বড় স্ক্রিনে) */}
                           <div className="hidden sm:block absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover/card:opacity-100 transition-opacity bg-[#0C2340] text-white text-[11px] font-bold px-3 py-1 rounded-md shadow-xl whitespace-nowrap pointer-events-none z-40">
-                            {item.name}
+                            {t.about.spinningProducts[index].name}
                           </div>
                         </div>
                       </div>
@@ -264,46 +238,30 @@ export default function AboutUs() {
               
               <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-emerald-100/80 border border-emerald-300 text-xs font-bold tracking-wider text-emerald-800 uppercase">
                 <Leaf className="w-4 h-4 text-emerald-600" />
-                <span>SUSTAINABLE SOURCING PHILOSOPHY</span>
+                <span>{t.about.philosophyBadge}</span>
               </div>
 
               <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-[#0C2340] leading-tight">
-                We Act For Sourcing{" "}
-                <span className="text-emerald-600">Sustainable</span> &amp; High-Spec Products
+                {t.about.philosophyTitleLead}{" "}
+                <span className="text-emerald-600">{t.about.philosophyTitleHighlight}</span> {t.about.philosophyTitleTail}
               </h3>
 
               <p className="text-sm sm:text-lg text-slate-700 leading-relaxed font-normal">
-                <strong className="text-slate-900 font-bold">Maxtop International</strong> is an ISO 9001:2015-certified, progressive apparel export and sourcing company headquartered in Dhaka, Bangladesh. We supply sustainable, high-quality apparel and fashion accessories across Europe, North America, the UK, Australia, and the Middle East.
+                <Rich text={t.about.philosophyIntro} strongClassName="text-slate-900 font-bold" />
               </p>
 
               {/* ৩টি সাস্টেইনেবল বেনিফিট বুলেট */}
               <div className="space-y-3.5 sm:space-y-4 pt-1">
-                <div className="flex items-start gap-2.5 sm:gap-3">
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                {t.about.benefits.map((benefit, i) => (
+                  <div key={i} className="flex items-start gap-2.5 sm:gap-3">
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
+                      <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                    </div>
+                    <p className="text-xs sm:text-base text-slate-700 font-medium">
+                      <Rich text={benefit} strongClassName="text-slate-900 font-bold" />
+                    </p>
                   </div>
-                  <p className="text-xs sm:text-base text-slate-700 font-medium">
-                    <strong className="text-slate-900 font-bold">Eco-Certified Materials:</strong> GOTS Organic Cotton, BCI Cotton, and GRS recycled polyester.
-                  </p>
-                </div>
-
-                <div className="flex items-start gap-2.5 sm:gap-3">
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  </div>
-                  <p className="text-xs sm:text-base text-slate-700 font-medium">
-                    <strong className="text-slate-900 font-bold">Green Partner Facilities:</strong> LEED-certified green partner factories with 45%+ water recycling.
-                  </p>
-                </div>
-
-                <div className="flex items-start gap-2.5 sm:gap-3">
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  </div>
-                  <p className="text-xs sm:text-base text-slate-700 font-medium">
-                    <strong className="text-slate-900 font-bold">Global Liaison Coordination:</strong> Dhaka HQ with dedicated liaison support for London &amp; NY time-zones.
-                  </p>
-                </div>
+                ))}
               </div>
 
               {/* অ্যাকশন বাটনসমূহ (মোবাইলে ফুল উইডথ, পিসিতে স্বাভাবিক) */}
@@ -312,7 +270,7 @@ export default function AboutUs() {
                   href="/contact"
                   className="w-full sm:w-auto px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl bg-[#0C2340] hover:bg-emerald-600 text-white font-bold text-xs sm:text-base transition-all shadow-md flex items-center justify-center gap-2 group text-center cursor-pointer"
                 >
-                  <span>Inquire Sourcing Capacity</span>
+                  <span>{t.about.ctaInquire}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-emerald-400" />
                 </Link>
 
@@ -320,7 +278,7 @@ export default function AboutUs() {
                   href="/products"
                   className="w-full sm:w-auto px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs sm:text-base border border-slate-300 transition-all shadow-sm text-center cursor-pointer"
                 >
-                  <span>Explore Product Catalog</span>
+                  <span>{t.about.ctaCatalog}</span>
                 </Link>
               </div>
 
@@ -335,52 +293,32 @@ export default function AboutUs() {
         <div className="">
           <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
             <span className="text-[11px] sm:text-sm font-bold text-emerald-700 bg-emerald-100/80 px-3.5 py-1.5 rounded-full uppercase tracking-wider">
-              Certified Sourcing Network
+              {t.about.certKicker}
             </span>
             <h3 className="text-xl sm:text-3xl font-extrabold text-[#0C2340] mt-3">
-              Adhering to the World's Strictest Social &amp; Environmental Audits
+              {t.about.certTitle}
             </h3>
           </div>
 
           {/* বড় ও স্পষ্ট ৬টি সার্টিফিকেশন কার্ড (মোবাইলে ২টি করে গ্রিড) */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-5 items-stretch">
-            
-            <div className="flex flex-col items-center justify-center p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-emerald-500/60 hover:-translate-y-1 transition-all duration-300 text-center min-h-[125px] sm:min-h-[160px]">
-              <Award className="w-7 h-7 sm:w-10 sm:h-10 text-emerald-600 mb-2 sm:mb-3" />
-              <span className="text-xs sm:text-base font-bold text-slate-900 block leading-snug">OEKO-TEX®</span>
-              <span className="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 block">Standard 100</span>
-            </div>
-
-            <div className="flex flex-col items-center justify-center p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-500/60 hover:-translate-y-1 transition-all duration-300 text-center min-h-[125px] sm:min-h-[160px]">
-              <CheckCheck className="w-7 h-7 sm:w-10 sm:h-10 text-blue-600 mb-2 sm:mb-3" />
-              <span className="text-xs sm:text-base font-bold text-slate-900 block leading-snug">amfori BSCI</span>
-              <span className="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 block">Social Audit</span>
-            </div>
-
-            <div className="flex flex-col items-center justify-center p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-indigo-500/60 hover:-translate-y-1 transition-all duration-300 text-center min-h-[125px] sm:min-h-[160px]">
-              <ShieldCheck className="w-7 h-7 sm:w-10 sm:h-10 text-indigo-600 mb-2 sm:mb-3" />
-              <span className="text-xs sm:text-base font-bold text-slate-900 block leading-snug">WRAP</span>
-              <span className="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 block">Gold Certified</span>
-            </div>
-
-            <div className="flex flex-col items-center justify-center p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-amber-500/60 hover:-translate-y-1 transition-all duration-300 text-center min-h-[125px] sm:min-h-[160px]">
-              <Globe2 className="w-7 h-7 sm:w-10 sm:h-10 text-amber-600 mb-2 sm:mb-3" />
-              <span className="text-xs sm:text-base font-bold text-slate-900 block leading-snug">Sedex SMETA</span>
-              <span className="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 block">4-Pillar Audited</span>
-            </div>
-
-            <div className="flex flex-col items-center justify-center p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-green-500/60 hover:-translate-y-1 transition-all duration-300 text-center min-h-[125px] sm:min-h-[160px]">
-              <Leaf className="w-7 h-7 sm:w-10 sm:h-10 text-green-600 mb-2 sm:mb-3" />
-              <span className="text-xs sm:text-base font-bold text-slate-900 block leading-snug">GOTS Organic</span>
-              <span className="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 block">Eco Certified</span>
-            </div>
-
-            <div className="flex flex-col items-center justify-center p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-slate-500/60 hover:-translate-y-1 transition-all duration-300 text-center min-h-[125px] sm:min-h-[160px]">
-              <Building2 className="w-7 h-7 sm:w-10 sm:h-10 text-slate-700 mb-2 sm:mb-3" />
-              <span className="text-xs sm:text-base font-bold text-slate-900 block leading-snug">ISO 9001</span>
-              <span className="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 block">Quality Standard</span>
-            </div>
-
+            {t.about.certs.map((cert, i) => {
+              const Icon = certIcons[i];
+              return (
+                <div
+                  key={i}
+                  className="flex flex-col items-center justify-center p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-emerald-500/60 hover:-translate-y-1 transition-all duration-300 text-center min-h-[125px] sm:min-h-[160px]"
+                >
+                  <Icon className={`w-7 h-7 sm:w-10 sm:h-10 ${certColors[i]} mb-2 sm:mb-3`} />
+                  <span className="text-xs sm:text-base font-bold text-slate-900 block leading-snug">
+                    {cert.name}
+                  </span>
+                  <span className="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 block">
+                    {cert.sub}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
 
