@@ -1,0 +1,18 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "feature/multilingual-i18n",
+    "main",
+    "origin"
+  ],
+  "parent": {
+    "feature/multilingual-i18n": "main",
+    "main": null,
+    "origin": "main"
+  },
+  "order": [
+    "main",
+    "feature/multilingual-i18n",
+    "origin"
+  ]
+}
