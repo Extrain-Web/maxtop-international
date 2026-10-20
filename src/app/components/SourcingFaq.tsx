@@ -22,7 +22,7 @@ export default function SourcingFaq() {
   }));
 
   return (
-    <section id="faq" className="py-16 lg:py-24 bg-[#F8FAFC] overflow-hidden">
+    <section id="faq" className="py-16 lg:py-24 bg-gradient-to-b from-slate-100/80 via-white to-slate-100/70 border-t border-slate-200 overflow-hidden font-sans relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           

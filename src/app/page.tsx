@@ -17,9 +17,11 @@ export default function Home() {
     <main>
       <Navbar />
       <Hero></Hero>
+      <Products/>
+
       {/* <StatsBanner/> */}
       <AboutUs/>
-      <Products/>
+      {/* <Products/> */}
       <Services/>
       <HowWeWork/>
       <WhyChooseUs/>

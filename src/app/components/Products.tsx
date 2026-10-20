@@ -82,7 +82,7 @@ export default function Products() {
   };
 
   return (
-    <section id="products" className="py-16 bg-[#F8FAFC] font-sans">
+    <section id="products" className="py-16 bg-gradient-to-b from-[#ECFDF5] via-[#F8FAFC] to-[#F0FDFA] border-b border-emerald-100 font-sans relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* ══════════════════════════════════════════════════════════════════
@@ -119,8 +119,8 @@ export default function Products() {
 
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10 group-hover:from-emerald-950/85 group-hover:via-black/30 transition-colors duration-300" />
 
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                    <h3 className="text-xl sm:text-2xl font-black text-white tracking-wide drop-shadow-md group-hover:text-emerald-300 transition-colors">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-3 sm:p-4 text-center">
+                    <h3 className="text-lg sm:text-2xl font-black text-white tracking-wide drop-shadow-md group-hover:text-emerald-300 transition-colors">
                       {cat.name}
                     </h3>
                     <span className="text-xs text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity mt-2 flex items-center gap-1.5 font-bold">
@@ -136,23 +136,23 @@ export default function Products() {
           /* ══════════════════════════════════════════════════════════════════
               VIEW ২: নির্দিষ্ট ক্যাটাগরি ক্যাটালগ
           ══════════════════════════════════════════════════════════════════ */
-          <div className="space-y-8 animate-in fade-in duration-300">
+          <div className="space-y-6 sm:space-y-8 animate-in fade-in duration-300">
             
             {/* ব্যাক বাটন ও সাইজ গাইড বাটন */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pb-4 border-b border-slate-200">
               <button
                 onClick={() => handleCategorySelect(null)}
-                className="w-fit inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white hover:bg-slate-100 text-[#0B2B43] text-xs font-bold border border-slate-300 transition-all shadow-xs active:scale-95 cursor-pointer"
+                className="w-fit inline-flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-lg bg-white hover:bg-slate-100 text-[#0B2B43] text-xs font-bold border border-slate-300 transition-all shadow-xs active:scale-95 cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4 text-emerald-600" />
                 <span>{t.products.backToCategories}</span>
               </button>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
                 <button
                   type="button"
                   onClick={() => setShowSizeModal(true)}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-300 transition-colors shadow-2xs cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-300 transition-colors shadow-2xs cursor-pointer"
                 >
                   <Ruler className="w-3.5 h-3.5 text-emerald-600" />
                   <span>{t.products.viewFullChart}</span>
@@ -168,7 +168,7 @@ export default function Products() {
             </div>
 
             {/* ক্যাটাগরি ব্যানার */}
-            <div className="relative rounded-2xl overflow-hidden min-h-[160px] sm:h-64 shadow-md border border-slate-200 flex items-center justify-center text-center p-6 sm:p-10">
+            <div className="relative rounded-2xl overflow-hidden min-h-[140px] sm:h-64 shadow-md border border-slate-200 flex items-center justify-center text-center p-5 sm:p-10">
               <img
                 src={currentCatObj?.bannerImg}
                 alt={currentCatObj?.name}
@@ -177,21 +177,23 @@ export default function Products() {
               <div className="absolute inset-0 bg-gradient-to-r from-[#071D2E]/90 via-[#0B2B43]/85 to-[#071D2E]/90" />
               
               <div className="relative z-10 max-w-2xl space-y-2">
-                <span className="text-xs font-bold tracking-widest text-emerald-400 uppercase">
+                <span className="text-[10px] sm:text-xs font-bold tracking-widest text-emerald-400 uppercase">
                   {t.products.sourcingDivision}
                 </span>
-                <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight drop-shadow-md">
+                <h2 className="text-xl sm:text-4xl font-black text-white tracking-tight drop-shadow-md">
                   {currentCatObj?.fullName}
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-lg mx-auto">
+                <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-lg mx-auto line-clamp-2 sm:line-clamp-none">
                   {currentCatObj?.desc}
                 </p>
               </div>
             </div>
 
-            {/* সাব-ফিল্টার ট্যাব */}
-            <div className="flex justify-center pt-2">
-              <div className="inline-flex items-center p-1.5 rounded-xl bg-slate-200/90 border border-slate-300 gap-1.5 w-full sm:w-auto justify-center shadow-inner">
+            {/* ══════════════════════════════════════════════════════════════════
+                ফিক্সড: সাব-ফিল্টার ট্যাব (মোবাইলে কোনো লেখা ভাঙবে না ও বাইরে যাবে না)
+            ══════════════════════════════════════════════════════════════════ */}
+            <div className="flex justify-center pt-2 px-1">
+              <div className="inline-flex items-center p-1 sm:p-1.5 rounded-xl bg-slate-200/90 border border-slate-300 gap-1 sm:gap-1.5 w-full max-w-md sm:w-auto justify-center shadow-inner">
                 {[
                   { id: "all", label: t.products.tabs.all },
                   { id: "men", label: t.products.tabs.men },
@@ -201,9 +203,9 @@ export default function Products() {
                   <button
                     key={tab.id}
                     onClick={() => setSubFilter(tab.id)}
-                    className={`flex-1 sm:flex-initial px-5 py-2.5 rounded-lg text-xs font-black transition-all cursor-pointer ${
+                    className={`flex-1 sm:flex-initial px-2 sm:px-5 py-2 sm:py-2.5 rounded-lg text-[10px] sm:text-xs font-black transition-all cursor-pointer whitespace-nowrap text-center ${
                       subFilter === tab.id
-                        ? "bg-[#0B2B43] text-white shadow-sm scale-[1.01]"
+                        ? "bg-[#0B2B43] text-white shadow-xs"
                         : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
                     }`}
                   >
@@ -214,7 +216,7 @@ export default function Products() {
             </div>
 
             {/* ══════════════════════════════════════════════════════════════════
-                ৩টি ব্যালান্সড কার্ড গ্রিড (US / UK / EU / AU + আরামদায়ক গ্যাপ)
+                ৩টি ব্যালান্সড কার্ড গ্রিড
             ══════════════════════════════════════════════════════════════════ */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 pt-4">
               {displayedItems.length > 0 ? (
@@ -288,16 +290,16 @@ export default function Products() {
                               </div>
                             </div>
 
-                            {/* ── সাইজ সেকশন (US · UK · EU · AU + আরামদায়ক গ্যাপ) ── */}
+                            {/* ── সাইজ সেকশন (US · UK · EU · AU) ── */}
                             <div className="space-y-2.5 pt-3 border-t border-slate-100">
                               
                               {/* টপ রো: SIZES লেবেল + রিজিয়ন সুইচ ক্যাপসুল + Chart বাটন */}
-                              <div className="flex items-center justify-between gap-2">
+                              <div className="flex items-center justify-between gap-2 flex-wrap">
                                 <span className="text-[11px] font-black text-slate-700 uppercase tracking-wider">
                                   {t.products.sizes}
                                 </span>
 
-                                {/* ── ৪টি মূল আন্তর্জাতিক মার্কেট: US | UK | EU | AU ── */}
+                                {/* ৪টি মূল আন্তর্জাতিক মার্কেট: US | UK | EU | AU */}
                                 <div className="inline-flex items-center p-0.5 rounded-lg bg-slate-100 border border-slate-200">
                                   {(["us", "uk", "eu", "au"] as const).map((reg) => (
                                     <button
@@ -306,7 +308,7 @@ export default function Products() {
                                       onClick={() =>
                                         setCardRegions((prev) => ({ ...prev, [item.id]: reg }))
                                       }
-                                      className={`px-2.5 py-1 rounded-md text-[11px] font-black uppercase transition-all cursor-pointer ${
+                                      className={`px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-black uppercase transition-all cursor-pointer ${
                                         activeRegion === reg
                                           ? "bg-[#0B2B43] text-white shadow-xs"
                                           : "text-slate-500 hover:text-slate-900"
@@ -328,7 +330,7 @@ export default function Products() {
                                 </button>
                               </div>
 
-                              {/* ── নিখুঁত ৩×২ গ্রিড: কিছুটা বড় ও আরামদায়ক গ্যাপ (No Lege-Lege!) ── */}
+                              {/* ৩×২ সাইজ গ্রিড */}
                               <div className="grid grid-cols-3 gap-2 sm:gap-2.5 pt-1">
                                 {internationalSizeGuide.map((sizeObj) => {
                                   let displayText = "";
@@ -340,7 +342,7 @@ export default function Products() {
                                   return (
                                     <div
                                       key={sizeObj.standard}
-                                      className="py-2 sm:py-2.5 px-2 rounded-lg bg-slate-50/90 border border-slate-200/90 text-slate-800 text-xs font-bold text-center shadow-2xs hover:border-emerald-400 hover:bg-emerald-50/40 transition-all"
+                                      className="py-2 sm:py-2.5 px-1.5 sm:px-2 rounded-lg bg-slate-50/90 border border-slate-200/90 text-slate-800 text-[11px] sm:text-xs font-bold text-center shadow-2xs hover:border-emerald-400 hover:bg-emerald-50/40 transition-all truncate"
                                     >
                                       {displayText}
                                     </div>
@@ -361,7 +363,7 @@ export default function Products() {
                       <div className="p-5 sm:p-6 pt-0">
                         <button
                           onClick={() => setSelectedProduct(item)}
-                          className="w-full py-3.5 rounded-xl bg-[#0B2B43] hover:bg-emerald-600 text-white text-xs sm:text-sm font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                          className="w-full py-3 sm:py-3.5 rounded-xl bg-[#0B2B43] hover:bg-emerald-600 text-white text-xs sm:text-sm font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-98"
                         >
                           <span>{t.products.inquireSampleSpec}</span>
                           <ArrowRight className="w-3.5 h-3.5" />
@@ -392,21 +394,21 @@ export default function Products() {
           ৪. আন্তর্জাতিক সাইজ চার্ট মোডাল
       ══════════════════════════════════════════════════════════════════ */}
       {showSizeModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden max-h-[90vh] flex flex-col">
             
             <button
               onClick={() => setShowSizeModal(false)}
-              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition cursor-pointer"
+              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition cursor-pointer z-10"
             >
               <X className="w-4 h-4" />
             </button>
 
-            <div className="p-6 bg-slate-50 border-b border-slate-200">
+            <div className="p-5 sm:p-6 bg-slate-50 border-b border-slate-200">
               <span className="text-[10px] font-bold tracking-widest text-emerald-600 uppercase">
                 {t.sizeChart.kicker}
               </span>
-              <h3 className="text-xl sm:text-2xl font-black text-[#0B2B43] mt-1">
+              <h3 className="text-lg sm:text-2xl font-black text-[#0B2B43] mt-1">
                 {t.sizeChart.title}
               </h3>
               <p className="text-xs text-slate-500 mt-1">
@@ -414,60 +416,62 @@ export default function Products() {
               </p>
             </div>
 
-            <div className="p-6 overflow-x-auto">
-              <table className="w-full text-center border-collapse border border-slate-200 text-xs sm:text-sm">
-                <thead>
-                  <tr className="bg-slate-100 text-[#0B2B43] font-black">
-                    <th className="border border-slate-200 py-3 px-3 text-left">{t.sizeChart.standardRegion}</th>
-                    {internationalSizeGuide.map((item) => (
-                      <th
-                        key={item.standard}
-                        className={`border border-slate-200 py-3 px-2 ${
-                          ["XS", "M", "XL"].includes(item.standard)
-                            ? "bg-emerald-50 text-emerald-800"
-                            : ""
-                        }`}
-                      >
-                        {item.standard}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-200 font-semibold text-slate-700">
-                  <tr className="hover:bg-slate-50 transition-colors">
-                    <td className="border border-slate-200 py-3 px-3 text-left font-bold text-slate-900 bg-slate-50/50">
-                      {t.sizeChart.usaRow}
-                    </td>
-                    {internationalSizeGuide.map((item) => (
-                      <td key={item.standard} className="border border-slate-200 py-3 px-2 font-mono">
-                        {item.usa}
+            <div className="p-4 sm:p-6 overflow-y-auto flex-1">
+              <div className="overflow-x-auto">
+                <table className="w-full text-center border-collapse border border-slate-200 text-xs sm:text-sm">
+                  <thead>
+                    <tr className="bg-slate-100 text-[#0B2B43] font-black">
+                      <th className="border border-slate-200 py-2.5 sm:py-3 px-2 sm:px-3 text-left whitespace-nowrap">{t.sizeChart.standardRegion}</th>
+                      {internationalSizeGuide.map((item) => (
+                        <th
+                          key={item.standard}
+                          className={`border border-slate-200 py-2.5 sm:py-3 px-2 ${
+                            ["XS", "M", "XL"].includes(item.standard)
+                              ? "bg-emerald-50 text-emerald-800"
+                              : ""
+                          }`}
+                        >
+                          {item.standard}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200 font-semibold text-slate-700">
+                    <tr className="hover:bg-slate-50 transition-colors">
+                      <td className="border border-slate-200 py-2.5 sm:py-3 px-2 sm:px-3 text-left font-bold text-slate-900 bg-slate-50/50 whitespace-nowrap">
+                        {t.sizeChart.usaRow}
                       </td>
-                    ))}
-                  </tr>
+                      {internationalSizeGuide.map((item) => (
+                        <td key={item.standard} className="border border-slate-200 py-2.5 sm:py-3 px-2 font-mono">
+                          {item.usa}
+                        </td>
+                      ))}
+                    </tr>
 
-                  <tr className="hover:bg-slate-50 transition-colors">
-                    <td className="border border-slate-200 py-3 px-3 text-left font-bold text-slate-900 bg-slate-50/50">
-                      {t.sizeChart.ukAuRow}
-                    </td>
-                    {internationalSizeGuide.map((item) => (
-                      <td key={item.standard} className="border border-slate-200 py-3 px-2 font-mono">
-                        {item.uk_au}
+                    <tr className="hover:bg-slate-50 transition-colors">
+                      <td className="border border-slate-200 py-2.5 sm:py-3 px-2 sm:px-3 text-left font-bold text-slate-900 bg-slate-50/50 whitespace-nowrap">
+                        {t.sizeChart.ukAuRow}
                       </td>
-                    ))}
-                  </tr>
+                      {internationalSizeGuide.map((item) => (
+                        <td key={item.standard} className="border border-slate-200 py-2.5 sm:py-3 px-2 font-mono">
+                          {item.uk_au}
+                        </td>
+                      ))}
+                    </tr>
 
-                  <tr className="hover:bg-slate-50 transition-colors">
-                    <td className="border border-slate-200 py-3 px-3 text-left font-bold text-slate-900 bg-slate-50/50">
-                      {t.sizeChart.euRow}
-                    </td>
-                    {internationalSizeGuide.map((item) => (
-                      <td key={item.standard} className="border border-slate-200 py-3 px-2 font-mono">
-                        {item.eu}
+                    <tr className="hover:bg-slate-50 transition-colors">
+                      <td className="border border-slate-200 py-2.5 sm:py-3 px-2 sm:px-3 text-left font-bold text-slate-900 bg-slate-50/50 whitespace-nowrap">
+                        {t.sizeChart.euRow}
                       </td>
-                    ))}
-                  </tr>
-                </tbody>
-              </table>
+                      {internationalSizeGuide.map((item) => (
+                        <td key={item.standard} className="border border-slate-200 py-2.5 sm:py-3 px-2 font-mono">
+                          {item.eu}
+                        </td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
               <div className="mt-4 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 leading-relaxed">
                 <Rich text={t.sizeChart.customNote} strongClassName="text-slate-800" />
@@ -478,7 +482,7 @@ export default function Products() {
               <button
                 type="button"
                 onClick={() => setShowSizeModal(false)}
-                className="px-5 py-2.5 rounded-lg bg-[#0B2B43] hover:bg-emerald-600 text-white text-xs font-bold transition cursor-pointer"
+                className="px-5 py-2 rounded-lg bg-[#0B2B43] hover:bg-emerald-600 text-white text-xs font-bold transition cursor-pointer"
               >
                 {t.sizeChart.closeChart}
               </button>
@@ -492,25 +496,25 @@ export default function Products() {
           ৫. স্যাম্পল ইনকোয়ারি পপআপ (MODAL)
       ══════════════════════════════════════════════════════════════════ */}
       {selectedProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden max-h-[92vh] flex flex-col">
             
             <button
               onClick={() => setSelectedProduct(null)}
-              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition cursor-pointer"
+              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition cursor-pointer z-10"
             >
               <X className="w-4 h-4" />
             </button>
 
-            <div className="p-6 bg-slate-50 border-b border-slate-100">
+            <div className="p-5 sm:p-6 bg-slate-50 border-b border-slate-100">
               <span className="text-[10px] font-bold tracking-widest text-emerald-600 uppercase">
                 {t.products.sampleTechpackRequest}
               </span>
-              <h3 className="text-xl font-black text-[#0B2B43] mt-1">
+              <h3 className="text-lg sm:text-xl font-black text-[#0B2B43] mt-1">
                 {selectedProduct.name}
               </h3>
 
-              <div className="flex items-center gap-4 mt-3 p-3 rounded-xl bg-white border border-slate-200 text-xs shadow-xs">
+              <div className="flex items-center gap-3 sm:gap-4 mt-3 p-3 rounded-xl bg-white border border-slate-200 text-xs shadow-xs">
                 <img
                   src={selectedProduct.image}
                   alt={selectedProduct.name}
@@ -530,7 +534,7 @@ export default function Products() {
               </div>
             </div>
 
-            <div className="p-6">
+            <div className="p-5 sm:p-6 overflow-y-auto flex-1">
               {isSubmitted ? (
                 <div className="py-8 text-center space-y-3">
                   <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center">
@@ -544,7 +548,7 @@ export default function Products() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">
@@ -608,7 +612,7 @@ export default function Products() {
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-3 sm:py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-98"
                   >
                     <Send className="w-3.5 h-3.5" />
                     <span>{t.products.form.submit}</span>

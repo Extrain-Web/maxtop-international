@@ -21,7 +21,7 @@ export default function WhyChooseUs() {
     setActiveCardIndex((prev) => (prev === cards.length - 1 ? 0 : prev + 1));
 
   return (
-    <section id="why-us" className="py-16 lg:py-24 bg-[#F8FAFC] border-b border-slate-200">
+    <section id="why-us" className="py-16 bg-gradient-to-b from-teal-50/60 via-white to-cyan-50/50 border-b border-slate-200 font-sans relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
         <div>
           {/* হেডার */}

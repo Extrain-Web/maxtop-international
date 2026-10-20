@@ -73,7 +73,7 @@ export default function AboutUs() {
     "text-slate-700",
   ];
   return (
-    <section id="about" className="py-12 sm:py-16 lg:py-20 bg-[#F8FAFC] overflow-x-hidden font-sans">
+    <section id="about" className="py-12 bg-gradient-to-b from-blue-100/60 via-sky-50/50 to-indigo-50/40 border-t border-slate-200 font-sans relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14 sm:space-y-20 lg:space-y-28">
         
         {/* ══════════════════════════════════════════════════════════════════

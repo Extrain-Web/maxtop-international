@@ -44,12 +44,9 @@ const vazirmatn = Vazirmatn({
 
 // ৩. আন্তর্জাতিক বায়ারদের জন্য হাই-র‍্যাংকিং এসইও মেটাডাটা
 export const metadata: Metadata = {
-  title: {
-    default: "NexThread Global | Apparel Sourcing Agent & Garments Buying House",
-    template: "%s | NexThread Global",
-  },
+  title: "Maxtop International Ltd. | Apparel Sourcing & Buying House",
   description:
-    "Premier apparel sourcing agent and registered garment buying house in Bangladesh. Connecting global fashion brands with BSCI, OEKO-TEX, WRAP, and GOTS certified factories. Low MOQ from 500 units.",
+    "Premier apparel sourcing agency and registered garments buying house in Dhaka, Bangladesh. Exporting Knitwear, Woven, Denim, and Sustainable Apparel globally.",
   keywords: [
     "apparel sourcing agent Bangladesh",
     "garments buying house Dhaka",
