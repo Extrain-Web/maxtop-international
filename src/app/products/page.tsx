@@ -238,10 +238,10 @@ export default function ProductsPage() {
             {/* জেন্ডার ট্যাব */}
             <div className="flex items-center gap-2 flex-wrap">
               {[
-                { id: "all", label: "ALL COLLECTION" },
-                { id: "men", label: "MEN" },
-                { id: "women", label: "WOMEN" },
-                { id: "kids", label: "KIDS" },
+                { id: "all", label: t.products.tabs.all },
+                { id: "men", label: t.products.tabs.men },
+                { id: "women", label: t.products.tabs.women },
+                { id: "kids", label: t.products.tabs.kids },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -265,14 +265,14 @@ export default function ProductsPage() {
                 className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-300 transition shadow-2xs cursor-pointer"
               >
                 <Ruler className="w-3.5 h-3.5 text-emerald-600" />
-                <span>📐 Size Chart</span>
+                <span>{t.products.sizeChartBtn}</span>
               </button>
 
               <div className="relative w-full sm:w-64">
                 <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
-                  placeholder="Search fabric or style..."
+                  placeholder={t.productsPage.searchPlaceholder}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-9 pr-4 py-2.5 text-xs rounded-xl bg-white border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 shadow-2xs"
@@ -285,9 +285,10 @@ export default function ProductsPage() {
           {/* স্ট্যাটাস বার: কতগুলো প্রোডাক্ট দেখাচ্ছে */}
           <div className="pt-3 flex items-center justify-between text-xs text-slate-500">
             <span>
-              Showing <strong className="text-[#0B2B43]">{filteredProducts.length}</strong> styles in{" "}
+              {t.productsPage.showingPrefix}{" "}
+              <strong className="text-[#0B2B43]">{filteredProducts.length}</strong> {t.productsPage.stylesIn}{" "}
               <strong className="text-emerald-700">
-                {selectedCatId === "all" ? "All Divisions" : activeCategory?.name}
+                {selectedCatId === "all" ? t.productsPage.allDivisions : activeCategory?.name}
               </strong>
             </span>
             {selectedCatId !== "all" && (
@@ -295,7 +296,7 @@ export default function ProductsPage() {
                 onClick={() => handleCategorySelect("all")}
                 className="text-emerald-700 font-bold hover:underline cursor-pointer"
               >
-                &larr; Switch back to All Products
+                {t.productsPage.switchBack}
               </button>
             )}
           </div>
@@ -306,9 +307,9 @@ export default function ProductsPage() {
           {filteredProducts.length === 0 ? (
             <div className="py-16 text-center bg-white rounded-3xl border border-dashed border-slate-300 p-8">
               <Layers className="w-10 h-10 text-slate-400 mx-auto mb-3" />
-              <h3 className="text-lg font-bold text-slate-800">No styles found for this filter</h3>
+              <h3 className="text-lg font-bold text-slate-800">{t.productsPage.noResultsTitle}</h3>
               <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-                We have over 50+ archived styles for this category. Send us your tech-pack for instant custom sampling.
+                {t.productsPage.noResultsText}
               </p>
               <button
                 onClick={() => {
@@ -318,7 +319,7 @@ export default function ProductsPage() {
                 }}
                 className="mt-4 px-5 py-2.5 rounded-xl bg-[#0B2B43] text-white text-xs font-bold transition hover:bg-emerald-600"
               >
-                Reset All Filters
+                {t.productsPage.resetFilters}
               </button>
             </div>
           ) : (
@@ -347,7 +348,7 @@ export default function ProductsPage() {
                           loading="lazy"
                         />
                         <span className="absolute top-3 left-3 bg-[#0B2B43]/85 text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md backdrop-blur-xs shadow-xs">
-                          {item.audience}
+                          {t.products.audience[item.audience]}
                         </span>
                       </div>
 
@@ -382,7 +383,7 @@ export default function ProductsPage() {
                           {/* কালার প্যালেট */}
                           <div className="flex items-center gap-3">
                             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                              Colors:
+                              {t.products.colors}
                             </span>
                             <div className="flex items-center gap-2">
                               {productColors.map((color: string, i: number) => (
@@ -390,7 +391,7 @@ export default function ProductsPage() {
                                   key={i}
                                   className="w-4 h-4 rounded-full border border-slate-300 shadow-2xs hover:scale-110 transition-transform"
                                   style={{ backgroundColor: color }}
-                                  title={`Color option ${i + 1}`}
+                                  title={`${t.products.colorOption} ${i + 1}`}
                                 />
                               ))}
                             </div>
@@ -402,7 +403,7 @@ export default function ProductsPage() {
                             {/* টপ রো: SIZES লেবেল + রিজিয়ন সুইচ ক্যাপসুল + Chart বাটন */}
                             <div className="flex items-center justify-between gap-2">
                               <span className="text-[11px] font-black text-slate-700 uppercase tracking-wider">
-                                Sizes:
+                                {t.products.sizes}
                               </span>
 
                               {/* ৪টি আন্তর্জাতিক মার্কেট বাটন */}
@@ -432,7 +433,7 @@ export default function ProductsPage() {
                                 className="text-[11px] font-bold text-emerald-700 hover:text-emerald-800 hover:underline flex items-center gap-1 cursor-pointer"
                               >
                                 <Ruler className="w-3.5 h-3.5 text-emerald-600" />
-                                <span>Chart</span>
+                                <span>{t.products.chart}</span>
                               </button>
                             </div>
 
@@ -457,7 +458,7 @@ export default function ProductsPage() {
                             </div>
 
                             <p className="text-[10px] text-slate-400 font-medium pt-0.5">
-                              * Click <strong>US</strong>, <strong>UK</strong>, <strong>EU</strong>, or <strong>AU</strong> to see converted measurements.
+                              <Rich text={t.products.clickRegionNote} />
                             </p>
                           </div>
 
@@ -471,7 +472,7 @@ export default function ProductsPage() {
                         onClick={() => setInquiryProduct(item)}
                         className="w-full py-3.5 rounded-xl bg-[#0B2B43] hover:bg-emerald-600 text-white text-xs sm:text-sm font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                       >
-                        <span>Inquire Sample / Spec</span>
+                        <span>{t.products.inquireSampleSpec}</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -485,13 +486,13 @@ export default function ProductsPage() {
           <div className="mt-16 bg-gradient-to-r from-[#071D2E] to-[#0B2B43] rounded-3xl p-8 sm:p-10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="space-y-2 text-center md:text-left">
               <div className="inline-flex items-center gap-1.5 text-emerald-400 text-xs font-bold uppercase tracking-wider">
-                <Sparkles className="w-4 h-4" /> Custom R&amp;D Development
+                <Sparkles className="w-4 h-4" /> {t.productsPage.customRndBadge}
               </div>
               <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-                Need Custom Fabrication or Private Label Trims?
+                {t.productsPage.customTitle}
               </h3>
               <p className="text-xs sm:text-sm text-slate-300 max-w-xl">
-                Send us your Pantone specs, artwork, and measurements. Our in-house merchandising team will develop fast-track prototype samples in 7–10 days.
+                {t.productsPage.customText}
               </p>
             </div>
 
@@ -500,7 +501,7 @@ export default function ProductsPage() {
                 href="/contact"
                 className="px-7 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-[#071D2E] font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-emerald-500/25 flex items-center gap-2"
               >
-                <span>Submit Tech-Pack (RFQ)</span>
+                <span>{t.productsPage.submitTechpack}</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -521,13 +522,13 @@ export default function ProductsPage() {
 
               <div className="p-6 bg-slate-50 border-b border-slate-200">
                 <span className="text-[10px] font-bold tracking-widest text-emerald-600 uppercase">
-                  International Apparel Sizing Conversion
+                  {t.sizeChart.kicker}
                 </span>
                 <h3 className="text-xl sm:text-2xl font-black text-[#0B2B43] mt-1">
-                  US · UK · EU · AU Sizing Standard
+                  {t.sizeChart.title}
                 </h3>
                 <p className="text-xs text-slate-500 mt-1">
-                  Standard export grading applied to all Maxtop woven, knit, and denim product lines.
+                  {t.sizeChart.subtitle}
                 </p>
               </div>
 
@@ -535,7 +536,7 @@ export default function ProductsPage() {
                 <table className="w-full text-center border-collapse border border-slate-200 text-xs sm:text-sm">
                   <thead>
                     <tr className="bg-slate-100 text-[#0B2B43] font-black">
-                      <th className="border border-slate-200 py-3 px-3 text-left">Standard Region</th>
+                      <th className="border border-slate-200 py-3 px-3 text-left">{t.sizeChart.standardRegion}</th>
                       {internationalSizeGuide.map((item) => (
                         <th
                           key={item.standard}
@@ -553,7 +554,7 @@ export default function ProductsPage() {
                   <tbody className="divide-y divide-slate-200 font-semibold text-slate-700">
                     <tr className="hover:bg-slate-50 transition-colors">
                       <td className="border border-slate-200 py-3 px-3 text-left font-bold text-slate-900 bg-slate-50/50">
-                        USA (United States)
+                        {t.sizeChart.usaRow}
                       </td>
                       {internationalSizeGuide.map((item) => (
                         <td key={item.standard} className="border border-slate-200 py-3 px-2 font-mono">
@@ -564,7 +565,7 @@ export default function ProductsPage() {
 
                     <tr className="hover:bg-slate-50 transition-colors">
                       <td className="border border-slate-200 py-3 px-3 text-left font-bold text-slate-900 bg-slate-50/50">
-                        UK &amp; Australia (AU)
+                        {t.sizeChart.ukAuRow}
                       </td>
                       {internationalSizeGuide.map((item) => (
                         <td key={item.standard} className="border border-slate-200 py-3 px-2 font-mono">
@@ -575,7 +576,7 @@ export default function ProductsPage() {
 
                     <tr className="hover:bg-slate-50 transition-colors">
                       <td className="border border-slate-200 py-3 px-3 text-left font-bold text-slate-900 bg-slate-50/50">
-                        EU (European Union)
+                        {t.sizeChart.euRow}
                       </td>
                       {internationalSizeGuide.map((item) => (
                         <td key={item.standard} className="border border-slate-200 py-3 px-2 font-mono">
@@ -587,7 +588,7 @@ export default function ProductsPage() {
                 </table>
 
                 <div className="mt-4 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 leading-relaxed">
-                  💡 <strong className="text-slate-800">Custom Tech-Packs:</strong> We strictly follow buyers custom grading specs, tolerance limits (±0.5cm), and proportion charts as per your Purchase Order (PO) sheet.
+                  <Rich text={t.sizeChart.customNote} strongClassName="text-slate-800" />
                 </div>
               </div>
 
@@ -597,7 +598,7 @@ export default function ProductsPage() {
                   onClick={() => setShowSizeModal(false)}
                   className="px-5 py-2.5 rounded-lg bg-[#0B2B43] hover:bg-emerald-600 text-white text-xs font-bold transition cursor-pointer"
                 >
-                  Close Chart
+                  {t.sizeChart.closeChart}
                 </button>
               </div>
 
@@ -618,10 +619,10 @@ export default function ProductsPage() {
 
               <div className="p-6 bg-slate-50 border-b border-slate-100">
                 <span className="text-[10px] font-bold tracking-widest text-emerald-600 uppercase">
-                  Sample Request Protocol
+                  {t.products.sampleProtocol}
                 </span>
                 <h3 className="text-xl font-extrabold text-[#0B2B43] mt-1">
-                  Request Sample: {inquiryProduct.name}
+                  {t.products.requestSamplePrefix} {inquiryProduct.name}
                 </h3>
                 <div className="flex items-center gap-3 mt-3 p-2.5 rounded-xl bg-white border border-slate-200 text-xs">
                   <img
@@ -632,7 +633,7 @@ export default function ProductsPage() {
                   <div className="flex-1 truncate">
                     <span className="font-bold text-slate-800">{inquiryProduct.material}</span>
                     <div className="text-[11px] text-slate-500 mt-0.5">
-                      Weight: <strong className="text-slate-800">{inquiryProduct.gsm}</strong> · Graded: US/UK/EU/AU
+                      {t.products.weightLabel} <strong className="text-slate-800">{inquiryProduct.gsm}</strong> · {t.products.gradedLabel}
                     </div>
                   </div>
                 </div>
@@ -645,10 +646,10 @@ export default function ProductsPage() {
                       <CheckCircle2 className="w-6 h-6" />
                     </div>
                     <h4 className="text-lg font-bold text-[#0B2B43]">
-                      Sample Request Received!
+                      {t.products.sampleReceivedTitle}
                     </h4>
                     <p className="text-xs text-slate-500 max-w-xs mx-auto">
-                      Our merchandising desk in Dhaka will review your request and contact you within 24 hours.
+                      {t.products.sampleReceivedText}
                     </p>
                   </div>
                 ) : (
@@ -656,23 +657,23 @@ export default function ProductsPage() {
                     <div className="grid grid-cols-2 gap-3">
                       <div>
                         <label className="block text-xs font-bold text-slate-700 mb-1">
-                          Your Name *
+                          {t.products.form.name}
                         </label>
                         <input
                           type="text"
                           required
-                          placeholder="e.g. David Miller"
+                          placeholder={t.products.form.namePh2}
                           className="w-full px-3.5 py-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         />
                       </div>
                       <div>
                         <label className="block text-xs font-bold text-slate-700 mb-1">
-                          Business Email *
+                          {t.products.form.email}
                         </label>
                         <input
                           type="email"
                           required
-                          placeholder="david@brand.com"
+                          placeholder={t.products.form.emailPh2}
                           className="w-full px-3.5 py-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         />
                       </div>
@@ -681,35 +682,35 @@ export default function ProductsPage() {
                     <div className="grid grid-cols-2 gap-3">
                       <div>
                         <label className="block text-xs font-bold text-slate-700 mb-1">
-                          Company / Brand *
+                          {t.products.form.company}
                         </label>
                         <input
                           type="text"
                           required
-                          placeholder="e.g. Next Retail Ltd"
+                          placeholder={t.products.form.companyPh}
                           className="w-full px-3.5 py-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         />
                       </div>
                       <div>
                         <label className="block text-xs font-bold text-slate-700 mb-1">
-                          Target Sizing Standard
+                          {t.products.form.targetSizing}
                         </label>
                         <select className="w-full px-3.5 py-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
-                          <option>USA Standard Sizing</option>
-                          <option>UK / Australia Sizing</option>
-                          <option>European (EU) Sizing</option>
-                          <option>Custom Buyer Tech-Pack Spec</option>
+                          <option>{t.products.form.sizingUsa}</option>
+                          <option>{t.products.form.sizingUk}</option>
+                          <option>{t.products.form.sizingEu}</option>
+                          <option>{t.products.form.sizingCustom}</option>
                         </select>
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">
-                        Specific Colorways / Target Notes
+                        {t.products.form.colorNotes2}
                       </label>
                       <textarea
                         rows={2}
-                        placeholder="Mention colorways, target delivery timeline, or branding requirements..."
+                        placeholder={t.products.form.colorNotesPh2}
                         className="w-full px-3.5 py-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       ></textarea>
                     </div>
@@ -719,7 +720,7 @@ export default function ProductsPage() {
                       className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <Send className="w-3.5 h-3.5" />
-                      <span>Submit Sample Request</span>
+                      <span>{t.products.form.submit}</span>
                     </button>
                   </form>
                 )}

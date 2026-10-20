@@ -1,21 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Sparkles,
-  ArrowRight,
-  Check,
-  CheckCircle2,
-  Clock,
-  Layers,
-  Scissors,
-  Shirt,
-  ShieldCheck,
-  Award,
-  Ship,
-  FileSpreadsheet,
-  TestTube2,
-} from "lucide-react";
+import { Sparkles, ArrowRight, Check, CheckCircle2 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useI18n } from "@/i18n/I18nProvider";
