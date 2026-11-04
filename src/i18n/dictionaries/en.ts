@@ -367,7 +367,7 @@ export const en = {
       "Sustainable Organic",
     ],
     hqTitle: "Dhaka Headquarters",
-    address: "Sector #03, Uttara, Dhaka-1230, Bangladesh",
+    address: "Uttara sector 5 Road no. 4 . House 5.",
     hours: "Mon – Sat: 9:00 AM – 7:00 PM (GMT+6)",
     copyright:
       "© 2026 **Maxtop International Ltd.** All rights reserved. Registered Garments Buying House in Bangladesh.",

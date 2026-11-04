@@ -78,7 +78,7 @@ export default function Footer() {
 
                 {/* WhatsApp */}
                 <a
-                  href="https://wa.me/8801711000000"
+                  href="https://wa.me/+8801714665444"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="WhatsApp"
@@ -181,14 +181,14 @@ export default function Footer() {
                   href="mailto:sourcing@maxtopintl.com"
                   className="hover:text-emerald-400 hover:underline transition"
                 >
-                  sourcing@maxtopintl.com
+                  maxtopinternational7@gmail.com
                 </a>
               </div>
 
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span className="font-medium text-slate-200">
-                  +880 1711-000000
+                 +8801714665444
                 </span>
               </div>
 
