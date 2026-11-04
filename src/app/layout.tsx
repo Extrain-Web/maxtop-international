@@ -58,19 +58,19 @@ export const metadata: Metadata = {
     "low MOQ garment sourcing",
     "AQL 2.5 quality inspection",
   ],
-  authors: [{ name: "NexThread Global Sourcing Ltd" }],
+  authors: [{ name: "Maxtop International Ltd." }],
   openGraph: {
-    title: "NexThread Global | Sustainable Apparel Sourcing from Bangladesh",
+    title: "Maxtop International | Sustainable Apparel Sourcing from Bangladesh",
     description:
       "End-to-end garment sourcing solutions: R&D sampling, transparent FOB costing, certified factory production, and global shipping.",
-    url: "https://nexthreadsourcing.com",
-    siteName: "NexThread Global",
+    url: "https://maxtopinternational.com",
+    siteName: "Maxtop International",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "NexThread Global | Apparel Sourcing & Buying House",
+    title: "Maxtop International | Apparel Sourcing & Buying House",
     description:
       "Certified sustainable garment manufacturing partner connecting global fashion brands with Bangladesh.",
   },
