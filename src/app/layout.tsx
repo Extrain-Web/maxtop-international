@@ -68,6 +68,14 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/images/maxtop-logo.png", type: "image/png" },
+    ],
+    shortcut: "/icon.svg",
+    apple: "/images/maxtop-logo.png",
+  },
   twitter: {
     card: "summary_large_image",
     title: "Maxtop International | Apparel Sourcing & Buying House",

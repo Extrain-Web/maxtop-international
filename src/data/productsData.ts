@@ -1,7 +1,5 @@
 // src/data/productsData.ts
-// Non-translatable product assets. Translatable text (category name/fullName/desc
-// and product name/desc/material) lives in the i18n dictionaries under
-// `productCategories` and `productItems`, merged by index inside the components.
+// Real Apparel & Sourcing Assets matching SiATEX-style OEM/ODM manufacturing standards.
 
 export interface ProductCategory {
   id: string;
@@ -34,127 +32,124 @@ export type ProductCategoryAsset = Pick<
 
 export type ProductItemAsset = Omit<ProductItem, "name" | "desc" | "material">;
 
-// ── ১. ১২টি ক্যাটাগরির অ্যাসেট (ছবি) ──
+// ── ১. ১২টি আসল গার্মেন্টস ক্যাটাগরির অ্যাসেট (ক্লিন স্টুডিও অ্যাপারেল ছবি) ──
 export const productCategoryAssets: ProductCategoryAsset[] = [
   {
-    id: "knit",
-    coverImg: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80",
-    bannerImg: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1600&q=80",
+    id: "tshirts",
+    coverImg: "/images/1.jpg",
+    bannerImg: "/images/8.jpg",
+  },
+  {
+    id: "polos",
+    coverImg: "/images/5.jpg",
+    bannerImg: "/images/10.jpg",
+  },
+  {
+    id: "hoodies",
+    coverImg: "/images/12.png",
+    bannerImg: "/images/11.jpg",
   },
   {
     id: "woven",
-    coverImg: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80",
-    bannerImg: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=1600&q=80",
+    coverImg: "/images/13.jpg",
+    bannerImg: "/images/13.jpg",
   },
   {
     id: "denim",
-    coverImg: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80",
-    bannerImg: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1600&q=80",
+    coverImg: "/images/18.jpg",
+    bannerImg: "/images/19.jpg",
   },
   {
-    id: "sweater",
-    coverImg: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=800&q=80",
-    bannerImg: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=1600&q=80",
+    id: "pants",
+    coverImg: "/images/21.jpg",
+    bannerImg: "/images/20.jpg",
+  },
+  {
+    id: "sweaters",
+    coverImg: "/images/14.avif",
+    bannerImg: "/images/15.avif",
   },
   {
     id: "outerwear",
-    coverImg: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80",
-    bannerImg: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    id: "workwear",
-    coverImg: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80",
-    bannerImg: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1600&q=80",
+    coverImg: "/images/24.jpg",
+    bannerImg: "/images/24.jpg",
   },
   {
     id: "activewear",
-    coverImg: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80",
-    bannerImg: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1600&q=80",
+    coverImg: "/images/22.jpg",
+    bannerImg: "/images/22.jpg",
   },
   {
-    id: "sportswear",
-    coverImg: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80",
-    bannerImg: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1600&q=80",
+    id: "sleepwear",
+    coverImg: "/images/23.jpg",
+    bannerImg: "/images/23.jpg",
   },
   {
-    id: "rainwear",
-    coverImg: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80",
-    bannerImg: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1600&q=80",
+    id: "kids",
+    coverImg: "/images/4.jpg",
+    bannerImg: "/images/4.jpg",
   },
   {
-    id: "lingerie",
-    coverImg: "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=800&q=80",
-    bannerImg: "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    id: "baggage",
-    coverImg: "https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=800&q=80",
-    bannerImg: "https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    id: "handicraft",
-    coverImg: "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80",
-    bannerImg: "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=1600&q=80",
+    id: "workwear",
+    coverImg: "/images/25.jpg",
+    bannerImg: "/images/25.jpg",
   },
 ];
 
-// ── ২. প্রোডাক্ট অ্যাসেট (ছবি, কালার, সাইজ, GSM — টেক্সট i18n ডিকশনারিতে) ──
+// ── ২. প্রোডাক্ট অ্যাসেট (ক্লিন হ্যাঙ্গার / ফ্ল্যাট-লে স্টুডিও ফটো, কোনো ফেস বা জিম বিশৃঙ্খলা নেই) ──
 export const productAssets: ProductItemAsset[] = [
-  // 1. KNIT
-  { id: 101, categoryId: "knit", audience: "men", gsm: "320 GSM", moq: "500 Pcs", image: "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&w=800&q=80", colors: ["#1E293B", "#334155", "#64748B", "#0F172A"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
-  { id: 102, categoryId: "knit", audience: "women", gsm: "180 GSM", moq: "500 Pcs", image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80", colors: ["#FFFFFF", "#0F172A", "#F43F5E", "#E2E8F0"], sizes: ["XS", "S", "M", "L", "XL"], isFeatured: true },
-  { id: 103, categoryId: "knit", audience: "men", gsm: "220 GSM", moq: "600 Pcs", image: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=800&q=80", colors: ["#FFFFFF", "#0B2B43", "#059669", "#DC2626", "#0F172A"], sizes: ["S", "M", "L", "XL", "2XL", "3XL"], isFeatured: true },
-  { id: 104, categoryId: "knit", audience: "kids", gsm: "160 GSM", moq: "500 Pcs", image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=800&q=80", colors: ["#38BDF8", "#F472B6", "#FBBF24", "#34D399", "#FFFFFF"], sizes: ["2Y", "4Y", "6Y", "8Y", "10Y"], isFeatured: false },
+  // 1. T-SHIRTS & TANKS
+  { id: 101, categoryId: "tshirts", audience: "men", gsm: "220 GSM", moq: "500 Pcs", image: "/images/1.jpg", colors: ["#0F172A", "#FFFFFF", "#334155", "#059669"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
+  { id: 102, categoryId: "tshirts", audience: "women", gsm: "180 GSM", moq: "500 Pcs", image: "/images/2.jpg", colors: ["#FFFFFF", "#F43F5E", "#E2E8F0", "#0F172A"], sizes: ["XS", "S", "M", "L", "XL"], isFeatured: true },
+  { id: 103, categoryId: "tshirts", audience: "men", gsm: "260 GSM", moq: "600 Pcs", image: "/images/3.jpg", colors: ["#18181B", "#27272A", "#52525B", "#FFFFFF"], sizes: ["S", "M", "L", "XL", "2XL", "3XL"], isFeatured: true },
+  { id: 104, categoryId: "tshirts", audience: "kids", gsm: "160 GSM", moq: "500 Pcs", image: "/images/4.jpg", colors: ["#38BDF8", "#F472B6", "#FBBF24", "#FFFFFF"], sizes: ["2Y", "4Y", "6Y", "8Y", "10Y"], isFeatured: false },
 
-  // 2. WOVEN
-  { id: 201, categoryId: "woven", audience: "men", gsm: "160 GSM", moq: "600 Pcs", image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80", colors: ["#FFFFFF", "#93C5FD", "#FDBA74", "#CBD5E1"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
-  { id: 202, categoryId: "woven", audience: "women", gsm: "140 GSM", moq: "500 Pcs", image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=800&q=80", colors: ["#FEF3C7", "#FFFFFF", "#A7F3D0", "#E2E8F0"], sizes: ["XS", "S", "M", "L", "XL"], isFeatured: false },
-  { id: 203, categoryId: "woven", audience: "men", gsm: "260 GSM", moq: "800 Pcs", image: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=800&q=80", colors: ["#D97706", "#1E293B", "#475569", "#78716C"], sizes: ["30", "32", "34", "36", "38"], isFeatured: true },
-  { id: 204, categoryId: "woven", audience: "kids", gsm: "180 GSM", moq: "600 Pcs", image: "https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?auto=format&fit=crop&w=800&q=80", colors: ["#DC2626", "#2563EB", "#059669"], sizes: ["4Y", "6Y", "8Y", "10Y", "12Y"], isFeatured: false },
+  // 2. POLO SHIRTS
+  { id: 201, categoryId: "polos", audience: "men", gsm: "220 GSM", moq: "500 Pcs", image: "/images/5.jpg", colors: ["#0B2B43", "#FFFFFF", "#B91C1C", "#047857"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
+  { id: 202, categoryId: "polos", audience: "men", gsm: "180 GSM", moq: "600 Pcs", image: "/images/9.jpg", colors: ["#1E293B", "#38BDF8", "#FFFFFF", "#64748B"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: false },
+  { id: 203, categoryId: "polos", audience: "women", gsm: "200 GSM", moq: "500 Pcs", image: "/images/10.jpg", colors: ["#FFFFFF", "#F43F5E", "#0F172A", "#CBD5E1"], sizes: ["XS", "S", "M", "L"], isFeatured: false },
 
-  // 3. DENIM
-  { id: 301, categoryId: "denim", audience: "men", gsm: "13.5 oz / 380 GSM", moq: "500 Pcs", image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=800&q=80", colors: ["#1E3A8A", "#172554", "#475569"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
-  { id: 302, categoryId: "denim", audience: "women", gsm: "10.5 oz / 300 GSM", moq: "800 Pcs", image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=80", colors: ["#1E3A8A", "#0F172A", "#64748B"], sizes: ["26", "28", "30", "32", "34"], isFeatured: false },
-  { id: 303, categoryId: "denim", audience: "men", gsm: "12.5 oz / 350 GSM", moq: "800 Pcs", image: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80", colors: ["#1E40AF", "#1E293B", "#94A3B8"], sizes: ["30", "32", "34", "36", "38"], isFeatured: true },
-  { id: 304, categoryId: "denim", audience: "kids", gsm: "9.5 oz / 270 GSM", moq: "600 Pcs", image: "https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&w=800&q=80", colors: ["#2563EB", "#1E3A8A"], sizes: ["4Y", "6Y", "8Y", "10Y"], isFeatured: false },
+  // 3. HOODIES & SWEATSHIRTS
+  { id: 301, categoryId: "hoodies", audience: "men", gsm: "340 GSM", moq: "500 Pcs", image: "/images/11.jpg", colors: ["#1E293B", "#475569", "#78716C", "#0F172A"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
+  { id: 302, categoryId: "hoodies", audience: "women", gsm: "300 GSM", moq: "500 Pcs", image: "/images/12.png", colors: ["#FEF3C7", "#F1F5F9", "#0F172A", "#FB7185"], sizes: ["XS", "S", "M", "L"], isFeatured: true },
+  { id: 303, categoryId: "hoodies", audience: "men", gsm: "360 GSM", moq: "500 Pcs", image: "/images/6.jpg", colors: ["#0F172A", "#1E3A8A", "#065F46"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: false },
 
-  // 4. SWEATER
-  { id: 401, categoryId: "sweater", audience: "men", gsm: "420 GSM", moq: "500 Pcs", image: "https://images.unsplash.com/photo-1578768079052-aa76e520028b?auto=format&fit=crop&w=800&q=80", colors: ["#D97706", "#1E293B", "#E2E8F0", "#78716C"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
-  { id: 402, categoryId: "sweater", audience: "women", gsm: "340 GSM", moq: "500 Pcs", image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=800&q=80", colors: ["#F59E0B", "#FEF3C7", "#94A3B8", "#1E293B"], sizes: ["XS", "S", "M", "L"], isFeatured: false },
-  { id: 403, categoryId: "sweater", audience: "kids", gsm: "300 GSM", moq: "600 Pcs", image: "https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?auto=format&fit=crop&w=800&q=80", colors: ["#2563EB", "#DC2626", "#FBBF24"], sizes: ["4Y", "6Y", "8Y", "10Y"], isFeatured: false },
+  // 4. WOVEN SHIRTS
+  { id: 401, categoryId: "woven", audience: "men", gsm: "140 GSM", moq: "600 Pcs", image: "/images/13.jpg", colors: ["#FFFFFF", "#93C5FD", "#CBD5E1", "#FDBA74"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
+  { id: 402, categoryId: "woven", audience: "men", gsm: "120 GSM", moq: "600 Pcs", image: "/images/7.jpg", colors: ["#FFFFFF", "#E2E8F0", "#1E3A8A"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
+  { id: 403, categoryId: "woven", audience: "women", gsm: "160 GSM", moq: "500 Pcs", image: "/images/16.avif", colors: ["#FEF3C7", "#FFFFFF", "#A7F3D0"], sizes: ["XS", "S", "M", "L"], isFeatured: false },
 
-  // 5. OUTERWEAR
-  { id: 501, categoryId: "outerwear", audience: "men", gsm: "380 GSM", moq: "500 Pcs", image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80", colors: ["#0F172A", "#1E3A8A", "#065F46", "#B91C1C"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
-  { id: 502, categoryId: "outerwear", audience: "women", gsm: "320 GSM", moq: "500 Pcs", image: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80", colors: ["#F43F5E", "#FFFFFF", "#0F172A", "#D97706"], sizes: ["XS", "S", "M", "L"], isFeatured: false },
-  { id: 503, categoryId: "outerwear", audience: "kids", gsm: "280 GSM", moq: "600 Pcs", image: "https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&w=800&q=80", colors: ["#2563EB", "#DC2626", "#059669"], sizes: ["4Y", "6Y", "8Y", "10Y"], isFeatured: false },
+  // 5. DENIM & JEANS
+  { id: 501, categoryId: "denim", audience: "men", gsm: "13.5 oz / 380 GSM", moq: "500 Pcs", image: "/images/18.jpg", colors: ["#1E3A8A", "#172554", "#475569"], sizes: ["30", "32", "34", "36", "38"], isFeatured: true },
+  { id: 502, categoryId: "denim", audience: "women", gsm: "10.5 oz / 300 GSM", moq: "600 Pcs", image: "/images/19.jpg", colors: ["#1E3A8A", "#0F172A", "#64748B"], sizes: ["26", "28", "30", "32", "34"], isFeatured: true },
+  { id: 503, categoryId: "denim", audience: "men", gsm: "12.5 oz / 350 GSM", moq: "500 Pcs", image: "/images/20.jpg", colors: ["#1E40AF", "#1E293B", "#94A3B8"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
 
-  // 6. WORKWEAR
-  { id: 601, categoryId: "workwear", audience: "men", gsm: "320 GSM", moq: "500 Pcs", image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80", colors: ["#FACC15", "#FB923C"], sizes: ["S", "M", "L", "XL", "2XL", "3XL"], isFeatured: false },
-  { id: 602, categoryId: "workwear", audience: "men", gsm: "280 GSM", moq: "800 Pcs", image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80", colors: ["#1E293B", "#334155", "#78716C"], sizes: ["30", "32", "34", "36", "38", "40"], isFeatured: false },
-  { id: 603, categoryId: "workwear", audience: "women", gsm: "260 GSM", moq: "500 Pcs", image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80", colors: ["#0F172A", "#1E3A8A", "#78716C"], sizes: ["XS", "S", "M", "L", "XL"], isFeatured: false },
+  // 6. PANTS & JOGGERS
+  { id: 601, categoryId: "pants", audience: "men", gsm: "300 GSM", moq: "500 Pcs", image: "/images/21.jpg", colors: ["#1E293B", "#475569", "#78716C", "#0F172A"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
+  { id: 602, categoryId: "pants", audience: "men", gsm: "260 GSM", moq: "800 Pcs", image: "/images/22.jpg", colors: ["#D97706", "#1E293B", "#475569"], sizes: ["30", "32", "34", "36", "38"], isFeatured: false },
+  { id: 603, categoryId: "pants", audience: "women", gsm: "240 GSM", moq: "500 Pcs", image: "/images/17.avif", colors: ["#0F172A", "#E2E8F0", "#F43F5E"], sizes: ["XS", "S", "M", "L"], isFeatured: false },
 
-  // 7. ACTIVEWEAR
-  { id: 701, categoryId: "activewear", audience: "women", gsm: "260 GSM", moq: "500 Pcs", image: "https://images.unsplash.com/photo-1506152983158-b4a74a01c721?auto=format&fit=crop&w=800&q=80", colors: ["#0F172A", "#475569", "#7C3AED", "#059669"], sizes: ["XS", "S", "M", "L", "XL"], isFeatured: true },
-  { id: 702, categoryId: "activewear", audience: "women", gsm: "240 GSM", moq: "600 Pcs", image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80", colors: ["#F43F5E", "#0F172A", "#FFFFFF", "#38BDF8"], sizes: ["XS", "S", "M", "L"], isFeatured: false },
-  { id: 703, categoryId: "activewear", audience: "men", gsm: "150 GSM", moq: "800 Pcs", image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80", colors: ["#0F172A", "#334155", "#059669", "#38BDF8"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
+  // 7. SWEATERS & KNITWEAR
+  { id: 701, categoryId: "sweaters", audience: "men", gsm: "380 GSM", moq: "500 Pcs", image: "/images/14.avif", colors: ["#D97706", "#1E293B", "#E2E8F0"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
+  { id: 702, categoryId: "sweaters", audience: "women", gsm: "320 GSM", moq: "500 Pcs", image: "/images/15.avif", colors: ["#FEF3C7", "#94A3B8", "#1E293B"], sizes: ["XS", "S", "M", "L"], isFeatured: false },
 
-  // 8. SPORTSWEAR
-  { id: 801, categoryId: "sportswear", audience: "men", gsm: "160 GSM", moq: "500 Pcs", image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80", colors: ["#DC2626", "#2563EB", "#FFFFFF", "#0F172A"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: false },
-  { id: 802, categoryId: "sportswear", audience: "kids", gsm: "220 GSM", moq: "600 Pcs", image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=800&q=80", colors: ["#1E3A8A", "#0F172A", "#DC2626"], sizes: ["6Y", "8Y", "10Y", "12Y"], isFeatured: false },
+  // 8. JACKETS & OUTERWEAR
+  { id: 801, categoryId: "outerwear", audience: "men", gsm: "350 GSM", moq: "500 Pcs", image: "/images/24.jpg", colors: ["#0F172A", "#1E3A8A", "#B91C1C"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
+  { id: 802, categoryId: "outerwear", audience: "women", gsm: "280 GSM", moq: "500 Pcs", image: "/images/17.avif", colors: ["#0F172A", "#F43F5E", "#FFFFFF"], sizes: ["XS", "S", "M", "L"], isFeatured: false },
 
-  // 9. RAINWEAR
-  { id: 901, categoryId: "rainwear", audience: "men", gsm: "280 GSM", moq: "500 Pcs", image: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80", colors: ["#FACC15", "#0F172A", "#065F46"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: false },
-  { id: 902, categoryId: "rainwear", audience: "kids", gsm: "240 GSM", moq: "600 Pcs", image: "https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?auto=format&fit=crop&w=800&q=80", colors: ["#FACC15", "#F43F5E", "#38BDF8"], sizes: ["2Y", "4Y", "6Y", "8Y"], isFeatured: false },
+  // 9. ACTIVEWEAR & SPORTSWEAR
+  { id: 901, categoryId: "activewear", audience: "men", gsm: "160 GSM", moq: "600 Pcs", image: "/images/8.jpg", colors: ["#0F172A", "#2563EB", "#059669"], sizes: ["S", "M", "L", "XL", "2XL"], isFeatured: true },
+  { id: 902, categoryId: "activewear", audience: "women", gsm: "260 GSM", moq: "500 Pcs", image: "/images/22.jpg", colors: ["#0F172A", "#7C3AED", "#475569"], sizes: ["XS", "S", "M", "L"], isFeatured: true },
 
-  // 10. LINGERIE
-  { id: 1001, categoryId: "lingerie", audience: "women", gsm: "19 Momme", moq: "300 Pcs", image: "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=800&q=80", colors: ["#FBCFE8", "#FFFFFF", "#0F172A", "#93C5FD"], sizes: ["XS", "S", "M", "L", "XL"], isFeatured: false },
-  { id: 1002, categoryId: "lingerie", audience: "women", gsm: "180 GSM", moq: "800 Pcs", image: "https://images.unsplash.com/photo-1583846783214-7229a91b20ed?auto=format&fit=crop&w=800&q=80", colors: ["#FDE68A", "#FFFFFF", "#0F172A", "#CBD5E1"], sizes: ["XS", "S", "M", "L"], isFeatured: false },
+  // 10. LOUNGEWEAR & SLEEPWEAR
+  { id: 1001, categoryId: "sleepwear", audience: "women", gsm: "180 GSM", moq: "500 Pcs", image: "/images/23.jpg", colors: ["#FEF3C7", "#FBCFE8", "#FFFFFF"], sizes: ["XS", "S", "M", "L"], isFeatured: false },
+  { id: 1002, categoryId: "sleepwear", audience: "men", gsm: "190 GSM", moq: "500 Pcs", image: "/images/1.jpg", colors: ["#0F172A", "#334155", "#64748B"], sizes: ["S", "M", "L", "XL"], isFeatured: false },
 
-  // 11. BAGGAGE
-  { id: 1101, categoryId: "baggage", audience: "men", gsm: "3.2 KG Empty", moq: "300 Pcs", image: "https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=800&q=80", colors: ["#0F172A", "#475569", "#D97706"], sizes: ["20 Inch", "24 Inch", "28 Inch"], isFeatured: false },
-  { id: 1102, categoryId: "baggage", audience: "men", gsm: "450 GSM", moq: "400 Pcs", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80", colors: ["#78716C", "#1E293B", "#065F46"], sizes: ["45 Liters", "55 Liters"], isFeatured: false },
+  // 11. KIDS & BABYWEAR
+  { id: 1101, categoryId: "kids", audience: "kids", gsm: "180 GSM", moq: "500 Pcs", image: "/images/4.jpg", colors: ["#38BDF8", "#F472B6", "#FBBF24"], sizes: ["0-3M", "3-6M", "6-12M", "12-18M"], isFeatured: true },
+  { id: 1102, categoryId: "kids", audience: "kids", gsm: "160 GSM", moq: "600 Pcs", image: "/images/2.jpg", colors: ["#DC2626", "#2563EB", "#059669"], sizes: ["2Y", "4Y", "6Y", "8Y"], isFeatured: false },
 
-  // 12. HANDICRAFT
-  { id: 1201, categoryId: "handicraft", audience: "women", gsm: "380 GSM", moq: "500 Pcs", image: "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80", colors: ["#D97706", "#78716C", "#FEF3C7"], sizes: ["Standard", "Large"], isFeatured: false },
-  { id: 1202, categoryId: "handicraft", audience: "women", gsm: "Handmade", moq: "400 Pcs", image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80", colors: ["#FEF3C7", "#D97706"], sizes: ["Medium", "Large"], isFeatured: false },
+  // 12. WORKWEAR & UNIFORMS
+  { id: 1201, categoryId: "workwear", audience: "men", gsm: "300 GSM", moq: "500 Pcs", image: "/images/25.jpg", colors: ["#FACC15", "#FB923C"], sizes: ["S", "M", "L", "XL", "2XL", "3XL"], isFeatured: true },
+  { id: 1202, categoryId: "workwear", audience: "men", gsm: "280 GSM", moq: "600 Pcs", image: "/images/25.jpg", colors: ["#1E293B", "#334155", "#78716C"], sizes: ["30", "32", "34", "36", "38"], isFeatured: false },
 ];
