@@ -701,102 +701,122 @@ export const en = {
 
   productCategories: [
     {
-      name: "Knit",
-      fullName: "Knitwear Collection",
-      desc: "100% Combed compact cotton t-shirts, polos, hoodies & joggers",
+      name: "T-Shirts",
+      fullName: "Basic & Custom T-Shirts & Tanks",
+      desc: "100% Combed compact cotton crewnecks, v-necks, oversized & drop-shoulder tees",
+    },
+    {
+      name: "Polos",
+      fullName: "Polo Shirts & Collared Knits",
+      desc: "Classic 100% cotton piqué, dry-fit performance golf polos & tipped collars",
+    },
+    {
+      name: "Hoodies",
+      fullName: "Hoodies & Sweatshirts",
+      desc: "Heavyweight 320-380 GSM brushed fleece pullovers, crewnecks & zip hoodies",
     },
     {
       name: "Woven",
       fullName: "Woven & Casual Shirts",
-      desc: "Yarn-dyed Oxford cotton, linen blends, poplin & formal shirts",
+      desc: "Yarn-dyed Oxford cotton, linen blends, poplin dress shirts & resort tops",
     },
     {
       name: "Denim",
       fullName: "Denim & Jeans Line",
-      desc: "Rigid & stretch 5-pocket denim pants, truckers & enzyme washes",
+      desc: "Rigid & stretch 5-pocket denim pants, truckers, vintage washes & jackets",
     },
     {
-      name: "Sweater",
+      name: "Pants",
+      fullName: "Pants, Joggers & Shorts",
+      desc: "Fleece tapered joggers, French terry sweat shorts & casual cotton chinos",
+    },
+    {
+      name: "Sweaters",
       fullName: "Sweaters & Cardigans",
-      desc: "Gauge 7-12 fine knit, cable pullovers, woolens & cardigans",
+      desc: "Gauge 7-12 fine knit pullovers, cable knits, cotton-wool blends & cardigans",
     },
     {
       name: "Outerwear",
-      fullName: "Outerwear & Puffer Jackets",
-      desc: "Quilted down puffers, waterproof parkas, windbreakers & coats",
-    },
-    {
-      name: "Work Wear",
-      fullName: "Industrial & Safety Workwear",
-      desc: "High-visibility reflective jackets, flame-retardant coveralls & cargo",
+      fullName: "Jackets & Outerwear",
+      desc: "Quilted down puffers, waterproof windbreakers, bomber jackets & parkas",
     },
     {
       name: "Activewear",
       fullName: "Activewear & Athleisure",
-      desc: "Seamless 4-way stretch gym tights, sports bras & compression wear",
+      desc: "Seamless 4-way stretch gym tights, sports tees, compression wear & shorts",
     },
     {
-      name: "Sportswear",
-      fullName: "Sportswear & Technical Kits",
-      desc: "Performance soccer/running jerseys, tracksuits & quick-dry shorts",
+      name: "Sleepwear",
+      fullName: "Loungewear & Sleepwear",
+      desc: "Breathable 100% organic cotton pajamas, lounge sets & nightwear",
     },
     {
-      name: "Rainwear",
-      fullName: "Rainwear & Storm Parkas",
-      desc: "Seam-sealed PU raincoats, waterproof storm slickers & windcheaters",
+      name: "Kids",
+      fullName: "Kids & Babywear",
+      desc: "Ultra-soft GOTS organic cotton baby rompers, graphic tees & playsets",
     },
     {
-      name: "Lingeries",
-      fullName: "Lingerie & Sleepwear",
-      desc: "Breathable organic cotton bralettes, modal pajamas & intimates",
-    },
-    {
-      name: "Baggage",
-      fullName: "Baggage & Travel Luggage",
-      desc: "Polycarbonate spinner luggage, canvas duffels & utility backpacks",
-    },
-    {
-      name: "Handicraft",
-      fullName: "Handicrafts & Eco Jute Gear",
-      desc: "100% biodegradable natural jute totes, artisan baskets & woven gear",
+      name: "Workwear",
+      fullName: "Industrial & Safety Workwear",
+      desc: "High-visibility reflective safety vests, flame-retardant cargo pants & coveralls",
     },
   ],
 
   productItems: [
-    { name: "Men's Heavyweight Fleece Joggers", desc: "Ribbed cuff relaxed fit joggers with custom drawcords", material: "65% Cotton / 35% Polyester Terry" },
-    { name: "Women's Cropped Boxy Tee", desc: "Short sleeve drop-shoulder organic cotton tee", material: "100% Combed Cotton Single Jersey" },
-    { name: "Men's Classic Piqué Polo", desc: "Knitted collar 2-button front tailored polo shirt", material: "95% Cotton / 5% Spandex Piqué" },
-    { name: "Kid's Soft Organic Crewneck Tee", desc: "Ultra-soft non-toxic dyed kids crewneck t-shirt", material: "100% GOTS Certified Cotton" },
-    { name: "Men's Oxford Button-Down Shirt", desc: "Classic tailored collar with pearlized buttons", material: "100% Combed Compact Cotton" },
-    { name: "Women's French Linen Blouse", desc: "Relaxed resort-style breathable linen button-up", material: "100% Pure Washed Linen" },
-    { name: "Men's Slim Stretch Chino Pant", desc: "Garment-dyed 4-pocket casual woven trousers", material: "98% Cotton / 2% Elastane Twill" },
-    { name: "Kid's Plaid Flannel Shirt", desc: "Cozy brushed cotton long-sleeve winter shirt", material: "100% Brushed Cotton Flannel" },
-    { name: "Men's Selvedge Trucker Jacket", desc: "Heavyweight raw denim jacket with shank buttons", material: "100% Rigid Indigo Cotton" },
-    { name: "Women's High-Rise Skinny Jeans", desc: "Contour waistband with super stretch recovery", material: "92% Cotton / 6% Poly / 2% Spandex" },
-    { name: "Men's Vintage Straight Leg Jeans", desc: "5-Pocket authentic wash with laser whiskering", material: "99% Cotton / 1% Lycra Comfort" },
-    { name: "Kid's Elastic Waist Stretch Jeans", desc: "Play-friendly soft enzyme washed denim", material: "98% Cotton / 2% Elastane" },
-    { name: "Men's Cable-Knit Crewneck Pullover", desc: "Traditional textured cable stitch warm sweater", material: "70% Lambswool / 30% Polyamide" },
-    { name: "Women's Ribbed Button Cardigan", desc: "V-neck cropped soft knit sweater with tortoiseshell buttons", material: "60% Cotton / 40% Acrylic Cashmere Feel" },
-    { name: "Kid's Crewneck Striped Knit", desc: "Cozy itch-free knitted jacquard sweater", material: "100% Organic Cotton Knit" },
-    { name: "Men's Heavyweight Puffer Parka", desc: "Water-repellent insulated winter hooded coat", material: "100% Recycled Nylon Shell / Polyfill" },
-    { name: "Women's Cropped Down Puffer", desc: "Thermal stand-collar jacket with matte finish", material: "100% Polyester Taffeta" },
-    { name: "Kid's Hooded Quilted Jacket", desc: "Lightweight windproof zip-up school jacket", material: "Water-Resistant Microfiber" },
-    { name: "Men's High-Vis Industrial Safety Jacket", desc: "3M Reflective tape taped waterproof safety coat", material: "300D Oxford Polyester PU Coated" },
-    { name: "Heavy-Duty Multi-Pocket Work Cargo Pant", desc: "Reinforced knee pad pockets & triple stitching", material: "65% Poly / 35% Cotton Ripstop" },
-    { name: "Women's Tailored Utility Jumpsuit", desc: "Mechanic style zipper boiler suit with elastic waist", material: "100% Cotton Heavy Drill" },
-    { name: "Women's High-Waist Seamless Leggings", desc: "Squat-proof moisture-wicking compressive athletic tights", material: "75% Nylon / 25% Spandex Interlock" },
-    { name: "Women's Strappy Performance Sports Bra", desc: "Medium support removable pad athletic bralette", material: "80% Poly / 20% Elastane Dry-Fit" },
-    { name: "Men's Quick-Dry Breathable Gym Tee", desc: "Anti-odor mesh panel workout t-shirt", material: "100% Recycled Polyester (GRS)" },
-    { name: "Pro Performance Soccer Kit Jersey", desc: "Sublimated breathability panels team jersey", material: "100% Poly Birdseye Mesh" },
-    { name: "Youth Training Tracksuit Set", desc: "Full zip jacket & tapered training pants set", material: "100% Tricot Polyester" },
-    { name: "Men's Waterproof Hooded Storm Slicker", desc: "Heat-welded seams with storm flap & drawcord hood", material: "100% Polyurethane Coated Polyester" },
-    { name: "Kid's Yellow Puddle Raincoat", desc: "Snap-button fleece lined waterproof raincoat", material: "Eco PU Waterproof Shell" },
-    { name: "Women's Mulberry Silk Pajama Set", desc: "Notch collar button-up shirt and relaxed trouser set", material: "100% Grade 6A Mulberry Silk" },
-    { name: "Seamless Organic Cotton Bralette", desc: "Wire-free second-skin breathable daily comfort bra", material: "95% Organic Cotton / 5% Elastane" },
-    { name: "Polycarbonate Spinner Luggage (24-Inch)", desc: "TSA combination lock with 360-degree silent spinner wheels", material: "100% Bayer Makrolon Polycarbonate" },
-    { name: "Waxed Canvas Weekender Duffel", desc: "Genuine leather handles with brass hardware & shoe pocket", material: "16 oz Water-Resistant Waxed Canvas" },
-    { name: "Handwoven Eco Jute Shopping Tote", desc: "100% Biodegradable natural golden fiber export tote bag", material: "Natural Bangladeshi Raw Jute" },
-    { name: "Artisan Braided Seagrass Storage Basket", desc: "Handcrafted natural fiber storage basket with handles", material: "100% Natural Seagrass & Cotton Cord" },
+    // 1. T-SHIRTS & TANKS (4 items)
+    { name: "Men's Heavyweight Boxy Tee", desc: "Drop-shoulder relaxed streetwear cut with dense rib collar", material: "100% Combed Cotton Single Jersey (220 GSM)" },
+    { name: "Women's Organic Crewneck Tee", desc: "Silky enzyme-washed daily essential tailored t-shirt", material: "100% GOTS Organic Cotton (180 GSM)" },
+    { name: "Men's Vintage Wash Oversized Tee", desc: "Acid-washed relaxed tee with twin-needle reinforced hem", material: "100% Ringspun Cotton (260 GSM)" },
+    { name: "Kid's Soft Combed Cotton Tee", desc: "Skin-friendly non-toxic reactive dyed basic crewneck", material: "100% Combed Cotton (160 GSM)" },
+
+    // 2. POLOS (3 items)
+    { name: "Men's Classic Cotton Piqué Polo", desc: "2-Button placket with flat-knit ribbed collar & cuffs", material: "95% Cotton / 5% Elastane Piqué (220 GSM)" },
+    { name: "Men's Dry-Fit Performance Polo", desc: "Moisture-wicking breathable golf & corporate polo shirt", material: "60% Cotton / 40% Poly Interlock (180 GSM)" },
+    { name: "Women's Tailored Piqué Polo", desc: "Feminine contoured fit with pearlized dyed-to-match buttons", material: "100% Combed Cotton Piqué (200 GSM)" },
+
+    // 3. HOODIES & SWEATSHIRTS (3 items)
+    { name: "Men's Heavyweight Fleece Hoodie", desc: "Double-layered hood with kangaroo pocket & thick drawcords", material: "80% Cotton / 20% Polyester Fleece (340 GSM)" },
+    { name: "Women's French Terry Sweatshirt", desc: "Raglan sleeve cozy crewneck with looped back interior", material: "100% Cotton French Terry (300 GSM)" },
+    { name: "Men's Full-Zip Heavy Terry Hoodie", desc: "YKK metal zipper with reinforced split kangaroo pockets", material: "85% Cotton / 15% Poly Heavy Terry (360 GSM)" },
+
+    // 4. WOVEN SHIRTS (3 items)
+    { name: "Men's Oxford Button-Down Shirt", desc: "Classic button-down collar with single chest patch pocket", material: "100% Combed Oxford Cotton (140 GSM)" },
+    { name: "Men's Poplin Formal Dress Shirt", desc: "Crisp spread collar with easy-iron wrinkle resistant finish", material: "100% Compact Cotton Poplin (120 GSM)" },
+    { name: "Women's Pure Linen Relaxed Blouse", desc: "Breathable resort-style casual button-up summer blouse", material: "100% Washed European Linen (160 GSM)" },
+
+    // 5. DENIM & JEANS (3 items)
+    { name: "Men's 5-Pocket Raw Indigo Jeans", desc: "Classic regular fit with authentic copper rivets & leather patch", material: "100% Cotton Selvedge Denim (13.5 oz / 380 GSM)" },
+    { name: "Women's Stretch Slim Enzyme Wash Jeans", desc: "Contoured high-rise waistband with excellent stretch recovery", material: "98% Cotton / 2% Spandex Denim (10.5 oz / 300 GSM)" },
+    { name: "Men's Classic Denim Trucker Jacket", desc: "Dual chest flap pockets with heavy shank button closure", material: "100% Rigid Indigo Denim (12.5 oz / 350 GSM)" },
+
+    // 6. PANTS & JOGGERS (3 items)
+    { name: "Men's Heavyweight Tapered Joggers", desc: "Ribbed ankle cuffs with deep zipper pockets & custom waistband", material: "70% Cotton / 30% Poly Brushed Fleece (300 GSM)" },
+    { name: "Men's Cotton Twill Casual Chino", desc: "Garment-dyed straight leg casual woven trousers", material: "98% Cotton / 2% Elastane Twill (260 GSM)" },
+    { name: "Women's French Terry Sweat Shorts", desc: "Relaxed high-waisted lounge shorts with elasticated drawcord", material: "100% Cotton French Terry (240 GSM)" },
+
+    // 7. SWEATERS & KNITWEAR (2 items)
+    { name: "Men's Gauge 12 Fine Knit Pullover", desc: "Clean crewneck sweater with ribbed hem & cuffs", material: "50% Merino Wool / 50% Anti-Pill Acrylic (380 GSM)" },
+    { name: "Women's Cable Knit Button Cardigan", desc: "Textured chunky cable knit with tortoiseshell buttons", material: "60% Cotton / 40% Acrylic Cashmere Feel (320 GSM)" },
+
+    // 8. JACKETS & OUTERWEAR (2 items)
+    { name: "Men's Quilted Down Puffer Jacket", desc: "Thermal synthetic insulation with water-repellent matte nylon shell", material: "100% Recycled Nylon Shell / Polyfill (350 GSM)" },
+    { name: "Women's Lightweight Windbreaker", desc: "Zip-front hooded jacket with elastic cuffs & packable pouch", material: "100% Polyester Ripstop with DWR Finish (280 GSM)" },
+
+    // 9. ACTIVEWEAR & SPORTSWEAR (2 items)
+    { name: "Men's Dri-Fit Athletic Workout Tee", desc: "Quick-drying breathable sports t-shirt with flatlock seams", material: "100% Recycled Polyester Mesh (160 GSM)" },
+    { name: "Women's High-Waist Seamless Leggings", desc: "Squat-proof 4-way stretch moisture-wicking compressive tights", material: "75% Nylon / 25% Spandex Interlock (260 GSM)" },
+
+    // 10. LOUNGEWEAR & SLEEPWEAR (2 items)
+    { name: "Women's Notch Collar Pajama Set", desc: "Button-up piping trim sleep shirt and relaxed trousers", material: "100% Organic Cotton Poplin (180 GSM)" },
+    { name: "Men's Cotton Lounge Pants & Tee Set", desc: "Ultra-comfortable modal cotton evening loungewear set", material: "95% Cotton / 5% Elastane Modal (190 GSM)" },
+
+    // 11. KIDS & BABYWEAR (2 items)
+    { name: "Organic Cotton Baby Romper / Onesie", desc: "Nickel-free bottom snaps with expandable lap shoulders", material: "100% GOTS Organic Cotton Interlock (180 GSM)" },
+    { name: "Kids Everyday Play T-Shirt & Shorts Set", desc: "Durable reinforced playwear set for toddlers & kids", material: "100% Combed Cotton Single Jersey (160 GSM)" },
+
+    // 12. WORKWEAR & UNIFORMS (2 items)
+    { name: "Hi-Vis Reflective Safety Work Jacket", desc: "EN ISO 20471 certified with 3M reflective tape & storm hood", material: "300D Oxford Polyester with PU Coating (300 GSM)" },
+    { name: "Heavy-Duty Multi-Pocket Cargo Trousers", desc: "Cordura reinforced knee-pad pockets with triple-needle stitching", material: "65% Poly / 35% Cotton Ripstop (280 GSM)" },
   ],
 };
 

@@ -19,6 +19,7 @@ import {
   Send,
   Layers,
   Ruler,
+  DollarSign,
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -42,6 +43,7 @@ export default function ProductsPage() {
   const [selectedAudience, setSelectedAudience] = useState<"all" | "men" | "women" | "kids">("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [inquiryProduct, setInquiryProduct] = useState<ProductItem | null>(null);
+  const [inquiryType, setInquiryType] = useState<"price" | "sample">("price");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   // সাইজ চার্ট মোডাল স্টেট
@@ -62,6 +64,35 @@ export default function ProductsPage() {
 
   const activeCategory: ProductCategory | undefined =
     productCategories.find((c) => c.id === selectedCatId);
+
+  // বর্তমান ক্যাটাগরির জন্য অডিয়েন্স কাউন্ট
+  const audienceCounts = {
+    all: allProductsCatalog.filter((item) =>
+      selectedCatId === "all" ? true : item.categoryId === selectedCatId
+    ).length,
+    men: allProductsCatalog.filter(
+      (item) =>
+        (selectedCatId === "all" ? true : item.categoryId === selectedCatId) &&
+        item.audience === "men"
+    ).length,
+    women: allProductsCatalog.filter(
+      (item) =>
+        (selectedCatId === "all" ? true : item.categoryId === selectedCatId) &&
+        item.audience === "women"
+    ).length,
+    kids: allProductsCatalog.filter(
+      (item) =>
+        (selectedCatId === "all" ? true : item.categoryId === selectedCatId) &&
+        item.audience === "kids"
+    ).length,
+  };
+
+  const availableAudienceTabs = [
+    { id: "all", label: t.products.tabs.all, count: audienceCounts.all },
+    { id: "men", label: t.products.tabs.men, count: audienceCounts.men },
+    { id: "women", label: t.products.tabs.women, count: audienceCounts.women },
+    { id: "kids", label: t.products.tabs.kids, count: audienceCounts.kids },
+  ].filter((tab) => tab.id === "all" || tab.count > 0);
 
   // ফিল্টার করা প্রোডাক্ট তালিকা (ক্যাটাগরি + অডিয়েন্স + সার্চ)
   const filteredProducts = allProductsCatalog.filter((item) => {
@@ -237,22 +268,24 @@ export default function ProductsPage() {
             
             {/* জেন্ডার ট্যাব */}
             <div className="flex items-center gap-2 flex-wrap">
-              {[
-                { id: "all", label: t.products.tabs.all },
-                { id: "men", label: t.products.tabs.men },
-                { id: "women", label: t.products.tabs.women },
-                { id: "kids", label: t.products.tabs.kids },
-              ].map((tab) => (
+              {availableAudienceTabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setSelectedAudience(tab.id as any)}
-                  className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer ${
+                  className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1.5 ${
                     selectedAudience === tab.id
                       ? "bg-[#0B2B43] text-white shadow-sm"
                       : "bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900"
                   }`}
                 >
-                  {tab.label}
+                  <span>{tab.label}</span>
+                  {tab.id !== "all" && (
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-bold ${
+                      selectedAudience === tab.id ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600"
+                    }`}>
+                      {tab.count}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
@@ -323,7 +356,7 @@ export default function ProductsPage() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
               {filteredProducts.map((item) => {
                 const productColors: string[] =
                   Array.isArray(item.colors) && item.colors.length > 0
@@ -339,142 +372,131 @@ export default function ProductsPage() {
                     className="bg-white rounded-2xl overflow-hidden border border-slate-200/90 flex flex-col justify-between group shadow-sm hover:shadow-md transition-shadow"
                   >
                     <div>
-                      {/* ১. প্রোডাক্ট ছবি */}
-                      <div className="relative h-56 sm:h-64 w-full overflow-hidden bg-slate-100">
+                      {/* ১. প্রোডাক্ট ছবি (১:১ স্কয়ার স্টুডিও ক্যানভাস - কোনো কাপড়/হ্যাং-ট্যাগ কাটবে না) */}
+                      <div className="relative aspect-square w-full overflow-hidden bg-[#F8FAFC] flex items-center justify-center border-b border-slate-100 group/img">
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500"
                           loading="lazy"
                         />
-                        <span className="absolute top-3 left-3 bg-[#0B2B43]/85 text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md backdrop-blur-xs shadow-xs">
-                          {t.products.audience[item.audience]}
-                        </span>
+                        <div className="absolute top-2.5 left-2.5 z-10">
+                          <span className="px-2 py-0.5 rounded-md bg-[#0B2B43]/85 backdrop-blur-xs text-emerald-300 text-[10px] font-black uppercase tracking-wider shadow-xs">
+                            {t.products.audience[item.audience]}
+                          </span>
+                        </div>
+                        {item.gsm && (
+                          <div className="absolute top-2.5 right-2.5 z-10">
+                            <span className="px-2 py-0.5 rounded-md bg-white/95 backdrop-blur-xs text-slate-800 text-[10px] font-black uppercase tracking-wider shadow-xs border border-slate-200">
+                              {item.gsm}
+                            </span>
+                          </div>
+                        )}
                       </div>
 
                       {/* ২. বিবরণী ও জিএসএম */}
-                      <div className="p-5 sm:p-6 space-y-4">
+                      <div className="p-3.5 sm:p-4 space-y-2.5">
                         <div>
-                          <div className="flex items-start justify-between gap-3">
-                            <h4 className="text-lg sm:text-xl font-black text-[#0B2B43] leading-snug">
-                              {item.name}
-                            </h4>
-                            {item.gsm && (
-                              <span className="shrink-0 px-2.5 py-1 rounded-md bg-slate-100 text-[#0B2B43] text-xs font-black uppercase tracking-wider">
-                                {item.gsm}
-                              </span>
-                            )}
-                          </div>
-
-                          <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1">
+                          <h4 className="text-sm sm:text-base font-black text-[#0B2B43] leading-snug line-clamp-1 group-hover:text-emerald-700 transition-colors">
+                            {item.name}
+                          </h4>
+                          <p className="text-xs font-semibold text-emerald-700 mt-0.5 line-clamp-1">
                             {item.material}
                           </p>
-
                           {item.desc && (
-                            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mt-2 line-clamp-2">
+                            <p className="text-[11px] text-slate-500 leading-normal mt-0.5 line-clamp-1">
                               {item.desc}
                             </p>
                           )}
                         </div>
 
-                        {/* কালার ও সাইজ সেকশন */}
-                        <div className="pt-3.5 border-t border-slate-100 space-y-3.5">
-                          
-                          {/* কালার প্যালেট */}
-                          <div className="flex items-center gap-3">
-                            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                              {t.products.colors}
-                            </span>
-                            <div className="flex items-center gap-2">
+                        {/* কালার ও সাইজ সেকশন (এক কমপ্যাক্ট লাইনে) */}
+                        <div className="pt-2 border-t border-slate-100 space-y-2">
+                          <div className="flex items-center justify-between gap-2">
+                            <div className="flex items-center gap-1.5">
                               {productColors.map((color: string, i: number) => (
                                 <span
                                   key={i}
-                                  className="w-4 h-4 rounded-full border border-slate-300 shadow-2xs hover:scale-110 transition-transform"
+                                  className="w-3.5 h-3.5 rounded-full border border-slate-300 shadow-2xs hover:scale-110 transition-transform"
                                   style={{ backgroundColor: color }}
                                   title={`${t.products.colorOption} ${i + 1}`}
                                 />
                               ))}
                             </div>
+
+                            <div className="inline-flex items-center p-0.5 rounded-md bg-slate-100 border border-slate-200">
+                              {(["us", "uk", "eu", "au"] as const).map((reg) => (
+                                <button
+                                  type="button"
+                                  key={reg}
+                                  onClick={() =>
+                                    setCardRegions((prev) => ({ ...prev, [item.id]: reg }))
+                                  }
+                                  className={`px-1.5 py-0.5 rounded text-[10px] font-black uppercase transition-all cursor-pointer ${
+                                    activeRegion === reg
+                                      ? "bg-[#0B2B43] text-white shadow-2xs"
+                                      : "text-slate-500 hover:text-slate-900"
+                                  }`}
+                                >
+                                  {reg}
+                                </button>
+                              ))}
+                            </div>
                           </div>
 
-                          {/* ── সাইজ সেকশন (US · UK · EU · AU + নিখুঁত ৩×২ গ্রিড) ── */}
-                          <div className="space-y-2.5 pt-1 border-t border-slate-100">
-                            
-                            {/* টপ রো: SIZES লেবেল + রিজিয়ন সুইচ ক্যাপসুল + Chart বাটন */}
-                            <div className="flex items-center justify-between gap-2">
-                              <span className="text-[11px] font-black text-slate-700 uppercase tracking-wider">
-                                {t.products.sizes}
-                              </span>
+                          {/* কমপ্যাক্ট ৩×২ সাইজ গ্রিড */}
+                          <div className="grid grid-cols-3 gap-1 pt-0.5">
+                            {internationalSizeGuide.map((sizeObj) => {
+                              let displayText = "";
+                              if (activeRegion === "us") displayText = `${sizeObj.usa} (${sizeObj.standard})`;
+                              if (activeRegion === "uk") displayText = `${sizeObj.uk_au} (${sizeObj.standard})`;
+                              if (activeRegion === "eu") displayText = `${sizeObj.eu} (${sizeObj.standard})`;
+                              if (activeRegion === "au") displayText = `${sizeObj.uk_au} (${sizeObj.standard})`;
 
-                              {/* ৪টি আন্তর্জাতিক মার্কেট বাটন */}
-                              <div className="inline-flex items-center p-0.5 rounded-lg bg-slate-100 border border-slate-200">
-                                {(["us", "uk", "eu", "au"] as const).map((reg) => (
-                                  <button
-                                    type="button"
-                                    key={reg}
-                                    onClick={() =>
-                                      setCardRegions((prev) => ({ ...prev, [item.id]: reg }))
-                                    }
-                                    className={`px-2.5 py-1 rounded-md text-[11px] font-black uppercase transition-all cursor-pointer ${
-                                      activeRegion === reg
-                                        ? "bg-[#0B2B43] text-white shadow-xs"
-                                        : "text-slate-500 hover:text-slate-900"
-                                    }`}
-                                  >
-                                    {reg}
-                                  </button>
-                                ))}
-                              </div>
-
-                              {/* চার্ট বাটন */}
-                              <button
-                                type="button"
-                                onClick={() => setShowSizeModal(true)}
-                                className="text-[11px] font-bold text-emerald-700 hover:text-emerald-800 hover:underline flex items-center gap-1 cursor-pointer"
-                              >
-                                <Ruler className="w-3.5 h-3.5 text-emerald-600" />
-                                <span>{t.products.chart}</span>
-                              </button>
-                            </div>
-
-                            {/* ── নিখুঁত ৩×২ গ্রিড: আরামদায়ক গ্যাপ ও সুষম সাইজ ── */}
-                            <div className="grid grid-cols-3 gap-2 sm:gap-2.5 pt-1">
-                              {internationalSizeGuide.map((sizeObj) => {
-                                let displayText = "";
-                                if (activeRegion === "us") displayText = `${sizeObj.usa} (${sizeObj.standard})`;
-                                if (activeRegion === "uk") displayText = `${sizeObj.uk_au} (${sizeObj.standard})`;
-                                if (activeRegion === "eu") displayText = `${sizeObj.eu} (${sizeObj.standard})`;
-                                if (activeRegion === "au") displayText = `${sizeObj.uk_au} (${sizeObj.standard})`;
-
-                                return (
-                                  <div
-                                    key={sizeObj.standard}
-                                    className="py-2 sm:py-2.5 px-2 rounded-lg bg-slate-50/90 border border-slate-200/90 text-slate-800 text-xs font-bold text-center shadow-2xs hover:border-emerald-400 hover:bg-emerald-50/40 transition-all"
-                                  >
-                                    {displayText}
-                                  </div>
-                                );
-                              })}
-                            </div>
-
-                            <p className="text-[10px] text-slate-400 font-medium pt-0.5">
-                              <Rich text={t.products.clickRegionNote} />
-                            </p>
+                              return (
+                                <div
+                                  key={sizeObj.standard}
+                                  className="py-1 px-0.5 rounded-md bg-slate-50 border border-slate-200 text-slate-800 text-[10px] sm:text-[11px] font-bold text-center whitespace-nowrap hover:border-emerald-300 hover:bg-emerald-50/50 transition-colors"
+                                >
+                                  {displayText}
+                                </div>
+                              );
+                            })}
                           </div>
-
                         </div>
+
                       </div>
                     </div>
 
-                    {/* ৩. স্যাম্পল ইনকোয়ারি বাটন */}
-                    <div className="p-5 sm:p-6 pt-0">
-                      <button
-                        onClick={() => setInquiryProduct(item)}
-                        className="w-full py-3.5 rounded-xl bg-[#0B2B43] hover:bg-emerald-600 text-white text-xs sm:text-sm font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
-                      >
-                        <span>{t.products.inquireSampleSpec}</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
+                    {/* ৩. ডুয়াল অ্যাকশন বাটন [ Get Price ] + [ Get Sample ] */}
+                    <div className="p-3.5 sm:p-4 pt-0">
+                      <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setInquiryProduct(item);
+                            setInquiryType("price");
+                            setIsSubmitted(false);
+                          }}
+                          className="py-2.5 px-1.5 sm:px-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center gap-1 cursor-pointer shadow-2xs active:scale-95 whitespace-nowrap"
+                        >
+                          <DollarSign className="w-3.5 h-3.5 shrink-0" />
+                          <span>Get Price</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setInquiryProduct(item);
+                            setInquiryType("sample");
+                            setIsSubmitted(false);
+                          }}
+                          className="py-2.5 px-1.5 sm:px-2 rounded-xl bg-[#0B2B43] hover:bg-[#071D2E] text-white text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center gap-1 cursor-pointer shadow-2xs active:scale-95 whitespace-nowrap"
+                        >
+                          <Send className="w-3 h-3 shrink-0" />
+                          <span>Get Sample</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );
@@ -606,23 +628,23 @@ export default function ProductsPage() {
           </div>
         )}
 
-        {/* ── ৭. স্যাম্পল ইনকোয়ারি মডাল ── */}
+        {/* ── ৭. স্যাম্পল ও প্রাইস কোটেশন মোডাল ── */}
         {inquiryProduct && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
+            <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden max-h-[92vh] flex flex-col">
               <button
                 onClick={() => setInquiryProduct(null)}
-                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition cursor-pointer"
+                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition cursor-pointer z-10"
               >
                 <X className="w-4 h-4" />
               </button>
 
-              <div className="p-6 bg-slate-50 border-b border-slate-100">
+              <div className="p-5 sm:p-6 bg-slate-50 border-b border-slate-100">
                 <span className="text-[10px] font-bold tracking-widest text-emerald-600 uppercase">
-                  {t.products.sampleProtocol}
+                  {inquiryType === "price" ? "FOB Direct Pricing Request" : t.products.sampleProtocol}
                 </span>
-                <h3 className="text-xl font-extrabold text-[#0B2B43] mt-1">
-                  {t.products.requestSamplePrefix} {inquiryProduct.name}
+                <h3 className="text-lg sm:text-xl font-extrabold text-[#0B2B43] mt-1">
+                  {inquiryProduct.name}
                 </h3>
                 <div className="flex items-center gap-3 mt-3 p-2.5 rounded-xl bg-white border border-slate-200 text-xs">
                   <img
@@ -633,28 +655,56 @@ export default function ProductsPage() {
                   <div className="flex-1 truncate">
                     <span className="font-bold text-slate-800">{inquiryProduct.material}</span>
                     <div className="text-[11px] text-slate-500 mt-0.5">
-                      {t.products.weightLabel} <strong className="text-slate-800">{inquiryProduct.gsm}</strong> · {t.products.gradedLabel}
+                      {t.products.weightLabel} <strong className="text-slate-800">{inquiryProduct.gsm}</strong> · MOQ: <strong className="text-emerald-700">{inquiryProduct.moq}</strong>
                     </div>
                   </div>
                 </div>
+
+                {/* টাইপ সুইচার */}
+                <div className="grid grid-cols-2 gap-1.5 p-1 bg-slate-200/80 rounded-xl mt-3 border border-slate-300">
+                  <button
+                    type="button"
+                    onClick={() => setInquiryType("price")}
+                    className={`py-1.5 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                      inquiryType === "price"
+                        ? "bg-white text-emerald-700 shadow-xs"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    <DollarSign className="w-3.5 h-3.5" />
+                    <span>Request FOB Price</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setInquiryType("sample")}
+                    className={`py-1.5 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                      inquiryType === "sample"
+                        ? "bg-white text-[#0B2B43] shadow-xs"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                    <span>Inquire Sample</span>
+                  </button>
+                </div>
               </div>
 
-              <div className="p-6">
+              <div className="p-5 sm:p-6 overflow-y-auto flex-1">
                 {isSubmitted ? (
                   <div className="py-8 text-center space-y-3">
                     <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center">
                       <CheckCircle2 className="w-6 h-6" />
                     </div>
                     <h4 className="text-lg font-bold text-[#0B2B43]">
-                      {t.products.sampleReceivedTitle}
+                      {inquiryType === "price" ? "Price Quote Request Received!" : t.products.sampleReceivedTitle}
                     </h4>
                     <p className="text-xs text-slate-500 max-w-xs mx-auto">
-                      {t.products.sampleReceivedText}
+                      Our merchandising desk will calculate direct factory costing and revert within 24 hours.
                     </p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSampleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-2 gap-3">
+                  <form onSubmit={handleSampleSubmit} className="space-y-3.5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="block text-xs font-bold text-slate-700 mb-1">
                           {t.products.form.name}
@@ -663,7 +713,7 @@ export default function ProductsPage() {
                           type="text"
                           required
                           placeholder={t.products.form.namePh2}
-                          className="w-full px-3.5 py-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                          className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         />
                       </div>
                       <div>
@@ -674,12 +724,12 @@ export default function ProductsPage() {
                           type="email"
                           required
                           placeholder={t.products.form.emailPh2}
-                          className="w-full px-3.5 py-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                          className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="block text-xs font-bold text-slate-700 mb-1">
                           {t.products.form.company}
@@ -688,39 +738,65 @@ export default function ProductsPage() {
                           type="text"
                           required
                           placeholder={t.products.form.companyPh}
-                          className="w-full px-3.5 py-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                          className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         />
                       </div>
                       <div>
                         <label className="block text-xs font-bold text-slate-700 mb-1">
-                          {t.products.form.targetSizing}
+                          {inquiryType === "price" ? "Target Order Quantity (Pcs)" : t.products.form.targetSizing}
                         </label>
-                        <select className="w-full px-3.5 py-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
-                          <option>{t.products.form.sizingUsa}</option>
-                          <option>{t.products.form.sizingUk}</option>
-                          <option>{t.products.form.sizingEu}</option>
-                          <option>{t.products.form.sizingCustom}</option>
-                        </select>
+                        {inquiryType === "price" ? (
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. 1,000 Pcs (250 pcs/color)"
+                            className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                          />
+                        ) : (
+                          <select className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
+                            <option>{t.products.form.sizingUsa}</option>
+                            <option>{t.products.form.sizingUk}</option>
+                            <option>{t.products.form.sizingEu}</option>
+                            <option>{t.products.form.sizingCustom}</option>
+                          </select>
+                        )}
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">
-                        {t.products.form.colorNotes2}
+                        {inquiryType === "price" ? "Target FOB Price ($) & Delivery Port" : t.products.form.colorNotes2}
                       </label>
                       <textarea
                         rows={2}
-                        placeholder={t.products.form.colorNotesPh2}
-                        className="w-full px-3.5 py-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        placeholder={
+                          inquiryType === "price"
+                            ? "Mention target price per unit, delivery port (e.g. Valencia / Hamburg), or fabric finish..."
+                            : t.products.form.colorNotesPh2
+                        }
+                        className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       ></textarea>
                     </div>
 
                     <button
                       type="submit"
-                      className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                      className={`w-full py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-98 ${
+                        inquiryType === "price"
+                          ? "bg-emerald-600 hover:bg-emerald-700 text-white"
+                          : "bg-[#0B2B43] hover:bg-[#071D2E] text-white"
+                      }`}
                     >
-                      <Send className="w-3.5 h-3.5" />
-                      <span>{t.products.form.submit}</span>
+                      {inquiryType === "price" ? (
+                        <>
+                          <DollarSign className="w-3.5 h-3.5" />
+                          <span>Submit Price Quotation Request</span>
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-3.5 h-3.5" />
+                          <span>{t.products.form.submit}</span>
+                        </>
+                      )}
                     </button>
                   </form>
                 )}

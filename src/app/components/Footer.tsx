@@ -197,7 +197,7 @@ export default function Footer() {
                 <span>{t.footer.hours}</span>
               </div>
 
-            </div>
+            </div>:
           </div>
 
         </div>
