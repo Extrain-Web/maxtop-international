@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
-import { serviceAssets } from "@/data/servicesData";
 import { useI18n } from "@/i18n/I18nProvider";
+import { useSiteData } from "@/lib/site-data";
 
 export default function Services() {
   const { t } = useI18n();
+  const { serviceAssets } = useSiteData();
   return (
     <section id="services" className="py-12 bg-gradient-to-b from-violet-50/60 via-white to-purple-50/40 border-t border-slate-200 font-sans relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

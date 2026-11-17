@@ -5,25 +5,27 @@ import { Sparkles, ArrowRight, Check, CheckCircle2 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useI18n } from "@/i18n/I18nProvider";
+import { useSiteData } from "@/lib/site-data";
 
 // ── ১. বায়িং হাউজের পূর্ণাঙ্গ সার্ভিসসমূহ (১০০% নিখুঁত গার্মেন্ট ইমেজ সহ) ──
 // সার্ভিস কার্ডের ছবি (টেক্সট i18n ডিকশনারিতে: servicesPage.coreServices)
-const coreServiceImages = [
-  "https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1581655353564-df123a1eb820?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop",
+const coreServiceImageKeys = [
+  "servicesPage.core1",
+  "servicesPage.core2",
+  "servicesPage.core3",
+  "servicesPage.core4",
+  "servicesPage.core5",
+  "servicesPage.core6",
 ];
 
 // ── ২. বায়িং হাউজ যেভাবে সার্ভিস দেয় (৫-ধাপের অর্ডার প্রসেস) ──
 export default function ServicesPage() {
   const { t } = useI18n();
+  const { img } = useSiteData();
 
   // অ্যাসেট + অনুবাদ টেক্সট মার্জ
-  const coreServices = coreServiceImages.map((image, i) => ({
-    image,
+  const coreServices = coreServiceImageKeys.map((key, i) => ({
+    image: img(key),
     ...t.servicesPage.coreServices[i],
   }));
   const executionSteps = t.servicesPage.executionSteps.map((s, i) => ({
@@ -41,7 +43,7 @@ export default function ServicesPage() {
         
         {/* ব্যাকগ্রাউন্ড শোরুম / গার্মেন্টস ছবি */}
         <img
-          src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1920&q=80"
+          src={img("servicesPage.hero")}
           alt="Apparel Buying House Production"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
@@ -210,7 +212,7 @@ export default function ServicesPage() {
             
             {/* কার্ডের ভেতরে হালকা টেক্সচার ব্যাকগ্রাউন্ড (১৫% অপাসিটি) */}
             <img
-              src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80"
+              src={img("servicesPage.cta")}
               alt="Garments Showroom"
               className="absolute inset-0 w-full h-full object-cover object-center opacity-15 pointer-events-none"
             />

@@ -9,7 +9,8 @@ import {
   ShieldCheck,
   TrendingUp,
 } from "lucide-react";
-import { statsData } from "@/data/statsData";
+import { useSiteData } from "@/lib/site-data";
+import { useI18n } from "@/i18n/I18nProvider";
 
 // ── ১. স্মুথ অ্যানিমেটেড কাউন্টার সাব-কম্পোনেন্ট ──
 function AnimatedCounter({ value }: { value: string }) {
@@ -77,7 +78,7 @@ function AnimatedCounter({ value }: { value: string }) {
   }
 
   return (
-    <span ref={elementRef} className="tabular-nums font-black">
+    <span ref={elementRef} dir="ltr" className="tabular-nums font-black inline-block">
       {displayValue}
       {suffix}
     </span>
@@ -86,6 +87,8 @@ function AnimatedCounter({ value }: { value: string }) {
 
 // ── ২. মূল StatsBanner কম্পোনেন্ট ──
 export default function StatsBanner() {
+  const { statsData } = useSiteData();
+  const { t } = useI18n();
   const statIcons = [
     Layers,      // 7 Y+
     Award,       // 16 Y+
@@ -102,7 +105,7 @@ export default function StatsBanner() {
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold tracking-widest uppercase">
             <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Manufacturing Scale &amp; Track Record</span>
+            <span>{t.statsBanner.badge}</span>
           </div>
         </div>
 

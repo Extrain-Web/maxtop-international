@@ -1,13 +1,11 @@
 "use client";
 
-import {
-  recognizedByLogos,
-  partnerCertificationsLogos,
-} from "@/data/recognitionsData";
 import { useI18n } from "@/i18n/I18nProvider";
+import { useSiteData } from "@/lib/site-data";
 
 export default function Recognitions() {
   const { t } = useI18n();
+  const { recognizedByLogos, partnerCertificationsLogos } = useSiteData();
   // ── ১. স্ক্রিন সাইজ নির্বিশেষে মসৃণ ইনফিনিট লুপের জন্য ব্যালান্সড ডুপ্লিকেশন ──
   const repeatCount1 = Math.max(2, Math.ceil(12 / (recognizedByLogos.length || 1)));
   const base1: (typeof recognizedByLogos)[number][] = [];

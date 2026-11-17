@@ -3,13 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { X, Maximize2, Sparkles, ArrowRight } from "lucide-react";
-import {
-  galleryCategories,
-  galleryImages,
-  type GalleryItem,
-} from "@/data/galleryData";
+import type { GalleryItem } from "@/data/galleryData";
+import { useSiteData } from "@/lib/site-data";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export default function Gallery() {
+  const { galleryCategories, galleryImages } = useSiteData();
+  const { t } = useI18n();
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeModalImg, setActiveModalImg] = useState<GalleryItem | null>(null);
 
@@ -26,13 +26,13 @@ export default function Gallery() {
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/60 text-emerald-700 text-xs font-bold uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>ON-GROUND INFRASTRUCTURE</span>
+            <span className="uppercase">{t.gallery.badge}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#0B2B43]">
-            Inside Our Production Floor
+            {t.gallery.title}
           </h2>
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-            A visual overview of our audited manufacturing lines, advanced Japanese machinery, and certified testing facilities in Bangladesh.
+            {t.gallery.subtitle}
           </p>
         </div>
 
@@ -107,12 +107,12 @@ export default function Gallery() {
         {/* ── ৪. সিম্পল ও ডিসেন্ট ফ্যাক্টরি ট্যুর লিংক ── */}
         <div className="text-center pt-6 border-t border-slate-200/80">
           <p className="text-xs sm:text-sm text-slate-600">
-            Planning an on-ground physical audit or live video walkthrough?{" "}
+            {t.gallery.visitPrompt}{" "}
             <Link
               href="/contact"
               className="font-bold text-emerald-700 hover:text-emerald-800 hover:underline inline-flex items-center gap-1 ml-1"
             >
-              <span>Schedule A Factory Visit</span>
+              <span>{t.gallery.visitLink}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </p>
@@ -167,7 +167,7 @@ export default function Gallery() {
                 onClick={() => setActiveModalImg(null)}
                 className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold transition-all text-center shrink-0"
               >
-                Inquire This Line
+                {t.gallery.inquireLine}
               </Link>
             </div>
           </div>

@@ -1,5 +1,4 @@
 import AboutUs from "./components/AboutUs";
-import ContactRfq from "./components/ContactRfq";
 import Footer from "./components/Footer";
 import Gallery from "./components/Gallery";
 import Hero from "./components/Hero";
@@ -11,24 +10,24 @@ import Services from "./components/Services";
 import SourcingFaq from "./components/SourcingFaq";
 import StatsBanner from "./components/StatsBanner";
 import WhyChooseUs from "./components/WhyChooseUs";
+import { getSiteContent } from "@/lib/api";
 
-export default function Home() {
+export default async function Home() {
+  // Stats Banner & Gallery can be switched on/off from Admin → Settings → Home Page Sections
+  const { settings } = await getSiteContent();
   return (
     <main>
       <Navbar />
       <Hero></Hero>
       <Products/>
-
-      {/* <StatsBanner/> */}
+      {settings.showStatsBanner && <StatsBanner />}
       <AboutUs/>
-      {/* <Products/> */}
       <Services/>
       <HowWeWork/>
       <WhyChooseUs/>
       <Recognitions/>
-      {/* <Gallery/> */}
+      {settings.showGallery && <Gallery />}
       <SourcingFaq/>
-      {/* <ContactRfq/> */}
       <Footer/>
     </main>
   );

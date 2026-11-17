@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { whyChooseAssets } from "@/data/whyChooseUsData";
 import { useI18n } from "@/i18n/I18nProvider";
+import { useSiteData } from "@/lib/site-data";
 
 export default function WhyChooseUs() {
   const { t } = useI18n();
+  const { whyChooseAssets } = useSiteData();
   const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
 
   // অ্যাসেট (আইকন) + অনুবাদ টেক্সট মার্জ করা হচ্ছে

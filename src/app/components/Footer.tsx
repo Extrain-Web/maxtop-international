@@ -16,9 +16,11 @@ import {
 } from "react-icons/fa";
 import { useI18n } from "@/i18n/I18nProvider";
 import { Rich } from "@/i18n/Rich";
+import { useSiteData } from "@/lib/site-data";
 
 export default function Footer() {
   const { t } = useI18n();
+  const { settings } = useSiteData();
   const quickLinks = [
     { name: t.nav.home, href: "/" },
     { name: t.nav.about, href: "/about" },
@@ -67,7 +69,7 @@ export default function Footer() {
               <div className="flex items-center gap-2.5">
                 {/* LinkedIn */}
                 <a
-                  href="https://linkedin.com"
+                  href={settings.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
@@ -78,7 +80,7 @@ export default function Footer() {
 
                 {/* WhatsApp */}
                 <a
-                  href="https://wa.me/+8801714665444"
+                  href={settings.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="WhatsApp"
@@ -89,7 +91,7 @@ export default function Footer() {
 
                 {/* Facebook */}
                 <a
-                  href="https://facebook.com"
+                  href={settings.facebookUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Facebook"
@@ -100,7 +102,7 @@ export default function Footer() {
 
                 {/* Instagram */}
                 <a
-                  href="https://instagram.com"
+                  href={settings.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
@@ -111,7 +113,7 @@ export default function Footer() {
 
                 {/* YouTube */}
                 <a
-                  href="https://youtube.com"
+                  href={settings.youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="YouTube"
@@ -178,18 +180,18 @@ export default function Footer() {
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
                 <a
-                  href="mailto:sourcing@maxtopintl.com"
+                  href={`mailto:${settings.contactEmail}`}
                   className="hover:text-emerald-400 hover:underline transition"
                 >
-                  maxtopinternational7@gmail.com
+                  {settings.contactEmail}
                 </a>
               </div>
 
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span className="font-medium text-slate-200">
-                 +8801714665444
-                </span>
+                <a href={`tel:${settings.contactPhone.replace(/[^+\d]/g, "")}`} className="font-medium text-slate-200 hover:text-emerald-400 transition">
+                  {settings.contactPhone}
+                </a>
               </div>
 
               <div className="flex items-center gap-2.5">

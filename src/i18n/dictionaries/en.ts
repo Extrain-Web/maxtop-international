@@ -546,6 +546,20 @@ export const en = {
   },
 
   products: {
+    priceForm: {
+      getPrice: "Get Price",
+      getSample: "Get Sample",
+      requestFob: "Request FOB Price",
+      inquireSample: "Inquire Sample",
+      fobTitle: "FOB Direct Pricing Request",
+      receivedTitle: "Price Quote Request Received!",
+      receivedText: "Our merchandising desk will calculate direct factory costing and email you within 24 hours.",
+      qtyLabel: "Target Order Quantity (Pcs)",
+      qtyPh: "e.g. 1,000 Pcs (250 pcs/color)",
+      notesLabel: "Target FOB Price ($) & Delivery Port",
+      notesPh: "Mention target price per piece, destination port (e.g. Valencia / Hamburg), or wash & finish requirements...",
+      submit: "Submit Price Quotation Request",
+    },
     divisionsBadge: "RMG Manufacturing Divisions",
     linesTitle: "Our Manufacturing Lines",
     linesSubtitle:
@@ -697,6 +711,18 @@ export const en = {
     whatsappChat: "Chat on WhatsApp Directly",
     quickResponse:
       "⚡ **Quick Response:** Inquiries reviewed by senior merchandisers within 2 hours during business hours.",
+  },
+
+  statsBanner: {
+    badge: "Manufacturing Scale & Track Record",
+  },
+  gallery: {
+    badge: "On-Ground Infrastructure",
+    title: "Inside Our Production Floor",
+    subtitle: "A visual overview of our audited manufacturing lines, advanced Japanese machinery, and certified testing facilities in Bangladesh.",
+    visitPrompt: "Planning an on-ground physical audit or live video walkthrough?",
+    visitLink: "Schedule A Factory Visit",
+    inquireLine: "Inquire This Line",
   },
 
   productCategories: [

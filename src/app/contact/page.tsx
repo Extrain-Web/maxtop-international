@@ -18,9 +18,12 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useI18n } from "@/i18n/I18nProvider";
 import { Rich } from "@/i18n/Rich";
+import { useSiteData } from "@/lib/site-data";
+import { submitInquiry } from "@/lib/inquiry-client";
 
 export default function ContactPage() {
   const { t } = useI18n();
+  const { img, settings } = useSiteData();
   // ফর্ম সাবমিশন স্টেট
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -42,6 +45,16 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    submitInquiry({
+      source: "contact",
+      name: formData.name,
+      email: formData.email,
+      company: formData.company,
+      country: formData.country,
+      category: isCustomCategory ? formData.customCategory : formData.category,
+      quantity: isCustomQuantity ? formData.customQuantity : formData.quantity,
+      message: formData.message,
+    }).catch((err) => console.error("Inquiry failed", err));
     setIsSubmitted(true);
   };
 
@@ -58,7 +71,7 @@ export default function ContactPage() {
             className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-luminosity scale-105"
             style={{
               backgroundImage:
-                "url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&auto=format&fit=crop&q=80')",
+                `url('${img("contactPage.hero")}')`,
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#071D2E]/95 via-[#071D2E]/85 to-[#071D2E]" />
@@ -399,10 +412,10 @@ export default function ContactPage() {
                         {t.contactPage.emailLabel}
                       </strong>
                       <a
-                        href="mailto:sourcing@maxtopintl.com"
+                        href={`mailto:${settings.contactEmail}`}
                         className="text-xs sm:text-sm font-semibold text-emerald-600 hover:text-emerald-700 hover:underline transition mt-0.5 block"
                       >
-                        sourcing@maxtopintl.com
+                        {settings.contactEmail}
                       </a>
                     </div>
                   </div>
@@ -415,9 +428,9 @@ export default function ContactPage() {
                       <strong className="text-xs sm:text-sm font-bold text-[#071D2E] block">
                         {t.contactPage.phoneLabel}
                       </strong>
-                      <span className="text-xs sm:text-sm font-semibold text-slate-800 mt-0.5 block">
-                        +880 1711-000000
-                      </span>
+                      <a href={`tel:${settings.contactPhone.replace(/[^+\d]/g, "")}`} className="text-xs sm:text-sm font-semibold text-slate-800 mt-0.5 block hover:text-emerald-700">
+                        {settings.contactPhone}
+                      </a>
                     </div>
                   </div>
 
@@ -439,7 +452,7 @@ export default function ContactPage() {
                 {/* সরাসরি WhatsApp চ্যাট বাটন */}
                 <div className="mt-7 pt-5 border-t border-slate-100">
                   <a
-                    href="https://wa.me/8801711000000"
+                    href={settings.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-sm transition-all"

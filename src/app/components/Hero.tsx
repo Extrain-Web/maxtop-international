@@ -5,30 +5,32 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
+import { useSiteData } from "@/lib/site-data";
 
 // ৪টি আন্তর্জাতিক মানের ইউনিক অ্যাপারেল ও ফ্যাক্টরি প্রোডাকশন ছবি
 const heroSlides = [
   {
     title: "Global Apparel Sourcing & Showroom Line",
-    url: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2000&auto=format&fit=crop",
+    imageKey: "hero.slide1",
   },
   {
     title: "Precision Garment Manufacturing Floor",
-    url: "https://images.unsplash.com/photo-1520006403909-838d6b92c22e?q=80&w=2000&auto=format&fit=crop",
+    imageKey: "hero.slide2",
   },
   {
     title: "High-End Denim & Authentic Fabric Finishing",
-    url: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=2000&auto=format&fit=crop",
+    imageKey: "hero.slide3",
   },
   {
     title: "Sustainable Raw Textile Fabrics & Organic Cotton",
-    url: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=2000&auto=format&fit=crop",
+    imageKey: "hero.slide4",
   },
 ];
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { t } = useI18n();
+  const { img } = useSiteData();
 
   // প্রতি ৫ সেকেন্ডে ব্যাকগ্রাউন্ড ইমেজ স্বয়ংক্রিয়ভাবে চেঞ্জ হবে
   useEffect(() => {
@@ -52,7 +54,7 @@ export default function Hero() {
                 : "opacity-0 scale-100 z-0"
             }`}
             style={{
-              backgroundImage: `url('${slide.url}')`,
+              backgroundImage: `url('${img(slide.imageKey)}')`,
             }}
           />
         ))}

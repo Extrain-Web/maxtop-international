@@ -8,6 +8,8 @@ import {
 } from "next/font/google";
 import "./globals.css";
 import { I18nProvider } from "@/i18n/I18nProvider";
+import { SiteDataProvider } from "@/lib/site-data";
+import { getSiteContent } from "@/lib/api";
 
 // ১. বডি টেক্সটের জন্য ক্লিন আধুনিক ফন্ট (Amstel & Textilery স্টাইল)
 const inter = Inter({
@@ -42,53 +44,44 @@ const vazirmatn = Vazirmatn({
   display: "swap",
 });
 
-// ৩. আন্তর্জাতিক বায়ারদের জন্য হাই-র‍্যাংকিং এসইও মেটাডাটা
-export const metadata: Metadata = {
-  title: "Maxtop International Ltd. | Apparel Sourcing & Buying House",
-  description:
-    "Premier apparel sourcing agency and registered garments buying house in Dhaka, Bangladesh. Exporting Knitwear, Woven, Denim, and Sustainable Apparel globally.",
-  keywords: [
-    "apparel sourcing agent Bangladesh",
-    "garments buying house Dhaka",
-    "clothing manufacturer Bangladesh",
-    "knitwear sourcing",
-    "denim manufacturer",
-    "woven shirts supplier",
-    "sustainable apparel manufacturing",
-    "low MOQ garment sourcing",
-    "AQL 2.5 quality inspection",
-  ],
-  authors: [{ name: "Maxtop International Ltd." }],
-  openGraph: {
-    title: "Maxtop International | Sustainable Apparel Sourcing from Bangladesh",
-    description:
-      "End-to-end garment sourcing solutions: R&D sampling, transparent FOB costing, certified factory production, and global shipping.",
-    url: "https://maxtopinternational.com",
-    siteName: "Maxtop International",
-    locale: "en_US",
-    type: "website",
-  },
-  icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/images/maxtop-logo.png", type: "image/png" },
-    ],
-    shortcut: "/icon.svg",
-    apple: "/images/maxtop-logo.png",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Maxtop International | Apparel Sourcing & Buying House",
-    description:
-      "Certified sustainable garment manufacturing partner connecting global fashion brands with Bangladesh.",
-  },
-};
+// ৩. আন্তর্জাতিক বায়ারদের জন্য হাই-র‍্যাংকিং এসইও মেটাডাটা (Admin → Settings থেকে এডিটযোগ্য)
+export async function generateMetadata(): Promise<Metadata> {
+  const { settings: s } = await getSiteContent();
+  return {
+    title: s.seoTitle,
+    description: s.seoDescription,
+    keywords: s.seoKeywords,
+    authors: [{ name: "Maxtop International Ltd." }],
+    openGraph: {
+      title: s.ogTitle,
+      description: s.ogDescription,
+      url: s.siteUrl,
+      siteName: "Maxtop International",
+      locale: "en_US",
+      type: "website",
+    },
+    icons: {
+      icon: [
+        { url: "/icon.svg", type: "image/svg+xml" },
+        { url: "/images/maxtop-logo.png", type: "image/png" },
+      ],
+      shortcut: "/icon.svg",
+      apple: "/images/maxtop-logo.png",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: s.twitterTitle,
+      description: s.twitterDescription,
+    },
+  };
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { dictionaries, ...data } = await getSiteContent();
   return (
     <html
       lang="en"
@@ -97,7 +90,9 @@ export default function RootLayout({
       className={`${inter.variable} ${sourceSerif.variable} ${notoBengali.variable} ${notoArabic.variable} ${vazirmatn.variable} scroll-smooth antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-800 font-sans selection:bg-emerald-500 selection:text-white">
-        <I18nProvider>{children}</I18nProvider>
+        <I18nProvider dictionaries={dictionaries}>
+          <SiteDataProvider data={data}>{children}</SiteDataProvider>
+        </I18nProvider>
       </body>
     </html>
   );

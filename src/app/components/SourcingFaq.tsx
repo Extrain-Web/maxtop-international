@@ -5,9 +5,11 @@ import { useState } from "react";
 import { Plus, Minus, HelpCircle, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { useI18n } from "@/i18n/I18nProvider";
+import { useSiteData } from "@/lib/site-data";
 
 export default function SourcingFaq() {
   const { t } = useI18n();
+  const { img } = useSiteData();
   // ডান পাশের ছবির উচ্চতার সাথে নিখুঁত ব্যালান্স রাখতে ১ম প্রশ্নটি ডিফল্টভাবে ওপেন থাকবে
   const [openFaqId, setOpenFaqId] = useState<number | null>(1);
 
@@ -115,7 +117,7 @@ export default function SourcingFaq() {
           <div className="lg:col-span-5 flex justify-center lg:justify-end items-center">
             <div className="w-full max-w-[500px] lg:max-w-[560px] xl:max-w-[620px] flex items-center justify-center">
               <img
-                src="/images/interfaq.png"
+                src={img("faq.side")}
                 alt="Frequently Asked Questions"
                 className="w-full h-auto object-contain select-none"
                 onError={(e) => {

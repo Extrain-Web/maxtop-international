@@ -3,14 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
-import { howWeWorkAssets } from "@/data/howWeWorkData";
 import { useI18n } from "@/i18n/I18nProvider";
+import { useSiteData } from "@/lib/site-data";
 
 // হাইড্রোশন এরর প্রতিরোধের জন্য সংখ্যা রাউন্ড করার হেল্পার
 const round = (val: number) => Math.round(val * 10) / 10;
 
 export default function HowWeWork() {
   const { t } = useI18n();
+  const { howWeWorkAssets } = useSiteData();
   const [activeStepId, setActiveStepId] = useState<number>(2); // ডিফল্টভাবে ২ নম্বর স্টেপ একটিভ
 
   // অ্যাসেট (আইকন/নম্বর) + অনুবাদ টেক্সট মার্জ

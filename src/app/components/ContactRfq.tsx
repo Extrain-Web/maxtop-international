@@ -13,13 +13,28 @@ import {
   ShieldCheck,
   MessageCircle,
 } from "lucide-react";
+import { submitInquiry } from "@/lib/inquiry-client";
 
 export default function ContactRfq() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [fileName, setFileName] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const v = (k: string) => String(fd.get(k) ?? "");
+    submitInquiry({
+      source: "rfq",
+      name: v("name"),
+      email: v("email"),
+      company: v("company"),
+      country: v("country"),
+      category: v("category"),
+      quantity: v("quantity"),
+      message: [v("targetPrice") && `Target price: ${v("targetPrice")}`, fileName && `Tech-pack file (not uploaded): ${fileName}`, v("message")]
+        .filter(Boolean)
+        .join(" | "),
+    }).catch((err) => console.error("Inquiry failed", err));
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
@@ -177,6 +192,7 @@ export default function ContactRfq() {
                     <input
                       required
                       type="text"
+                      name="name"
                       placeholder="e.g. John Doe"
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                     />
@@ -189,6 +205,7 @@ export default function ContactRfq() {
                     <input
                       required
                       type="email"
+                      name="email"
                       placeholder="john@fashionbrand.com"
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                     />
@@ -203,6 +220,7 @@ export default function ContactRfq() {
                     <input
                       required
                       type="text"
+                      name="company"
                       placeholder="Brand or Retailer Name"
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                     />
@@ -215,6 +233,7 @@ export default function ContactRfq() {
                     <input
                       required
                       type="text"
+                      name="country"
                       placeholder="e.g. Germany, UK, USA, Australia"
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                     />
@@ -231,6 +250,7 @@ export default function ContactRfq() {
                     </label>
                     <input
                       type="text"
+                      name="category"
                       placeholder="e.g. Knitwear, Denim, Uniform..."
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                     />
@@ -243,6 +263,7 @@ export default function ContactRfq() {
                     </label>
                     <input
                       type="text"
+                      name="quantity"
                       placeholder="e.g. 500 Pcs, 2,500 Pcs..."
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                     />
@@ -255,6 +276,7 @@ export default function ContactRfq() {
                     </label>
                     <input
                       type="text"
+                      name="targetPrice"
                       placeholder="e.g. $4.50 - $6.00"
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                     />
@@ -294,6 +316,7 @@ export default function ContactRfq() {
                   </label>
                   <textarea
                     rows={3}
+                    name="message"
                     placeholder="Specify fabric GSM, wash type, organic requirements, or target delivery window..."
                     className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:border-emerald-500 focus:outline-none"
                   />

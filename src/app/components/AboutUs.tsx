@@ -17,45 +17,47 @@ import {
 } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 import { Rich } from "@/i18n/Rich";
+import { useSiteData } from "@/lib/site-data";
 
 // ৩৬০ ডিগ্রি স্পিনিং হুইলের ৮টি প্রোডাক্ট ছবি ও পজিশন (টেক্সট i18n ডিকশনারিতে)
 const spinningAssets = [
   {
-    img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400&auto=format&fit=crop",
+    imageKey: "about.spin1",
     pos: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2",
   },
   {
-    img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=400&auto=format&fit=crop",
+    imageKey: "about.spin2",
     pos: "top-[14.6%] right-[14.6%] translate-x-1/2 -translate-y-1/2",
   },
   {
-    img: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?q=80&w=400&auto=format&fit=crop",
+    imageKey: "about.spin3",
     pos: "top-1/2 right-0 translate-x-1/2 -translate-y-1/2",
   },
   {
-    img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=400&auto=format&fit=crop",
+    imageKey: "about.spin4",
     pos: "bottom-[14.6%] right-[14.6%] translate-x-1/2 translate-y-1/2",
   },
   {
-    img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=400&auto=format&fit=crop",
+    imageKey: "about.spin5",
     pos: "bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2",
   },
   {
-    img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=400&auto=format&fit=crop",
+    imageKey: "about.spin6",
     pos: "bottom-[14.6%] left-[14.6%] -translate-x-1/2 translate-y-1/2",
   },
   {
-    img: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=400&auto=format&fit=crop",
+    imageKey: "about.spin7",
     pos: "top-1/2 left-0 -translate-x-1/2 -translate-y-1/2",
   },
   {
-    img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=400&auto=format&fit=crop",
+    imageKey: "about.spin8",
     pos: "top-[14.6%] left-[14.6%] -translate-x-1/2 -translate-y-1/2",
   },
 ];
 
 export default function AboutUs() {
   const { t } = useI18n();
+  const { img } = useSiteData();
   const pillarIcons = [TrendingDown, Clock, ShieldCheck, Sparkles];
   const pillarBoxes = [
     { bg: "bg-emerald-100", text: "text-emerald-700", hover: "hover:bg-emerald-50/40" },
@@ -136,7 +138,7 @@ export default function AboutUs() {
             <div className="relative max-w-lg mx-auto lg:max-w-none">
               <div className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border-2 sm:border-4 border-white bg-slate-100 aspect-[4/3] relative">
                 <img
-                  src="https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?q=80&w=1000&auto=format&fit=crop"
+                  src={img("about.main")}
                   alt="Modern Garment Sewing Floor"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
@@ -146,7 +148,7 @@ export default function AboutUs() {
               {/* সেকেন্ডারি ওভারল্যাপিং ছবি */}
               <div className="hidden sm:block absolute -top-8 -right-8 w-36 h-36 lg:w-44 lg:h-44 rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-slate-200">
                 <img
-                  src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=600&auto=format&fit=crop"
+                  src={img("about.secondary")}
                   alt="Fabric Patterning & Inspection"
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                 />
@@ -214,7 +216,7 @@ export default function AboutUs() {
                         <div className="w-12 h-12 sm:w-20 sm:h-20 lg:w-24 lg:h-24 xl:w-26 xl:h-26 rounded-xl sm:rounded-2xl bg-white p-1 sm:p-2 shadow-md sm:shadow-xl border sm:border-2 border-slate-200/90 hover:border-emerald-500 hover:scale-115 transition-all duration-300 flex flex-col items-center justify-center group/card cursor-pointer">
                           <div className="relative w-full h-full rounded-lg sm:rounded-xl overflow-hidden bg-slate-100">
                             <img
-                              src={item.img}
+                              src={img(item.imageKey)}
                               alt={t.about.spinningProducts[index].name}
                               className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-300"
                             />

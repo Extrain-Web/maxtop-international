@@ -4,12 +4,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  productCategoryAssets,
-  productAssets,
-  ProductCategory,
-  ProductItem,
-} from "@/data/productsData";
+import type { ProductCategory, ProductItem } from "@/data/productsData";
+import { useSiteData } from "@/lib/site-data";
+import { sendFormInquiry } from "@/lib/inquiry-client";
 import {
   ArrowRight,
   Search,
@@ -36,8 +33,19 @@ const internationalSizeGuide = [
   { standard: "2XL", usa: "20~22", uk_au: "22~24", eu: "50~52" },
 ];
 
+// কার্ডের সাইজ: অ্যাডমিনে দেওয়া সাইজ দেখায়; XS–2XL হলে রিজিয়ন অনুযায়ী কনভার্সন দেখায়
+const cardSizes = (sizes?: string[]) =>
+  sizes && sizes.length ? sizes : internationalSizeGuide.map((s) => s.standard);
+function sizeLabel(size: string, region: "us" | "uk" | "eu" | "au") {
+  const g = internationalSizeGuide.find((s) => s.standard === size);
+  if (!g) return size;
+  const v = region === "us" ? g.usa : region === "eu" ? g.eu : g.uk_au;
+  return `${v} (${g.standard})`;
+}
+
 export default function ProductsPage() {
   const { t } = useI18n();
+  const { productCategoryAssets, productAssets, img } = useSiteData();
   // বাই ডিফল্ট "all" সিলেক্টেড থাকবে (সব প্রোডাক্ট দেখাবে)
   const [selectedCatId, setSelectedCatId] = useState<string>("all");
   const [selectedAudience, setSelectedAudience] = useState<"all" | "men" | "women" | "kids">("all");
@@ -116,8 +124,12 @@ export default function ProductsPage() {
     }
   };
 
-  const handleSampleSubmit = (e: React.FormEvent) => {
+  const handleSampleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    void sendFormInquiry(e.currentTarget, {
+      source: "product",
+      category: `${inquiryType === "price" ? "Price quote" : "Sample request"}: ${inquiryProduct?.name ?? ""} (#${inquiryProduct?.id ?? ""})`,
+    });
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
@@ -134,7 +146,7 @@ export default function ProductsPage() {
         <section
           className="relative py-20 sm:py-24 px-4 sm:px-6 lg:px-8 text-center text-white bg-cover bg-center overflow-hidden"
           style={{
-            backgroundImage: `linear-gradient(rgba(7, 29, 46, 0.85), rgba(7, 29, 46, 0.92)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80')`,
+            backgroundImage: `linear-gradient(rgba(7, 29, 46, 0.85), rgba(7, 29, 46, 0.92)), url('${img("productsPage.hero")}')`,
           }}
         >
           <div className="relative max-w-4xl mx-auto z-10 space-y-3">
@@ -446,22 +458,14 @@ export default function ProductsPage() {
 
                           {/* কমপ্যাক্ট ৩×২ সাইজ গ্রিড */}
                           <div className="grid grid-cols-3 gap-1 pt-0.5">
-                            {internationalSizeGuide.map((sizeObj) => {
-                              let displayText = "";
-                              if (activeRegion === "us") displayText = `${sizeObj.usa} (${sizeObj.standard})`;
-                              if (activeRegion === "uk") displayText = `${sizeObj.uk_au} (${sizeObj.standard})`;
-                              if (activeRegion === "eu") displayText = `${sizeObj.eu} (${sizeObj.standard})`;
-                              if (activeRegion === "au") displayText = `${sizeObj.uk_au} (${sizeObj.standard})`;
-
-                              return (
-                                <div
-                                  key={sizeObj.standard}
-                                  className="py-1 px-0.5 rounded-md bg-slate-50 border border-slate-200 text-slate-800 text-[10px] sm:text-[11px] font-bold text-center whitespace-nowrap hover:border-emerald-300 hover:bg-emerald-50/50 transition-colors"
-                                >
-                                  {displayText}
-                                </div>
-                              );
-                            })}
+                            {cardSizes(item.sizes).map((size) => (
+                              <div
+                                key={size}
+                                className="py-1 px-0.5 rounded-md bg-slate-50 border border-slate-200 text-slate-800 text-[10px] sm:text-[11px] font-bold text-center whitespace-nowrap hover:border-emerald-300 hover:bg-emerald-50/50 transition-colors"
+                              >
+                                {sizeLabel(size, activeRegion)}
+                              </div>
+                            ))}
                           </div>
                         </div>
 
@@ -481,7 +485,7 @@ export default function ProductsPage() {
                           className="py-2.5 px-1.5 sm:px-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center gap-1 cursor-pointer shadow-2xs active:scale-95 whitespace-nowrap"
                         >
                           <DollarSign className="w-3.5 h-3.5 shrink-0" />
-                          <span>Get Price</span>
+                          <span>{t.products.priceForm.getPrice}</span>
                         </button>
 
                         <button
@@ -494,7 +498,7 @@ export default function ProductsPage() {
                           className="py-2.5 px-1.5 sm:px-2 rounded-xl bg-[#0B2B43] hover:bg-[#071D2E] text-white text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center gap-1 cursor-pointer shadow-2xs active:scale-95 whitespace-nowrap"
                         >
                           <Send className="w-3 h-3 shrink-0" />
-                          <span>Get Sample</span>
+                          <span>{t.products.priceForm.getSample}</span>
                         </button>
                       </div>
                     </div>
@@ -641,7 +645,7 @@ export default function ProductsPage() {
 
               <div className="p-5 sm:p-6 bg-slate-50 border-b border-slate-100">
                 <span className="text-[10px] font-bold tracking-widest text-emerald-600 uppercase">
-                  {inquiryType === "price" ? "FOB Direct Pricing Request" : t.products.sampleProtocol}
+                  {inquiryType === "price" ? t.products.priceForm.fobTitle : t.products.sampleProtocol}
                 </span>
                 <h3 className="text-lg sm:text-xl font-extrabold text-[#0B2B43] mt-1">
                   {inquiryProduct.name}
@@ -672,7 +676,7 @@ export default function ProductsPage() {
                     }`}
                   >
                     <DollarSign className="w-3.5 h-3.5" />
-                    <span>Request FOB Price</span>
+                    <span>{t.products.priceForm.requestFob}</span>
                   </button>
                   <button
                     type="button"
@@ -684,7 +688,7 @@ export default function ProductsPage() {
                     }`}
                   >
                     <Send className="w-3.5 h-3.5" />
-                    <span>Inquire Sample</span>
+                    <span>{t.products.priceForm.inquireSample}</span>
                   </button>
                 </div>
               </div>
@@ -696,10 +700,10 @@ export default function ProductsPage() {
                       <CheckCircle2 className="w-6 h-6" />
                     </div>
                     <h4 className="text-lg font-bold text-[#0B2B43]">
-                      {inquiryType === "price" ? "Price Quote Request Received!" : t.products.sampleReceivedTitle}
+                      {inquiryType === "price" ? t.products.priceForm.receivedTitle : t.products.sampleReceivedTitle}
                     </h4>
                     <p className="text-xs text-slate-500 max-w-xs mx-auto">
-                      Our merchandising desk will calculate direct factory costing and revert within 24 hours.
+                      {t.products.priceForm.receivedText}
                     </p>
                   </div>
                 ) : (
@@ -712,6 +716,7 @@ export default function ProductsPage() {
                         <input
                           type="text"
                           required
+                          name="name"
                           placeholder={t.products.form.namePh2}
                           className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         />
@@ -723,6 +728,7 @@ export default function ProductsPage() {
                         <input
                           type="email"
                           required
+                          name="email"
                           placeholder={t.products.form.emailPh2}
                           className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         />
@@ -737,23 +743,25 @@ export default function ProductsPage() {
                         <input
                           type="text"
                           required
+                          name="company"
                           placeholder={t.products.form.companyPh}
                           className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         />
                       </div>
                       <div>
                         <label className="block text-xs font-bold text-slate-700 mb-1">
-                          {inquiryType === "price" ? "Target Order Quantity (Pcs)" : t.products.form.targetSizing}
+                          {inquiryType === "price" ? t.products.priceForm.qtyLabel : t.products.form.targetSizing}
                         </label>
                         {inquiryType === "price" ? (
                           <input
                             type="text"
                             required
-                            placeholder="e.g. 1,000 Pcs (250 pcs/color)"
+                            name="quantity"
+                            placeholder={t.products.priceForm.qtyPh}
                             className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                           />
                         ) : (
-                          <select className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
+                          <select name="sizing" className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
                             <option>{t.products.form.sizingUsa}</option>
                             <option>{t.products.form.sizingUk}</option>
                             <option>{t.products.form.sizingEu}</option>
@@ -765,13 +773,14 @@ export default function ProductsPage() {
 
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">
-                        {inquiryType === "price" ? "Target FOB Price ($) & Delivery Port" : t.products.form.colorNotes2}
+                        {inquiryType === "price" ? t.products.priceForm.notesLabel : t.products.form.colorNotes2}
                       </label>
                       <textarea
+                        name="message"
                         rows={2}
                         placeholder={
                           inquiryType === "price"
-                            ? "Mention target price per unit, delivery port (e.g. Valencia / Hamburg), or fabric finish..."
+                            ? t.products.priceForm.notesPh
                             : t.products.form.colorNotesPh2
                         }
                         className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
@@ -789,7 +798,7 @@ export default function ProductsPage() {
                       {inquiryType === "price" ? (
                         <>
                           <DollarSign className="w-3.5 h-3.5" />
-                          <span>Submit Price Quotation Request</span>
+                          <span>{t.products.priceForm.submit}</span>
                         </>
                       ) : (
                         <>

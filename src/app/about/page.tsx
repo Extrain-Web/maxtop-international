@@ -5,9 +5,11 @@ import Recognitions from "../components/Recognitions";
 import Footer from "../components/Footer";
 import AboutUs from "../components/AboutUs";
 import { useI18n } from "@/i18n/I18nProvider";
+import { useSiteData } from "@/lib/site-data";
 
 export default function AboutPage() {
   const { t } = useI18n();
+  const { img } = useSiteData();
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans selection:bg-emerald-500 selection:text-white">
       {/* ১. হেডারের ন্যাভিগেশন বার */}
@@ -20,7 +22,7 @@ export default function AboutPage() {
         <section
           className="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 text-center text-white bg-cover bg-center overflow-hidden"
           style={{
-            backgroundImage: `linear-gradient(rgba(7, 29, 46, 0.82), rgba(7, 29, 46, 0.90)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80')`,
+            backgroundImage: `linear-gradient(rgba(7, 29, 46, 0.82), rgba(7, 29, 46, 0.90)), url('${img("aboutPage.hero")}')`,
           }}
         >
           <div className="relative max-w-4xl mx-auto z-10 space-y-4">

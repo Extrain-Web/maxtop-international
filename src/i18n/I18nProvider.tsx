@@ -18,7 +18,7 @@ import {
   type Locale,
   type LocaleMeta,
 } from "./config";
-import { dictionaries, type Dictionary } from "./dictionaries";
+import type { Dictionary } from "./dictionaries";
 
 interface I18nContextValue {
   locale: Locale;
@@ -32,7 +32,14 @@ interface I18nContextValue {
 
 const I18nContext = createContext<I18nContextValue | null>(null);
 
-export function I18nProvider({ children }: { children: React.ReactNode }) {
+export function I18nProvider({
+  children,
+  dictionaries,
+}: {
+  children: React.ReactNode;
+  /** All translations, loaded from the database by the root layout. */
+  dictionaries: Record<Locale, Dictionary>;
+}) {
   // Always start from the default locale so the first client render matches
   // the server-rendered HTML (no hydration mismatch). The stored choice is
   // applied right after mount.
@@ -72,10 +79,10 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
       locale,
       setLocale,
       dir: dirOf(locale),
-      t: dictionaries[locale],
+      t: dictionaries[locale] ?? dictionaries[defaultLocale],
       meta: localeMeta[locale],
     }),
-    [locale, setLocale]
+    [locale, setLocale, dictionaries]
   );
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;

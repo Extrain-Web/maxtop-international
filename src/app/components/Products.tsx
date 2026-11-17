@@ -13,11 +13,9 @@ import {
   DollarSign,
   Sparkles,
 } from "lucide-react";
-import {
-  productCategoryAssets,
-  productAssets,
-} from "@/data/productsData";
 import { useI18n } from "@/i18n/I18nProvider";
+import { useSiteData } from "@/lib/site-data";
+import { sendFormInquiry } from "@/lib/inquiry-client";
 import { Rich } from "@/i18n/Rich";
 
 // আন্তর্জাতিক সাইজ কনভার্সন ডেটা (US, UK, EU, AU)
@@ -30,8 +28,19 @@ const internationalSizeGuide = [
   { standard: "2XL", usa: "20~22", uk_au: "22~24", eu: "50~52" },
 ];
 
+// কার্ডের সাইজ: অ্যাডমিনে দেওয়া সাইজ দেখায়; XS–2XL হলে রিজিয়ন অনুযায়ী কনভার্সন দেখায়
+const cardSizes = (sizes?: string[]) =>
+  sizes && sizes.length ? sizes : internationalSizeGuide.map((s) => s.standard);
+function sizeLabel(size: string, region: "us" | "uk" | "eu" | "au") {
+  const g = internationalSizeGuide.find((s) => s.standard === size);
+  if (!g) return size;
+  const v = region === "us" ? g.usa : region === "eu" ? g.eu : g.uk_au;
+  return `${v} (${g.standard})`;
+}
+
 export default function Products() {
   const { t } = useI18n();
+  const { productCategoryAssets, productAssets } = useSiteData();
 
   // অ্যাসেট + অনুবাদ টেক্সট মার্জ
   const productCategories = productCategoryAssets.map((a, i) => ({
@@ -110,8 +119,12 @@ export default function Products() {
     setIsSubmitted(false);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    void sendFormInquiry(e.currentTarget, {
+      source: "product",
+      category: `${inquiryType === "price" ? "Price quote" : "Sample request"}: ${selectedProduct?.name ?? ""} (#${selectedProduct?.id ?? ""})`,
+    });
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
@@ -354,22 +367,14 @@ export default function Products() {
 
                             {/* কমপ্যাক্ট সাইজ পিল রো */}
                             <div className="grid grid-cols-3 gap-1 pt-0.5">
-                              {internationalSizeGuide.map((sizeObj) => {
-                                let displayText = "";
-                                if (activeRegion === "us") displayText = `${sizeObj.usa} (${sizeObj.standard})`;
-                                if (activeRegion === "uk") displayText = `${sizeObj.uk_au} (${sizeObj.standard})`;
-                                if (activeRegion === "eu") displayText = `${sizeObj.eu} (${sizeObj.standard})`;
-                                if (activeRegion === "au") displayText = `${sizeObj.uk_au} (${sizeObj.standard})`;
-
-                                return (
-                                  <div
-                                    key={sizeObj.standard}
-                                    className="py-1 px-0.5 rounded-md bg-slate-50 border border-slate-200 text-slate-800 text-[10px] sm:text-[11px] font-bold text-center whitespace-nowrap hover:border-emerald-300 hover:bg-emerald-50/50 transition-colors"
-                                  >
-                                    {displayText}
-                                  </div>
-                                );
-                              })}
+                              {cardSizes(item.sizes).map((size) => (
+                                <div
+                                  key={size}
+                                  className="py-1 px-0.5 rounded-md bg-slate-50 border border-slate-200 text-slate-800 text-[10px] sm:text-[11px] font-bold text-center whitespace-nowrap hover:border-emerald-300 hover:bg-emerald-50/50 transition-colors"
+                                >
+                                  {sizeLabel(size, activeRegion)}
+                                </div>
+                              ))}
                             </div>
                           </div>
 
@@ -388,7 +393,7 @@ export default function Products() {
                             className="py-2.5 px-1.5 sm:px-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center gap-1 cursor-pointer shadow-2xs active:scale-95 whitespace-nowrap"
                           >
                             <DollarSign className="w-3.5 h-3.5 shrink-0" />
-                            <span>Get Price</span>
+                            <span>{t.products.priceForm.getPrice}</span>
                           </button>
 
                           {/* বাটন ২: Get Sample */}
@@ -398,7 +403,7 @@ export default function Products() {
                             className="py-2.5 px-1.5 sm:px-2 rounded-xl bg-[#0B2B43] hover:bg-[#071D2E] text-white text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center gap-1 cursor-pointer shadow-2xs active:scale-95 whitespace-nowrap"
                           >
                             <Send className="w-3 h-3 shrink-0" />
-                            <span>Get Sample</span>
+                            <span>{t.products.priceForm.getSample}</span>
                           </button>
                         </div>
                       </div>
@@ -544,7 +549,7 @@ export default function Products() {
             <div className="p-5 sm:p-6 bg-slate-50 border-b border-slate-100">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-[10px] font-bold tracking-widest text-emerald-600 uppercase">
-                  {inquiryType === "price" ? "FOB Direct Pricing Request" : t.products.sampleTechpackRequest}
+                  {inquiryType === "price" ? t.products.priceForm.fobTitle : t.products.sampleTechpackRequest}
                 </span>
               </div>
               <h3 className="text-lg sm:text-xl font-black text-[#0B2B43]">
@@ -578,7 +583,7 @@ export default function Products() {
                   }`}
                 >
                   <DollarSign className="w-3.5 h-3.5" />
-                  <span>Request FOB Price</span>
+                  <span>{t.products.priceForm.requestFob}</span>
                 </button>
                 <button
                   type="button"
@@ -590,7 +595,7 @@ export default function Products() {
                   }`}
                 >
                   <Send className="w-3.5 h-3.5" />
-                  <span>Inquire Sample</span>
+                  <span>{t.products.priceForm.inquireSample}</span>
                 </button>
               </div>
             </div>
@@ -603,10 +608,10 @@ export default function Products() {
                     <CheckCircle2 className="w-6 h-6" />
                   </div>
                   <h4 className="text-lg font-bold text-[#0B2B43]">
-                    {inquiryType === "price" ? "Price Quote Request Received!" : t.products.inquiryReceivedTitle}
+                    {inquiryType === "price" ? t.products.priceForm.receivedTitle : t.products.inquiryReceivedTitle}
                   </h4>
                   <p className="text-xs text-slate-500 max-w-xs mx-auto leading-relaxed">
-                    Our senior merchandising desk will calculate direct mill costing and email you within 24 hours.
+                    {t.products.priceForm.receivedText}
                   </p>
                 </div>
               ) : (
@@ -619,6 +624,7 @@ export default function Products() {
                       <input
                         type="text"
                         required
+                        name="name"
                         placeholder={t.products.form.namePh}
                         className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       />
@@ -630,6 +636,7 @@ export default function Products() {
                       <input
                         type="email"
                         required
+                        name="email"
                         placeholder={t.products.form.emailPh}
                         className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       />
@@ -644,6 +651,7 @@ export default function Products() {
                       <input
                         type="text"
                         required
+                        name="company"
                         placeholder={t.products.form.brandPh}
                         className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       />
@@ -651,17 +659,18 @@ export default function Products() {
 
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">
-                        {inquiryType === "price" ? "Target Order Quantity (Pcs)" : t.products.form.targetSizing}
+                        {inquiryType === "price" ? t.products.priceForm.qtyLabel : t.products.form.targetSizing}
                       </label>
                       {inquiryType === "price" ? (
                         <input
                           type="text"
                           required
-                          placeholder="e.g. 1,000 Pcs (250 pcs/color)"
+                          name="quantity"
+                          placeholder={t.products.priceForm.qtyPh}
                           className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         />
                       ) : (
-                        <select className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
+                        <select name="sizing" className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
                           <option>{t.products.form.sizingUsa}</option>
                           <option>{t.products.form.sizingUk}</option>
                           <option>{t.products.form.sizingEu}</option>
@@ -673,13 +682,14 @@ export default function Products() {
 
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">
-                      {inquiryType === "price" ? "Target Price ($) & Delivery Notes" : t.products.form.colorNotes}
+                      {inquiryType === "price" ? t.products.priceForm.notesLabel : t.products.form.colorNotes}
                     </label>
                     <textarea
+                      name="message"
                       rows={2}
                       placeholder={
                         inquiryType === "price"
-                          ? "Mention target FOB price per piece, destination port (e.g. Valencia/Barcelona/Hamburg), or custom wash requirements..."
+                          ? t.products.priceForm.notesPh
                           : t.products.form.colorNotesPh
                       }
                       className="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
@@ -697,7 +707,7 @@ export default function Products() {
                     {inquiryType === "price" ? (
                       <>
                         <DollarSign className="w-3.5 h-3.5" />
-                        <span>Submit Price Quotation Request</span>
+                        <span>{t.products.priceForm.submit}</span>
                       </>
                     ) : (
                       <>
